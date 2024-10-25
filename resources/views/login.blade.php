@@ -201,19 +201,8 @@
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
 
-            <!-- Dropdown untuk memilih role -->
-            <select name="role" required>
-                <option value="" disabled selected>Select Role</option>
-                <option value="admin">Admin</option>
-                <option value="guru">Guru</option>
-                <option value="siswa">Siswa</option>
-            </select>
+            <a href="tampilan.html" class="login-btn">Masuk</a>
 
-            <button class="login-btn" type="submit">Masuk</button>
-            <a href="/forgot-password" class="forgot-password">Lupa Kata Sandi?</a>
-        </form>
-
-        <p>Tidak punya akun? <a href="/register" class="signup-link">Buat akun baru</a></p>
     </div>
 </body>
 
