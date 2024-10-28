@@ -4,6 +4,13 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AkunController;
+
+Route::get('admin/create', [AkunController::class, 'create'])->name('akun.create');
+Route::post('akun/store', [AkunController::class, 'store'])->name('akun.store');
+Route::get('admin/list', [AkunController::class, 'index'])->name('admin.list');
+
+
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
