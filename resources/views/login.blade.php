@@ -1,209 +1,115 @@
+<!-- resources/views/login.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Montserrat:wght@700&display=swap"
-        rel="stylesheet">
+    <title>Login</title>
     <style>
+        /* General styling */
         body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #333;
-            animation: fadeIn 1s ease;
-            /* Animasi fade-in untuk seluruh halaman */
+            margin: 0;
+            background-color: #f4f4f4;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .login-container {
+        /* Container styling */
+        form {
             background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 350px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
             width: 100%;
-            text-align: center;
-            animation: float 3s ease-in-out infinite;
-            /* Animasi mengambang */
         }
 
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-                /* Menaikkan kolom login */
-            }
-        }
-
-        h2 {
-            margin-bottom: 20px;
+        /* Title styling */
+        form h2 {
             color: #333;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            position: relative;
-            display: inline-block;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        /* Animasi sederhana untuk kata "Login" */
-        h2::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            background-color: #ff6666;
-            bottom: -8px;
-            left: 0;
-            border-radius: 4px;
-            animation: slideIn 1s ease-out forwards;
-        }
-
-        @keyframes slideIn {
-            from {
-                width: 0;
-            }
-
-            to {
-                width: 100%;
-            }
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 95%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f8f8f8;
+        /* Error styling */
+        .error {
+            color: #ff3333;
             font-size: 14px;
-            transition: border-color 0.3s;
-            /* Transisi border pada fokus */
+            margin-bottom: 15px;
+            text-align: center;
         }
 
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #ff6666;
-            /* Warna border saat fokus */
-            outline: none;
-            /* Menghilangkan outline default */
+        /* Label styling */
+        form label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
         }
 
-        select {
+        /* Input styling */
+        form input[type="text"],
+        form input[type="password"] {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #f8f8f8;
-            font-size: 14px;
-            transition: border-color 0.3s;
-            /* Transisi border pada fokus */
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            color: #333;
         }
 
-        select:focus {
-            border-color: #ff6666;
-            /* Warna border saat fokus */
+        /* Input focus */
+        form input[type="text"]:focus,
+        form input[type="password"]:focus {
+            border-color: #888;
             outline: none;
-            /* Menghilangkan outline default */
         }
 
-        .login-btn {
-            background-color: #555;
+        /* Button styling */
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #888;
             color: white;
             border: none;
-            padding: 12px;
             border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            font-size: 18px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            /* Tambah transisi transform */
+            transition: background-color 0.3s ease;
         }
 
-        .login-btn:hover {
-            background-color: #333;
-            transform: scale(1.05);
-            /* Efek zoom saat hover */
-        }
-
-        .forgot-password {
-            display: block;
-            margin-top: 15px;
-            font-size: 14px;
-            text-align: center;
-            color: #1e06f5;
-        }
-
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-
-        p {
-            margin-top: 20px;
-        }
-
-        .signup-link {
-            color: #1e06f5;
-            text-decoration: none;
-        }
-
-        .signup-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Background Pattern */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-            opacity: 0.1;
-            pointer-events: none;
-            /* Menambahkan ini agar tidak menghalangi interaksi */
+        form button:hover {
+            background-color: #555;
         }
     </style>
 </head>
-
 <body>
-    <div class="login-container">
+    <form action="{{ route('login.post') }}" method="POST">
+        @csrf
         <h2>Login</h2>
-        <form action="/login" method="POST">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
 
-            <a href="tampilan.html" class="login-btn">Masuk</a>
-
+        <!-- Display error message -->
+      @if ($errors->has('login_error'))
+    <div style="color: red; text-align: center; margin-bottom: 10px;">
+        {{ $errors->first('login_error') }}
     </div>
-</body>
+@endif
 
+
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</body>
 </html>
