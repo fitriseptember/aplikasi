@@ -62,7 +62,7 @@
                 <tr>
                     <th>Role</th>
                     <th>Gender</th>
-                    <th>Nama</th>
+                    <th>Nama Lengkap</th>
                     <th>Username</th>
                     <th>Email</th>
                 </tr>

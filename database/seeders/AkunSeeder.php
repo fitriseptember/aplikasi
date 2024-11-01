@@ -12,15 +12,16 @@ class AkunSeeder extends Seeder
     {
         DB::table('akun')->insert([
             [
-                'role' => 'admin',
-                'gender' => 'perempuan',
-                'nama_lengkap' => 'admin',
-                'username' => 'admin',
-                'password' => Hash::make('@dm!n2810'),
-                'email' => 'admin@gmail.com',
+                'nama_lengkap' => 'Admin User', // First column
+                'username' => 'admin', // Second column
+                'password' => Hash::make('adminsmea'), // Third column
+                'email' => 'admin@gmail.com', // Fourth column
+                'role' => 'admin', // Fifth column
+                'gender' => 'perempuan', // Sixth column
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            // Add more users if needed
         ]);
     }
 }

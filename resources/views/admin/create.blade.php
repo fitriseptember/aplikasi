@@ -91,23 +91,6 @@
         <form action="{{ route('akun.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="role">Peran:</label>
-                <select id="role" name="role" required>
-                    <option value="guru">Guru</option>
-                    <option value="mitra">Mitra</option>
-                    <option value="siswa">Siswa</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="gender">Gender:</label>
-                <select id="gender" name="gender" required>
-                    <option value="laki-laki">Laki-laki</option>
-                    <option value="perempuan">Perempuan</option>
-                </select>
-            </div>
-
-            <div class="form-group">
                 <label for="nama">Nama Lengkap:</label>
                 <input type="text" id="nama" name="nama_lengkap" placeholder="Masukkan Nama Lengkap" required>
             </div>
@@ -125,6 +108,23 @@
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Masukkan Email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Peran:</label>
+                <select id="role" name="role" required>
+                    <option value="guru">Guru</option>
+                    <option value="mitra">Mitra</option>
+                    <option value="siswa">Siswa</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="laki-laki">Laki-laki</option>
+                    <option value="perempuan">Perempuan</option>
+                </select>
             </div>
 
             <button type="submit">Tambah Akun</button>
