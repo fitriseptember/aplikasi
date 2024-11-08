@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Attendance;
 
 class GuruController extends Controller
 {
-     public function index()
-    {
-        return view('guru.dashboard'); // Pastikan view ini ada di resources/views/admin/dashboard.blade.php
-    }//
+    // In GuruController
+
+public function index()
+{
+    $attendances = Attendance::with('user')->get(); // Eager load the user with attendance records
+    return view('guru.dashboard', compact('attendances'));
+}
+
+
 }

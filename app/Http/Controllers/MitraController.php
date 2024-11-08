@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Attendance;
 
 class MitraController extends Controller
 {
-     public function index()
-    {
-        return view('mitra.dashboard'); // Pastikan view ini ada di resources/views/admin/dashboard.blade.php
-    }//
+    // In AdminController
+
+public function index()
+{
+    $attendances = Attendance::with('user')->get(); // Eager load the user with attendance records
+    return view('mitra.dashboard', compact('attendances'));
+}
 }

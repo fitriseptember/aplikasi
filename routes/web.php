@@ -6,10 +6,15 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\HomeController;
 
-Route::get('admin/create', [AkunController::class, 'create'])->name('akun.create');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/login', [HomeController::class, 'login'])->name('login'); // Route ke halaman login
+
+
+Route::get('admin/dashboard', [AkunController::class, 'create'])->name('akun.create');
 Route::post('akun/store', [AkunController::class, 'store'])->name('akun.store');
-Route::get('admin/list', [AkunController::class, 'index'])->name('admin.list');
+Route::get('admin/dashboard', [AkunController::class, 'index'])->name('admin.dashboard');
 
 
 
@@ -27,4 +32,8 @@ Route::prefix('siswa')->group(function () {
     Route::get('absen/create', [AttendanceController::class, 'create'])->name('absen.create'); // Menampilkan form absensi
     Route::post('absen', [AttendanceController::class, 'store'])->name('absen.store'); // Menyimpan data absensi
     Route::get('absen/latest', [AttendanceController::class, 'showLatest'])->name('absen.showLatest'); // Menampilkan data absensi terbaru
-});
+   
+   Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+     Route::get('/guru/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
+     Route::get('/mitra/dashboard', [MitraController::class, 'index'])->name('mitra.dashboard');
+    });

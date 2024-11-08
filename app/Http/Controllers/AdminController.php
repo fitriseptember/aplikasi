@@ -2,10 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
+
 class AdminController extends Controller
 {
-    public function index()
+    // In AdminController
+
+public function index()
+{
+    $attendances = Attendance::with('user')->get(); // Eager load the user with attendance records
+    return view('admin.dashboard', compact('attendances'));
+}
+
+    public function daftar()
     {
-        return view('admin.dashboard'); // Pastikan view ini ada di resources/views/admin/dashboard.blade.php
+        // Ambil semua data akun
+        $accounts = Account::all();
+
+        // Kirimkan data ke view
+        return view('admin.dashboard', compact('accounts'));
     }
 }

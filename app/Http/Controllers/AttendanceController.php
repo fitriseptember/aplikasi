@@ -24,6 +24,32 @@ class AttendanceController extends Controller
         'tanggal' => $request->tanggal,
         'status' => $request->status,
         'user_id' => session('user_data')->id,  // Jika menggunakan auth untuk user_id
+
+        
     ]);
+    
+     // Redirect ke dashboard siswa dengan notifikasi sukses
+        return redirect()->route('siswa.dashboard')->with('success', 'Absensi berhasil dikirim.');
+    }
+
+    public function index()
+{
+    // Ambil data absensi
+    $attendances = Attendance::where('user_id', session('user_data')->id)->get();
+    
+    // Tampilkan dashboard dengan data absensi
+    return view('siswa.dashboard', compact('attendances'));
+
+     $attendances = Attendance::all(); // Mengambil semua data dari model Attendance
+    return view('admin.dashboard', compact('attendances')); // Mengirimkan ke view
+    }
+
+    // Relasi dengan User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id'); // 'user_id' adalah foreign key di tabel kehadiran
+    }
+
 }
-}
+
+

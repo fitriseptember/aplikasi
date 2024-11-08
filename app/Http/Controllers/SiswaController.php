@@ -10,4 +10,5 @@ class SiswaController extends Controller
     {
         return view('siswa.dashboard'); // Pastikan view ini ada di resources/views/admin/dashboard.blade.php
     }//
+    
 }

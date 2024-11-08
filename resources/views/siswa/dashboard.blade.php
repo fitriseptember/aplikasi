@@ -361,60 +361,57 @@
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- Tabel Logbook Default -->
-        <h1>Informasi Laporan Kegiatan Siswa</h1>
-        <table class="logbook-table">
-            <thead>
-                <tr>
-                    <th>Tanggal</th>
-                    <th>Kegiatan</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2024-10-20</td>
-                    <td>Observasi Lapangan</td>
-                    <td class="status-acc">Sudah di-ACC</td>
-                </tr>
-                <tr>
-                    <td>2024-10-21</td>
-                    <td>Penulisan Laporan Harian</td>
-                    <td class="status-not-acc">Belum di-ACC</td>
-                </tr>
-                <tr>
-                    <td>2024-10-22</td>
-                    <td>Pemaparan Hasil PKL</td>
-                    <td class="status-acc">Sudah di-ACC</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Menampilkan Pesan Sukses -->
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+        <!-- Konten Dashboard Default -->
     </div>
 
     <script>
         // Fungsi untuk menampilkan halaman Dashboard
         function showDashboard() {
-            document.getElementById('mainContent').innerHTML = `<!-- Isi halaman dashboard seperti sebelumnya -->`;
+            document.getElementById('mainContent').innerHTML = `
+            <h1>Informasi Laporan Kegiatan Siswa</h1>
+            <table class="logbook-table">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Kegiatan</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-10-20</td>
+                        <td>Observasi Lapangan</td>
+                        <td class="status-acc">Sudah di-ACC</td>
+                    </tr>
+                    <tr>
+                        <td>2024-10-21</td>
+                        <td>Penulisan Laporan Harian</td>
+                        <td class="status-not-acc">Belum di-ACC</td>
+                    </tr>
+                    <tr>
+                        <td>2024-10-22</td>
+                        <td>Pemaparan Hasil PKL</td>
+                        <td class="status-acc">Sudah di-ACC</td>
+                    </tr>
+                </tbody>
+            </table>
+            `;
         }
 
-        // Fungsi untuk menampilkan halaman Absensi
+        // Fungsi untuk menampilkan halaman Absensi dengan tanggal otomatis
         function showAbsensi() {
             document.getElementById('mainContent').innerHTML = `
-  <form action="{{ route('absen.store') }}" method="POST"> 
+           <form action="{{ route('absen.store') }}" method="POST">
     @csrf
     <div class="form-group">
         <label for="tanggal">Tanggal (DD-MM-YYYY)</label>
         <input type="date" name="tanggal" id="tanggal" placeholder="Masukkan tanggal (contoh: 31-12-2024)" required>
     </div>
 
-   
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
     <div class="status-table">
         <p class="status-title">Pilih Status Kehadiran:</p>
         <table>
@@ -438,34 +435,56 @@
     </div>
 
     <button type="submit" class="btn-submit">Kirim Absensi</button>
-</form> 
+</form>
 
 
-                    <!-- Informasi Tambahan -->
-                    <section class="attendance-info">
-                        <h2>Informasi Kehadiran</h2>
-                        <div class="info-box">
-                            <div class="info-item">
-                                <p><strong>Batas Waktu Absen:</strong></p>
-                                <p>Pukul 08:00 hingga 12:00</p>
-                            </div>
-                            <div class="info-item">
-                                <p><strong>Catatan:</strong></p>
-                                <p>Pastikan mengisi absen dalam rentang waktu yang ditentukan. Setelah mencapai 3 kali absen (alfa), akan ada pemberitahuan lebih lanjut.</p>
-                            </div>
-                            <div class="info-item">
-                                <p><strong>Aturan Alfa:</strong></p>
-                                <p>Maksimal 3 kali absen (alfa) dalam satu periode</p>
-                            </div>
-                        </div>
-                    </section>
+            <section class="attendance-info">
+                <h2>Informasi Kehadiran</h2>
+                <div class="info-box">
+                    <div class="info-item">
+                        <p><strong>Batas Waktu Absen:</strong></p>
+                        <p>Pukul 08:00 hingga 12:00</p>
+                    </div>
+                    <div class="info-item">
+                        <p><strong>Catatan:</strong></p>
+                        <p>Pastikan mengisi absen dalam rentang waktu yang ditentukan. Setelah mencapai 3 kali absen (alfa), akan ada pemberitahuan lebih lanjut.</p>
+                    </div>
+                    <div class="info-item">
+                        <p><strong>Aturan Alfa:</strong></p>
+                        <p>Maksimal 3 kali absen (alfa) dalam satu periode</p>
+                    </div>
                 </div>
+            </section>
             `;
+
+            // Mengisi input tanggal otomatis dengan tanggal hari ini
+            let today = new Date().toISOString().split('T')[0];
+            document.getElementById('tanggal').value = today;
         }
 
-        // Fungsi untuk menampilkan halaman Logbook Laporan Kegiatan
+        // Fungsi untuk menampilkan halaman Logbook
         function showLogbook() {
-            document.getElementById('mainContent').innerHTML = `<!-- Isi halaman logbook seperti sebelumnya -->`;
+            document.getElementById('mainContent').innerHTML = `
+            <div class="body">
+                <h1>Laporan Kegiatan PKL</h1>
+                <div class="motivational-text">
+                    <p><em>Kehadiranmu Adalah Kunci Kesuksesan!</em></p>
+                    <p>Disiplin adalah langkah pertama menuju keberhasilan. Isi absensi harianmu, dan tunjukkan komitmenmu kepada dunia.</p>
+                </div>
+                <form id="laporanForm" action="submit_laporan.php" method="POST" enctype="multipart/form-data" class="form-laporan">
+                    <label for="tanggal">Tanggal (DD-MM-YYYY):</label>
+                    <input type="text" id="tanggal" name="tanggal" placeholder="Contoh: 31-12-2024" required>
+
+                    <label for="deskripsi">Deskripsi Kegiatan:</label>
+                    <textarea id="deskripsi" name="deskripsi" rows="5" required></textarea>
+
+                    <label for="fotoKegiatan">Unggah Foto Kegiatan:</label>
+                    <input type="file" id="fotoKegiatan" name="fotoKegiatan" accept="image/*" required>
+
+                    <button type="submit" class="btn-submit">Kirim Laporan</button>
+                </form>
+            </div>
+            `;
         }
     </script>
 </body>

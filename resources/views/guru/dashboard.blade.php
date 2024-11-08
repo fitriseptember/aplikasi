@@ -461,18 +461,31 @@
         // Fungsi untuk menampilkan halaman Absensi
         function showAbsensi() {
             document.getElementById('mainContent').innerHTML = `
-               <div class="container">
-        <h1>Data Absnsi Siswa</h1>
+ <div class="body">
+    <h1>Data Absen Siswa</h1>
 
-        <!-- table daftar siswa -->
-        <div class="content">
-            <table>
+    <table id="attendanceTable">
+        <thead>
+            <tr>
+                <th>No</th> <!-- Added serial number column -->
+                <th>Tanggal</th>
+                <th>Nama Siswa</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($attendances as $index => $attendance)
                 <tr>
-                    <th>Nama Siswa</th>
-                    <th>Gender</th>
+                    <td>{{ $index + 1 }}</td> <!-- Serial number starts from 1 -->
+                    <td>{{ $attendance->tanggal }}</td>
+                    <td>{{ $attendance->user ? $attendance->user->username : 'Unknown' }}</td> <!-- Check if user exists -->
+                    <td>{{ $attendance->status }}</td>
                 </tr>
-            </table>
-        </div>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
             `;
         }
 
