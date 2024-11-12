@@ -12,147 +12,161 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #e0e0e0;
-        /* Warna abu-abu untuk background utama */
+        background-color: #f4f6f9;
         color: #333;
+        font-size: 16px;
     }
 
-    header {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-        background-color: #333;
-        color: #fff;
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Mengurangi padding untuk navbar */
+    background-color: #2c3e50;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    header .logo {
-        font-size: 24px;
-        font-weight: bold;
-    }
+    .logo {
+            width: 80px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
 
     header nav a {
-        color: #fff;
-        margin: 0 15px;
-        text-decoration: none;
-    }
+    color: #fff;
+    margin: 0 10px; /* Mengurangi jarak antar link navbar */
+    text-decoration: none;
+    font-size: 14px; /* Mengurangi ukuran font */
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
 
-    header nav a:hover {
-        color: #b0bec5;
-    }
+header nav a:hover {
+    color: #ecf0f1;
+}
 
     .hero {
         width: 100%;
         text-align: center;
-        padding: 100px 20px;
-        background: linear-gradient(to right, #bdbdbd, #9e9e9e);
-        /* Gradien abu-abu */
-        color: #333;
+        padding: 120px 20px;
+        background: linear-gradient(to right, #3498db, #8e44ad);
+        color: #fff;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     }
 
     .hero h1 {
-        font-size: 3em;
-        margin-bottom: 10px;
+        font-size: 4rem;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+        font-weight: 700;
     }
 
     .hero p {
-        font-size: 1.2em;
-        margin-bottom: 20px;
+        font-size: 1.5rem;
+        margin-bottom: 40px;
     }
 
     .cta-button {
-        padding: 10px 20px;
-        background-color: #757575;
-        /* Tombol dengan warna abu-abu */
+        padding: 12px 30px;
+        background-color: #e74c3c;
         color: #fff;
         text-decoration: none;
-        border-radius: 5px;
+        border-radius: 30px;
         font-weight: bold;
-        transition: background-color 0.3s;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
     .cta-button:hover {
-        background-color: #616161;
+        background-color: #c0392b;
+        transform: translateY(-4px);
     }
 
     .highlights {
         display: flex;
-        justify-content: space-around;
-        margin: 50px 0;
+        justify-content: space-evenly;
+        margin: 80px 0;
         width: 80%;
     }
 
     .card {
-        background-color: #ffffff;
-        /* Kartu putih untuk kontras */
-        padding: 20px;
+        background-color: #fff;
+        padding: 30px;
         width: 30%;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
         text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .testimonials {
-        text-align: center;
-        width: 80%;
-        margin: 50px 0;
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
 
-    .testimonials h2 {
-        font-size: 2em;
-        margin-bottom: 20px;
+    .card h3 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: #2c3e50;
     }
 
-    .testimonial {
-        background-color: #ffffff;
-        /* Warna putih untuk kontras */
-        padding: 15px;
-        margin: 10px;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .card p {
+        font-size: 1.1rem;
+        color: #7f8c8d;
+        line-height: 1.5;
     }
 
     footer {
-        background-color: #424242;
-        /* Warna abu-abu lebih gelap untuk footer */
+        background-color: #2c3e50;
         color: #fff;
         padding: 20px;
         width: 100%;
         text-align: center;
+        margin-top: 80px;
     }
 
     .socials a {
         color: #fff;
-        margin: 0 10px;
+        margin: 0 15px;
         text-decoration: none;
+        font-size: 1.5rem;
+        transition: color 0.3s ease;
     }
 
     .socials a:hover {
-        color: #b0bec5;
+        color: #ecf0f1;
     }
+
 </style>
 
 <body>
 
     <!-- Header -->
-    <header>
-        <div class="logo">LOGO</div>
-    </header>
+   <header>
+    <div class="logo">
+         <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="logo">
+    </div>
+    <nav>
+        <!-- Add links to navigation if needed -->
+    </nav>
+</header>
+
 
     <!-- Hero Section -->
     <section class="hero">
         <h1>Monitoring PKL Siswa</h1>
         <p>Tempat absensi dan pengiriman laporan</p>
-    <a href="{{ route('login') }}" class="cta-button">Masuk</a>
-
+        <a href="{{ route('login') }}" class="cta-button">Masuk</a>
     </section>
 
     <!-- Highlights Section -->
@@ -175,6 +189,11 @@
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 Company Name. All rights reserved.</p>
+        <div class="socials">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+        </div>
     </footer>
 
 </body>
