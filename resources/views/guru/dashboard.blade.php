@@ -374,7 +374,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <img src="image.jpg" alt="Logo" class="logo">
+       <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="logo">
         <nav class="navbar">
             <ul>
                 <li><a onclick="showDashboard()">Dashboard</a></li>
