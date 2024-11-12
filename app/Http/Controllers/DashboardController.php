@@ -1,16 +1,21 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Absensi;
+use App\Models\Attendance;
+use App\Models\LaporanKegiatan;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Ambil semua data absensi untuk guru/admin/mitra
-        $absensis = Absensi::with('user')->get();  // Ambil data absensi beserta relasi user
-
-        return view('dashboard', compact('absensis'));  // Mengirimkan variabel 'absensis' ke view
+        $attendances = Attendance::with('user')->get();
+    return view('dashboard', compact('attendances'));
     }
+
+    public function laporan()
+{
+    $laporanKegiatan = LaporanKegiatan::with('user')->get();
+    return view('dashboard', compact('laporanKegiatan'));
+}
     
 }

@@ -40,12 +40,11 @@ class AttendanceController extends Controller
     // Tampilkan dashboard dengan data absensi
     return view('siswa.dashboard', compact('attendances'));
 
-     $attendances = Attendance::all(); // Mengambil semua data dari model Attendance
-    return view('admin.dashboard', compact('attendances')); // Mengirimkan ke view
+
     }
 
     // Relasi dengan User
-    public function user()
+    public function user()  
     {
         return $this->belongsTo(User::class, 'user_id'); // 'user_id' adalah foreign key di tabel kehadiran
     }

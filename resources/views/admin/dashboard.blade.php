@@ -770,25 +770,20 @@ h1 {
 
          function showSiswa() {
             document.getElementById('mainContent').innerHTML = `
- <div class="container">
-        <h1>Daftar Akun</h1>
-        @if(session('success'))
-            <div class="success-message">{{ session('success') }}</div>
-        @endif
-        <table>
-            <thead>
-                <tr>
-                    <th>Role</th>
-                    <th>Gender</th>
-                    <th>Nama Lengkap</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-            </tbody>
+
+             <div class="body">
+        <h1>Daftar Siswa</h1>
+
+        <!-- Tabel untuk menampilkan data siswa -->
+        <table id="siswaTable">
+            <tr>
+                <th>Nama Siswa</th>
+                <th>Gender</th>
+                <th>Aksi</th>
+            </tr>
         </table>
+
+        <!-- Tombol kembali -->
     </div>
             `;
         }
@@ -816,7 +811,6 @@ h1 {
     // Fungsi untuk menampilkan halaman Absensi
         function showAbsensi() {
             document.getElementById('mainContent').innerHTML = `
-   
 <div class="body">
     <h1>Data Absen Siswa</h1>
 
@@ -830,18 +824,24 @@ h1 {
             </tr>
         </thead>
         <tbody>
-            @foreach ($attendances as $index => $attendance)
+            @if(isset($attendances) && count($attendances) > 0)
+                @foreach ($attendances as $index => $attendance)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $attendance->tanggal }}</td>
+                        <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td>
+                        <td>{{ $attendance->status }}</td>
+                    </tr>
+                @endforeach
+            @else
                 <tr>
-                    <td>{{ $index + 1 }}</td> <!-- Menambahkan nomor urut -->
-                    <td>{{ $attendance->tanggal }}</td>
-                    <td>{{ $attendance->user ? $attendance->user->name : 'Unknown' }}</td>
-                    <td>{{ $attendance->status }}</td>
+                    <td colspan="4">Data absensi tidak tersedia.</td>
                 </tr>
-            @endforeach
+            @endif
         </tbody>
     </table>
 </div>
-</div>
+
 
 
             `;
@@ -851,27 +851,30 @@ h1 {
         function showLogbook() {
             document.getElementById('mainContent').innerHTML = `
               <div class="body">
-    <h1>Laporan Kegiatan PKL</h1>
-     <div class="motivational-text">
-            <p><em>Kehadiranmu Adalah Kunci Kesuksesan!</em></p>
-            <p>Disiplin adalah langkah pertama menuju keberhasilan. Isi absensi harianmu, dan tunjukkan komitmenmu kepada
-                dunia.</p>
-        </div>
-    <form id="laporanForm" action="submit_laporan.php" method="POST" enctype="multipart/form-data" class="form-laporan">
-        <label for="namaSiswa">Nama Siswa:</label>
-        <input type="text" id="namaSiswa" name="namaSiswa" required>
+    <h1>Data Laporan Kegiatan Siswa</h1>
 
-        <label for="tanggal">Tanggal (DD-MM-YYYY):</label>
-        <input type="text" id="tanggal" name="tanggal" placeholder="Contoh: 31-12-2024" required>
-
-        <label for="deskripsi">Deskripsi Kegiatan:</label>
-        <textarea id="deskripsi" name="deskripsi" rows="5" required></textarea>
-
-        <label for="fotoKegiatan">Unggah Foto Kegiatan:</label>
-        <input type="file" id="fotoKegiatan" name="fotoKegiatan" accept="image/*" required>
-
-
-    </form>
+    <table id="laporanTable">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Nama Siswa</th>
+                <th>Deskripsi</th>
+                <th>Foto Kegiatan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($laporanKegiatan as $index => $laporan)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $laporan->tanggal }}</td>
+                   <td>{{ session('user_data')->nama_lengkap ??  'Unknown' }}</td>
+                    <td>{{ $laporan->deskripsi }}</td>
+                    <td><img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100"></td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
             `;

@@ -3,18 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\LaporanKegiatan;
 
-class AdminController extends Controller
+
+
+ class AdminController extends Controller
 {
-    // In AdminController
+    public function index()
+    {
+        $attendances = Attendance::with('user')->get(); // Ambil data kehadiran dengan relasi user
+        return view('admin.dashboard', compact('attendances'));
+    }
 
-public function index()
-{
-    $attendances = Attendance::with('user')->get(); // Eager load the user with attendance records
-    return view('admin.dashboard', compact('attendances'));
-}
+    public function laporan()
+    {
+        $laporanKegiatan = LaporanKegiatan::with('user')->get();
+        return view('admin.dashboard', compact('laporanKegiatan'));
+        }
 
-    public function daftar()
+public function daftar()
     {
         // Ambil semua data akun
         $accounts = Account::all();
@@ -22,4 +29,5 @@ public function index()
         // Kirimkan data ke view
         return view('admin.dashboard', compact('accounts'));
     }
+
 }

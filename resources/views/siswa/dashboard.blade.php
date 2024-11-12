@@ -466,24 +466,25 @@
         function showLogbook() {
             document.getElementById('mainContent').innerHTML = `
             <div class="body">
-                <h1>Laporan Kegiatan PKL</h1>
-                <div class="motivational-text">
-                    <p><em>Kehadiranmu Adalah Kunci Kesuksesan!</em></p>
-                    <p>Disiplin adalah langkah pertama menuju keberhasilan. Isi absensi harianmu, dan tunjukkan komitmenmu kepada dunia.</p>
-                </div>
-                <form id="laporanForm" action="submit_laporan.php" method="POST" enctype="multipart/form-data" class="form-laporan">
-                    <label for="tanggal">Tanggal (DD-MM-YYYY):</label>
-                    <input type="text" id="tanggal" name="tanggal" placeholder="Contoh: 31-12-2024" required>
+    <h1>Laporan Kegiatan PKL</h1>
+    <div class="motivational-text">
+        <p><em>Kehadiranmu Adalah Kunci Kesuksesan!</em></p>
+        <p>Disiplin adalah langkah pertama menuju keberhasilan. Isi laporan harianmu, dan tunjukkan komitmenmu kepada dunia.</p>
+    </div>
+    <form id="laporanForm" action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data" class="form-laporan">
+        @csrf
+        <label for="tanggal">Tanggal (DD-MM-YYYY):</label>
+        <input type="date" id="tanggal" name="tanggal" required>
 
-                    <label for="deskripsi">Deskripsi Kegiatan:</label>
-                    <textarea id="deskripsi" name="deskripsi" rows="5" required></textarea>
+        <label for="deskripsi">Deskripsi Kegiatan:</label>
+        <textarea id="deskripsi" name="deskripsi" rows="5" required></textarea>
 
-                    <label for="fotoKegiatan">Unggah Foto Kegiatan:</label>
-                    <input type="file" id="fotoKegiatan" name="fotoKegiatan" accept="image/*" required>
+        <label for="fotoKegiatan">Unggah Foto Kegiatan:</label>
+        <input type="file" id="fotoKegiatan" name="foto_kegiatan" accept="image/*" required>
 
-                    <button type="submit" class="btn-submit">Kirim Laporan</button>
-                </form>
-            </div>
+        <button type="submit" class="btn-submit">Kirim Laporan</button>
+    </form>
+</div>
             `;
         }
     </script>
