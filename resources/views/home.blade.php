@@ -24,35 +24,38 @@
         font-size: 16px;
     }
 
-header {
+    header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: start; /* Posisi elemen ke kiri */
     align-items: center;
-    padding: 10px 20px; /* Mengurangi padding untuk navbar */
+    padding: 10px 20px;
     background-color: #2c3e50;
     color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+}
 
-    .logo {
-            width: 80px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
+.logo {
+    width: 50px; /* Sesuaikan lebar logo */
+    height: 50px; /* Pastikan tinggi logo sama dengan lebarnya */
+    border-radius: 50%; /* Membuat gambar menjadi bulat */
+    object-fit: cover; /* Menjaga gambar tetap proporsional dalam bentuk bulat */
+}
 
     header nav a {
-    color: #fff;
-    margin: 0 10px; /* Mengurangi jarak antar link navbar */
-    text-decoration: none;
-    font-size: 14px; /* Mengurangi ukuran font */
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
+        color: #fff;
+        margin: 0 10px;
+        /* Mengurangi jarak antar link navbar */
+        text-decoration: none;
+        font-size: 14px;
+        /* Mengurangi ukuran font */
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
 
-header nav a:hover {
-    color: #ecf0f1;
-}
+    header nav a:hover {
+        color: #ecf0f1;
+    }
 
     .hero {
         width: 100%;
@@ -146,20 +149,19 @@ header nav a:hover {
     .socials a:hover {
         color: #ecf0f1;
     }
-
 </style>
 
 <body>
 
     <!-- Header -->
-   <header>
-    <div class="logo">
-         <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="logo">
-    </div>
-    <nav>
-        <!-- Add links to navigation if needed -->
-    </nav>
-</header>
+    <header>
+        <div class="logo">
+            <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="logo">
+        </div>
+        <nav>
+            <!-- Add links to navigation if needed -->
+        </nav>
+    </header>
 
 
     <!-- Hero Section -->

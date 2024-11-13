@@ -34,7 +34,7 @@ Route::prefix('siswa')->group(function () {
     Route::get('absen/create', [AttendanceController::class, 'create'])->name('absen.create'); // Menampilkan form absensi
     Route::post('absen', [AttendanceController::class, 'store'])->name('absen.store'); // Menyimpan data absensi
     Route::get('absen/latest', [AttendanceController::class, 'showLatest'])->name('absen.showLatest'); // Menampilkan data absensi terbaru
-   
+
   Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
      Route::get('/guru/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
@@ -45,4 +45,12 @@ Route::prefix('siswa')->group(function () {
     Route::get('laporan/create', [LaporanKegiatanController::class, 'create'])->name('laporan.create');
     Route::post('laporan/store', [LaporanKegiatanController::class, 'store'])->name('laporan.store');
 Route::get('/admin/dashboard', [AdminController::class, 'laporan'])->name('admin.dashboard');
+Route::get('/guru/dashboard', [GuruController::class, 'laporan'])->name('guru.dashboard');
 Route::get('/mitra/dashboard', [MitraController::class, 'laporan'])->name('mitra.dashboard');
+// routes/web.php
+
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/guru/dashboard', [GuruController::class, 'dashboard'])->name('guru.dashboard');
+Route::get('/mitra/dashboard', [MitraController::class, 'dashboard'])->name('mitra.dashboard');
+
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');

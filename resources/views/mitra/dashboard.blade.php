@@ -495,7 +495,7 @@
         // Fungsi untuk menampilkan halaman Logbook Laporan Kegiatan
         function showLogbook() {
             document.getElementById('mainContent').innerHTML = `
-               <div class="body">
+            <div class="body">
     <h1>Data Laporan Kegiatan Siswa</h1>
 
     <table id="laporanTable">
@@ -509,18 +509,31 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($laporanKegiatan as $index => $laporan)
+            @if(isset($laporanKegiatan) && count($laporanKegiatan) > 0)
+                @foreach ($laporanKegiatan as $index => $laporan)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $laporan->tanggal }}</td>
+                      <td>{{ session('user_data') ? session('user_data')->nama_lengkap : 'Unknown' }}</td>
+                        <td>{{ $laporan->deskripsi }}</td>
+                        <td>
+                            @if($laporan->foto_kegiatan)
+                                <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100">
+                            @else
+                                Foto Tidak Tersedia
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            @else
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $laporan->tanggal }}</td>
-                     <td>{{ session('user_data')->nama_lengkap ??  'Unknown' }}</td>
-                    <td>{{ $laporan->deskripsi }}</td>
-                    <td><img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100"></td>
+                    <td colspan="5">Data laporan kegiatan tidak tersedia.</td>
                 </tr>
-            @endforeach
+            @endif
         </tbody>
     </table>
 </div>
+
 
             `;
         }

@@ -17,5 +17,5 @@ class DashboardController extends Controller
     $laporanKegiatan = LaporanKegiatan::with('user')->get();
     return view('dashboard', compact('laporanKegiatan'));
 }
-    
+
 }

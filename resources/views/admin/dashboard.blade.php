@@ -350,7 +350,7 @@ h1 {
             color: red;
             font-weight: bold;
         }
-        
+
          body {
             font-family: 'Poppins', sans-serif;
             background-color: #f0f0f0;
@@ -613,7 +613,7 @@ h1 {
 
     <!-- Navbar Top -->
     <div class="navbar-top">
-        <div class="navbar-title">Dashboard Siswa Monitoring PKL</div>
+        <div class="navbar-title">Halaman Admin Monitoring PKL</div>
     </div>
 
     <!-- Sidebar -->
@@ -673,7 +673,7 @@ h1 {
         // Fungsi untuk menampilkan halaman Dashboard
         function showDashboard() {
             document.getElementById('mainContent').innerHTML = `
-                 
+
         <!-- Tabel Logbook Default -->
         <h1>Informasi Laporan Kegiatan Siswa</h1>
         <table class="logbook-table">
@@ -760,7 +760,7 @@ h1 {
 
             <div class="button-container">
             <button type="submit">Tambah Akun</button>
-           
+
             </div>
 
         </form>
@@ -791,22 +791,35 @@ h1 {
             function showLapkeg() {
             document.getElementById('mainContent').innerHTML = `
 
-            <div class="body">
-        <h1>Laporan Kegiatan Siswa</h1>
-        <table id="attendanceTable">
+          <div class="body">
+    <h1>Data Laporan Kegiatan Siswa</h1>
+
+    <table id="laporanTable">
+        <thead>
             <tr>
+                <th>No</th>
                 <th>Tanggal</th>
-                <th>Hari</th>
+                <th>Nama Siswa</th>
                 <th>Deskripsi</th>
-                <th>Foto</th>
-                <th>Aksi</th>
+                <th>Foto Kegiatan</th>
             </tr>
-            <tbody id="attendanceList"></tbody>
-        </table>
-    </div>
+        </thead>
+        <tbody>
+            @foreach ($laporanKegiatan as $index => $laporan)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $laporan->tanggal }}</td>
+                     <td>{{ session('user_data')->nama_lengkap ??  'Unknown' }}</td>
+                    <td>{{ $laporan->deskripsi }}</td>
+                    <td><img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100"></td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
             `;
-        } 
+        }
 
     // Fungsi untuk menampilkan halaman Absensi
         function showAbsensi() {
@@ -829,7 +842,7 @@ h1 {
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $attendance->tanggal }}</td>
-                        <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td>
+                        <td>{{ session('user_data') ? session('user_data')->nama_lengkap : 'Unknown' }}</td>
                         <td>{{ $attendance->status }}</td>
                     </tr>
                 @endforeach
@@ -842,40 +855,6 @@ h1 {
     </table>
 </div>
 
-
-
-            `;
-        }
-
-        // Fungsi untuk menampilkan halaman Logbook Laporan Kegiatan
-        function showLogbook() {
-            document.getElementById('mainContent').innerHTML = `
-              <div class="body">
-    <h1>Data Laporan Kegiatan Siswa</h1>
-
-    <table id="laporanTable">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Tanggal</th>
-                <th>Nama Siswa</th>
-                <th>Deskripsi</th>
-                <th>Foto Kegiatan</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($laporanKegiatan as $index => $laporan)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $laporan->tanggal }}</td>
-                   <td>{{ session('user_data')->nama_lengkap ??  'Unknown' }}</td>
-                    <td>{{ $laporan->deskripsi }}</td>
-                    <td><img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100"></td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
 
             `;
         }

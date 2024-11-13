@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB; // Tambahkan ini untuk menggunakan DB
+
 use Illuminate\Http\Request;
 use App\Models\LaporanKegiatan;
 use App\Models\User;

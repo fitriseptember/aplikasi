@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 
@@ -25,9 +27,9 @@ class AttendanceController extends Controller
         'status' => $request->status,
         'user_id' => session('user_data')->id,  // Jika menggunakan auth untuk user_id
 
-        
+
     ]);
-    
+
      // Redirect ke dashboard siswa dengan notifikasi sukses
         return redirect()->route('siswa.dashboard')->with('success', 'Absensi berhasil dikirim.');
     }
@@ -36,7 +38,7 @@ class AttendanceController extends Controller
 {
     // Ambil data absensi
     $attendances = Attendance::where('user_id', session('user_data')->id)->get();
-    
+
     // Tampilkan dashboard dengan data absensi
     return view('siswa.dashboard', compact('attendances'));
 
@@ -44,11 +46,9 @@ class AttendanceController extends Controller
     }
 
     // Relasi dengan User
-    public function user()  
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id'); // 'user_id' adalah foreign key di tabel kehadiran
     }
 
 }
-
-
