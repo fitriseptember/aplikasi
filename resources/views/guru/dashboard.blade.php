@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tampilan Admin Monitoring PKL</title>
+    <title>Tampilan Guru Monitoring PKL</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;

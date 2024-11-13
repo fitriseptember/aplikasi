@@ -35,7 +35,7 @@ public function index()
     $laporanKegiatan = DB::table('laporan_kegiatan')->get(); // atau menggunakan model
 
     // Kirim kedua data ke view 'admin.dashboard'
-    return view('admin.dashboard', compact('attendances', 'laporanKegiatan'));
+    return view('guru.dashboard', compact('attendances', 'laporanKegiatan'));
 }
 
 }
