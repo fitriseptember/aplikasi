@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class AuthController extends Controller
 {
@@ -44,6 +46,12 @@ class AuthController extends Controller
         session(['user_data' => $user]);
         Log::info('Authentication successful for user: ' . $user->username);
 
+        // After successful authentication, log the login time
+        DB::table('login_logs')->insert([
+            'username' => $request->username,
+            'login_time' => Carbon::now(), // Save the current login time
+        ]);
+
         // Redirect berdasarkan peran
         switch ($user->role) {
             case 'admin':
@@ -64,4 +72,17 @@ class AuthController extends Controller
         Auth::logout(); // Logout user
         return redirect()->route('login'); // Kembali ke halaman login
     }
+
+    public function getLoginData()
+{
+    // Ambil data login per hari dari database
+    $data = DB::table('login_logs')
+        ->select(DB::raw('DATE(login_time) as date'), DB::raw('COUNT(*) as count'))
+        ->groupBy(DB::raw('DATE(login_time)')) // Kelompokkan berdasarkan tanggal
+        ->orderBy('date', 'asc') // Urutkan berdasarkan tanggal
+        ->get();
+
+    // Kirim data dalam format JSON
+    return response()->json($data);
+}
 }

@@ -54,3 +54,6 @@ Route::get('/guru/dashboard', [GuruController::class, 'dashboard'])->name('guru.
 Route::get('/mitra/dashboard', [MitraController::class, 'dashboard'])->name('mitra.dashboard');
 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+
+Route::get('/data-login', [AuthController::class, 'getLoginData']);

@@ -604,6 +604,47 @@ h1 {
         }
 
 
+    /* Styling tabel untuk estetika */
+    .table {
+        font-family: 'Arial', sans-serif;
+        font-size: 16px;
+        background-color: #f8f9fa;
+    }
+    .table thead th {
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #ffffff;
+        background-color: #343a40;
+    }
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+    .table-responsive {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+     /* Style container dan canvas */
+    .diagram-container {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .chart-canvas {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    /* Style judul */
+    .text-center {
+        color: #333;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+    }
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -633,11 +674,129 @@ h1 {
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
 
-        <div class="diagram-container">
-            <div class="diagram-title">Diagram Situs kunjungan</div>
-            <!-- isi data didie -->
-            <canvas id="myChart" class="chart-canvas"></canvas>
-        </div>
+       <div class="diagram-container">
+    <h3 class="text-center">Perkiraan Kunjungan Selama Seminggu ke Depan</h3>
+    <canvas id="myChart" class="chart-canvas"></canvas>
+</div>
+
+<!-- Memuat library Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // Fungsi untuk memuat data dari endpoint
+        async function loadVisitData() {
+            // Mengambil data dari endpoint '/data-login'
+            const response = await fetch('/data-login');
+            const data = await response.json();
+
+            // Format data untuk Chart.js
+            const labels = data.map(item => new Date(item.date).toLocaleDateString('id-ID', { weekday: 'long', day: '2-digit', month: 'short' }));
+            const visitData = data.map(item => item.count);
+
+            // Inisialisasi Chart.js dengan data dari database
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Perkiraan Kunjungan',
+                        data: visitData,
+                        borderColor: '#4A90E2',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.4,
+                        pointBackgroundColor: '#4A90E2',
+                        pointBorderColor: '#fff',
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        hoverBackgroundColor: '#4A90E2',
+                        hoverBorderColor: '#333',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutBounce',
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Hari',
+                                font: { size: 16, weight: 'bold', family: 'Arial' },
+                                color: '#333'
+                            },
+                            grid: { color: 'rgba(0, 0, 0, 0.05)', lineWidth: 1 }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Jumlah Kunjungan',
+                                font: { size: 16, weight: 'bold' },
+                                color: '#4A90E2'
+                            },
+                            grid: { color: 'rgba(0, 0, 0, 0.05)', lineWidth: 1 }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: { size: 14, weight: 'bold' },
+                                color: '#333'
+                            }
+                        },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                            titleFont: { size: 14, weight: 'bold' },
+                            bodyFont: { size: 12 },
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' kunjungan';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Panggil fungsi untuk memuat data dan membuat grafik
+        loadVisitData();
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mengambil data login dari backend
+        fetch('/data-login')
+            .then(response => response.json())
+            .then(data => {
+                // Mendapatkan elemen tbody dari tabel
+                const tableBody = document.getElementById('loginTableBody');
+
+                // Membersihkan isi tabel sebelumnya
+                tableBody.innerHTML = '';
+
+                // Mengisi tabel dengan data login
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${new Date(item.date).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' })}</td>
+                        <td>${item.count}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+    });
+</script>
+
 
         <!-- Tabel Logbook Default -->
         <h1>Informasi Laporan Kegiatan Siswa</h1>
@@ -673,6 +832,8 @@ h1 {
         // Fungsi untuk menampilkan halaman Dashboard
         function showDashboard() {
             document.getElementById('mainContent').innerHTML = `
+
+
 
         <!-- Tabel Logbook Default -->
         <h1>Informasi Laporan Kegiatan Siswa</h1>
