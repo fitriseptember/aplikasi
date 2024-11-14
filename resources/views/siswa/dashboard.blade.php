@@ -405,9 +405,9 @@
            <form action="{{ route('absen.store') }}" method="POST">
     @csrf
     <div class="form-group">
-        <label for="tanggal">Tanggal (DD-MM-YYYY)</label>
-        <input type="date" name="tanggal" id="tanggal" placeholder="Masukkan tanggal (contoh: 31-12-2024)" required>
-    </div>
+                <label for="tanggal">Tanggal (DD-MM-YYYY)</label>
+                <input type="date" name="tanggal" id="tanggal" readonly required>
+            </div>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -463,31 +463,31 @@
             document.getElementById('tanggal').value = today;
         }
 
-        // Fungsi untuk menampilkan halaman Logbook
         function showLogbook() {
-            document.getElementById('mainContent').innerHTML = `
-            <div class="body">
-    <h1>Laporan Kegiatan PKL</h1>
-    <div class="motivational-text">
-        <p><em>Kehadiranmu Adalah Kunci Kesuksesan!</em></p>
-        <p>Disiplin adalah langkah pertama menuju keberhasilan. Isi laporan harianmu, dan tunjukkan komitmenmu kepada dunia.</p>
-    </div>
-    <form id="laporanForm" action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data" class="form-laporan">
-        @csrf
-        <label for="tanggal">Tanggal (DD-MM-YYYY):</label>
-        <input type="date" id="tanggal" name="tanggal" required>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('mainContent').innerHTML = `
+        <div class="body">
+            <h1>Laporan Kegiatan PKL</h1>
+            <div class="motivational-text">
+                <p><em>Kehadiranmu Adalah Kunci Kesuksesan!</em></p>
+                <p>Disiplin adalah langkah pertama menuju keberhasilan. Isi laporan harianmu, dan tunjukkan komitmenmu kepada dunia.</p>
+            </div>
+            <form id="laporanForm" action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data" class="form-laporan">
+                @csrf
+                <label for="tanggal">Tanggal (DD-MM-YYYY):</label>
+                <input type="date" id="tanggal" name="tanggal" required value="${today}" readonly>
 
-        <label for="deskripsi">Deskripsi Kegiatan:</label>
-        <textarea id="deskripsi" name="deskripsi" rows="5" required></textarea>
+                <label for="deskripsi">Deskripsi Kegiatan:</label>
+                <textarea id="deskripsi" name="deskripsi" rows="5" required></textarea>
 
-        <label for="fotoKegiatan">Unggah Foto Kegiatan:</label>
-        <input type="file" id="fotoKegiatan" name="foto_kegiatan" accept="image/*" required>
+                <label for="fotoKegiatan">Unggah Foto Kegiatan:</label>
+                <input type="file" id="fotoKegiatan" name="foto_kegiatan" accept="image/*" required>
 
-        <button type="submit" class="btn-submit">Kirim Laporan</button>
-    </form>
-</div>
-            `;
-        }
+                <button type="submit" class="btn-submit">Kirim Laporan</button>
+            </form>
+        </div>
+    `;
+}
     </script>
 </body>
 

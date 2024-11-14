@@ -4,8 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Tampilan Admin Monitoring PKL</title>
      <style>
+=======
+    <title>Tampilan Mitra Monitoring PKL</title>
+    <style>
+>>>>>>> 36c3b14988dd21c422843cefbfb62cd2a3c9a6bb
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -743,7 +748,7 @@ h1 {
         // Fungsi untuk menampilkan halaman Logbook Laporan Kegiatan
         function showLogbook() {
             document.getElementById('mainContent').innerHTML = `
-            <div class="body">
+           <div class="body">
     <h1>Data Laporan Kegiatan Siswa</h1>
 
     <table id="laporanTable">
@@ -758,17 +763,17 @@ h1 {
         </thead>
         <tbody>
             @if(isset($laporanKegiatan) && count($laporanKegiatan) > 0)
-                @foreach ($laporanKegiatan as $index => $laporan)
+                @foreach ($laporanKegiatan as $laporan)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
                         <td>{{ $laporan->tanggal }}</td>
-                      <td>{{ session('user_data') ? session('user_data')->nama_lengkap : 'Unknown' }}</td>
+                        <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama siswa dari relasi user --}}
                         <td>{{ $laporan->deskripsi }}</td>
                         <td>
-                            @if($laporan->foto_kegiatan)
+                            @if ($laporan->foto_kegiatan)
                                 <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100">
                             @else
-                                Foto Tidak Tersedia
+                                Tidak ada foto
                             @endif
                         </td>
                     </tr>
