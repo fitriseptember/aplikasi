@@ -32,7 +32,7 @@ public function index()
     $attendances = Attendance::with('user')->get(); // Pastikan relasi 'user' terdefinisi di model Attendance
 
     // Ambil data laporan kegiatan
-    $laporanKegiatan = DB::table('laporan_kegiatan')->get(); // atau menggunakan model
+    $laporanKegiatan = LaporanKegiatan::with('user')->get(); // atau menggunakan model
 
     // Kirim kedua data ke view 'admin.dashboard'
     return view('mitra.dashboard', compact('attendances', 'laporanKegiatan'));

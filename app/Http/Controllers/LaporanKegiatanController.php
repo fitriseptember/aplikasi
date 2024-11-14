@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\DB; // Tambahkan ini untuk menggunakan DB
 
 use Illuminate\Http\Request;
 use App\Models\LaporanKegiatan;
-use App\Models\User;
-use Illuminate\Support\Facades\Storage;
+
 
 class LaporanKegiatanController extends Controller
 {
@@ -50,5 +49,10 @@ class LaporanKegiatanController extends Controller
 
         // Display the dashboard with the activity report data
         return view('siswa.dashboard', compact('laporan'));
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id'); // 'user_id' adalah foreign key di tabel kehadiran
     }
 }

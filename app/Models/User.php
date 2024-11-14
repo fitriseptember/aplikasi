@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attendance::class, 'user_id'); // 'user_id' adalah foreign key di tabel kehadiran
     }
+
+     public function laporanKegiatan()
+    {
+        return $this->hasMany(LaporanKegiatan::class, 'user_id'); // 'user_id' adalah foreign key di tabel kehadiran
+    }
 }

@@ -745,9 +745,9 @@ h1 {
         }
 
         // Fungsi untuk menampilkan halaman Logbook Laporan Kegiatan
-        function showLogbook() {
+       function showLogbook() {
             document.getElementById('mainContent').innerHTML = `
-    <div class="body">
+           <div class="body">
     <h1>Data Laporan Kegiatan Siswa</h1>
 
     <table id="laporanTable">
@@ -768,13 +768,14 @@ h1 {
                         <td>{{ $laporan->tanggal }}</td>
                         <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama siswa dari relasi user --}}
                         <td>{{ $laporan->deskripsi }}</td>
-                        <td>
-                            @if ($laporan->foto_kegiatan)
-                                <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100">
-                            @else
-                                Tidak ada foto
-                            @endif
-                        </td>
+                       <td>
+    @if ($laporan->foto_kegiatan)
+        <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="150">
+    @else
+        Tidak ada foto
+    @endif
+</td>
+
                     </tr>
                 @endforeach
             @else
@@ -785,6 +786,7 @@ h1 {
         </tbody>
     </table>
 </div>
+
 
             `;
         }

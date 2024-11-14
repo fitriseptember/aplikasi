@@ -20,7 +20,7 @@ class LaporanKegiatan extends Model
     // Di model LaporanKegiatan
 public function user()
 {
-    return $this->belongsTo(User::class, 'user_id');  // Pastikan 'user_id' adalah nama kolom yang benar
+    return $this->belongsTo(Akun::class, 'user_id');  // Pastikan 'user_id' adalah nama kolom yang benar
 }
 
 }
