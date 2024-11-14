@@ -14,9 +14,8 @@ class Attendance extends Model
     protected $fillable = ['tanggal', 'status', 'user_id'];
 
     // Relasi dengan User
-   public function user()
-{
-    return $this->belongsTo(User::class, 'user_id');
-}
-
+     public function user()
+    {
+        return $this->belongsTo(Akun::class, 'user_id');
+    }
 }

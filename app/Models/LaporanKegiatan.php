@@ -17,8 +17,10 @@ class LaporanKegiatan extends Model
         'user_id',
     ];
 
-    public function user()
+    // Di model LaporanKegiatan
+public function user()
 {
-    return $this->belongsTo(User::class, 'user_id');
+    return $this->belongsTo(User::class, 'user_id');  // Pastikan 'user_id' adalah nama kolom yang benar
 }
+
 }

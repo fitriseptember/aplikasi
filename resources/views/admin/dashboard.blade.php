@@ -790,8 +790,7 @@ h1 {
 
             function showLapkeg() {
             document.getElementById('mainContent').innerHTML = `
-
-          <div class="body">
+<div class="body">
     <h1>Data Laporan Kegiatan Siswa</h1>
 
     <table id="laporanTable">
@@ -805,18 +804,31 @@ h1 {
             </tr>
         </thead>
         <tbody>
-            @foreach ($laporanKegiatan as $index => $laporan)
+            @if(isset($laporanKegiatan) && count($laporanKegiatan) > 0)
+                @foreach ($laporanKegiatan as $laporan)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
+                        <td>{{ $laporan->tanggal }}</td>
+                        <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama siswa dari relasi user --}}
+                        <td>{{ $laporan->deskripsi }}</td>
+                        <td>
+                            @if ($laporan->foto_kegiatan)
+                                <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100">
+                            @else
+                                Tidak ada foto
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            @else
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $laporan->tanggal }}</td>
-                     <td>{{ session('user_data')->nama_lengkap ??  'Unknown' }}</td>
-                    <td>{{ $laporan->deskripsi }}</td>
-                    <td><img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100"></td>
+                    <td colspan="5">Data laporan kegiatan tidak tersedia.</td>
                 </tr>
-            @endforeach
+            @endif
         </tbody>
     </table>
 </div>
+
 
             `;
         }
@@ -838,11 +850,11 @@ h1 {
         </thead>
         <tbody>
             @if(isset($attendances) && count($attendances) > 0)
-                @foreach ($attendances as $index => $attendance)
+                @foreach($attendances as $attendance)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
                         <td>{{ $attendance->tanggal }}</td>
-                        <td>{{ session('user_data') ? session('user_data')->nama_lengkap : 'Unknown' }}</td>
+                        <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Tampilkan nama lengkap atau "Unknown" --}}
                         <td>{{ $attendance->status }}</td>
                     </tr>
                 @endforeach
@@ -854,6 +866,7 @@ h1 {
         </tbody>
     </table>
 </div>
+
 
 
             `;

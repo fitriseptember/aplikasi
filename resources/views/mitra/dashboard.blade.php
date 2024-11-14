@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tampilan Admin Monitoring PKL</title>
-    <style>
+     <style>
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -13,6 +13,187 @@
             display: flex;
             height: 100vh;
         }
+
+        /* Animasi untuk sidebar masuk dari kiri */
+.sidebar {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Animasi hover untuk tombol */
+.btn-submit, .navbar ul li a, .back .btn {
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.btn-submit:hover, .navbar ul li a:hover, .back .btn:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+/* Animasi fade-in untuk tabel */
+.logbook-table {
+    animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animasi bounce untuk profile picture */
+.profile-pic {
+    animation: bounce 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+/* Animasi smooth hover untuk link sidebar */
+.navbar ul li a {
+    position: relative;
+    color: #f5f6fa;
+    text-decoration: none;
+}
+
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #00a8ff;
+    left: 50%;
+    bottom: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar ul li a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            margin-left: 250px; /* Leave space for the sidebar */
+            padding: 20px;
+            max-width: 1000px;
+            width: calc(100% - 250px); /* Adjust width to fill remaining space */
+        }
+
+        input[type="text"],
+        select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+
+            .container {
+                margin-left: 0; /* Reset margin for mobile */
+                width: 100%; /* Full width for mobile */
+            }
+        }
+
+/* Animasi untuk text motivasi */
+.motivational-text p {
+    animation: textFadeIn 1.5s ease-out;
+}
+
+@keyframes textFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
         /* Navbar */
         .navbar-top {
@@ -170,198 +351,260 @@
             font-weight: bold;
         }
 
-        body {
+         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f0f0f0;
             padding: 20px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: white;
-            color: black;
+        .container {
+            margin-left: 260px; /* Leave space for the sidebar */
             padding: 20px;
-            animation: fadeIn 1s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            max-width: 1000px;
+            width: calc(100% - 250px); /* Adjust width to fill remaining space */
+            text-align: center; /* Center text in the container */
         }
 
         h1 {
-            text-align: center;
             margin-bottom: 20px;
-            color: black;
-            animation: slideIn 0.8s ease forwards;
-            opacity: 0;
-            transform: translateY(-30px);
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-30px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            color: #444;
         }
 
         table {
-            width: 80%;
-            margin: 0 auto;
+            width: 80%; /* Adjust table width */
+            margin: 20px auto; /* Center the table */
             border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0px 4px 8px black;
-            opacity: 0;
-            animation: zoomIn 0.6s ease forwards;
-        }
-
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         th,
         td {
             padding: 12px 15px;
-            border: 1px solid grey;
+            border: 1px solid #ddd;
             text-align: center;
-            transform: background-color 0.3s;
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
         }
 
         th {
-            background-color: white;
-            color: black;
+            background-color: #f8f8f8;
+            color: #333;
             font-weight: bold;
         }
 
         tr:nth-child(even) {
-            background-color: white;
+            background-color: #f2f2f2;
         }
 
         tr:hover {
-            background-color: #333;
+            background-color: #f1f1f1;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
         }
 
         @media (max-width: 768px) {
             table {
-                width: 100%;
+                width: 100%; /* Full width on mobile */
+            }
+
+            .btn {
+                margin-left: 0; /* Reset margin for mobile */
+            }
+
+            h1 {
+                margin-left: 0; /* Reset margin for mobile */
             }
         }
+            h1 {
+                text-align: center; /* Pusatkan judul */
+                color: #333; /* Warna teks judul */
+            }
 
-        .content {
-            border: 1px solid #333;
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        .form-laporan {
+            display: flex;
+            flex-direction: column; /* Susun elemen dalam kolom */
+        }
+
+        label {
+            margin-top: 15px; /* Jarak atas antara label dan elemen input */
+            font-weight: bold; /* Tebalkan teks label */
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            padding: 10px; /* Ruang dalam input */
+            border: 1px solid #ced4da; /* Garis batas */
+            border-radius: 5px; /* Sudut membulat */
+            font-size: 14px; /* Ukuran font */
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #80bdff; /* Warna batas saat fokus */
+            outline: none; /* Menghilangkan outline default */
+        }
+
+        .btn-submit {
+            margin-top: 20px; /* Jarak atas tombol */
+            padding: 10px; /* Ruang dalam tombol */
+            background-color: #333; /* Warna latar belakang tombol */
+            color: white; /* Warna teks tombol */
+            border: none; /* Hilangkan garis batas */
+            border-radius: 5px; /* Sudut membulat */
+            cursor: pointer; /* Tangan saat hover */
+        }
+
+        .btn-submit:hover {
+            background-color: #555; /* Warna tombol saat hover */
+        }
+
+        /* Gaya untuk Container Diagram */
+        .diagram-container {
+            width: 80%; /* Lebar diagram */
+            max-width: 800px; /* Batas maksimum lebar */
+            margin: 0 auto 30px auto; /* Posisi tengah dengan jarak dari tabel */
+            padding: 20px; /* Ruang di sekitar */
+            background-color: #f8f8f8; /* Warna latar belakang */
+            border: 1px solid #ddd; /* Batas */
+            border-radius: 8px; /* Sudut membulat */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan */
+        }
+
+        /* Gaya untuk judul diagram */
+        .diagram-title {
             text-align: center;
-            animation: slideUp 0.8s ease forwards;
-            opacity: 0;
-            transform: translateY(30px);
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .btn-back {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            display: inline-block;
-            margin-top: 20px;
-        }
-
-        .btn-back:hover {
-            background-color: black;
-        }
-
-        .content {
+        /* Gaya untuk diagram (contoh menggunakan Chart.js atau library lainnya) */
+        .chart-canvas {
             width: 100%;
-            flex: 1;
-            padding: 20px;
-            background-color: white;
+            height: 300px;
         }
 
-        .content th,
-        td {
-            padding: 12px;
-            border: 1px solid white;
-            text-align: left;
+        /* Animasi muncul untuk diagram */
+        .diagram-container {
+            animation: fadeInDiagram 0.8s ease-in;
         }
 
-        .content h1 {
-            padding: 12px;
-            text-align: left;
+        @keyframes fadeInDiagram {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .content th {
-            background-color: #333;
-            color: white;
+        /* css input */
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
         }
 
-        .container tr:nth-child(even) {
-            background-color: aqua;
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        .container tr:hover {
-            background-color: azure;
+        .form-group {
+            margin-bottom: 15px;
         }
 
-        button {
-            padding: 5px 10px;
-            background-color: aqua;
-            color: black;
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px; /* Jarak antara tombol */
+            justify-content: center; /* Memusatkan tombol */
+        }
+
+        button[type="submit"],
+        .back-button {
+            flex: 1; /* Mengatur tombol agar memiliki lebar yang sama */
+            padding: 10px;
             border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
             cursor: pointer;
+            text-align: center;
+            text-decoration: none;
         }
 
-        button:disabled {
-            background-color: white;
-            cursor: not-allowed;
+        button[type="submit"] {
+            background-color: #28a745;
         }
+
+        .back-button {
+            background-color: #007bff;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .back-button:hover {
+            background-color: #0069d9;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -475,18 +718,23 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($attendances as $index => $attendance)
+            @if(isset($attendances) && count($attendances) > 0)
+                @foreach($attendances as $attendance)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
+                        <td>{{ $attendance->tanggal }}</td>
+                        <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Tampilkan nama lengkap atau "Unknown" --}}
+                        <td>{{ $attendance->status }}</td>
+                    </tr>
+                @endforeach
+            @else
                 <tr>
-                    <td>{{ $index + 1 }}</td> <!-- Menambahkan nomor urut -->
-                    <td>{{ $attendance->tanggal }}</td>
-                    <td>{{ session('user_data')->nama_lengkap ?? 'Unknown' }}</td>
-                    <td>{{ $attendance->status }}</td>
+                    <td colspan="4">Data absensi tidak tersedia.</td>
                 </tr>
-            @endforeach
+            @endif
         </tbody>
     </table>
 </div>
-
 
 
             `;
