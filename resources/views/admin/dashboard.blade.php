@@ -663,8 +663,8 @@ h1 {
         <nav class="navbar">
             <ul>
                 <li><a onclick="showDashboard()">Dashboard</a></li>
-                <li><a onclick="showGuru()">Input Akun</a></li>
-                <li><a onclick="showSiswa()">Daftar Akun</a></li>
+                <li><a onclick="showInput()">Input Akun</a></li>
+                <li><a onclick="showData()">Daftar Akun</a></li>
                 <li><a onclick="showAbsensi()">Absensi</a></li>
                 <li><a onclick="showLapkeg()">Laporan Kegiatan Siswa</a></li>
             </ul>
@@ -867,7 +867,7 @@ h1 {
             `;
         }
 
-        function showGuru() {
+        function showInput() {
             document.getElementById('mainContent').innerHTML = `
                 <div class="container">
         <h1>Tambah Akun</h1>
@@ -929,23 +929,50 @@ h1 {
             `;
         }
 
-         function showSiswa() {
+         function showData() {
             document.getElementById('mainContent').innerHTML = `
 
-             <div class="body">
-        <h1>Daftar Siswa</h1>
+        <div class="body"> 
+    <h1>Daftar Akun</h1>
 
-        <!-- Tabel untuk menampilkan data siswa -->
-        <table id="siswaTable">
+    <!-- Menampilkan pesan sukses jika ada -->
+    @if(session('success'))
+        <div class="success-message">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <table id="accountTable">
+        <thead>
             <tr>
-                <th>Nama Siswa</th>
+                <th>Role</th>
                 <th>Gender</th>
-                <th>Aksi</th>
+                <th>Nama Lengkap</th>
+                <th>Username</th>
+                <th>Email</th>
             </tr>
-        </table>
+        </thead>
+        <tbody>
+            @if(isset($accounts) && count($accounts) > 0)
+                @foreach($accounts as $account)
+                    <tr>
+                        <td>{{ $account->role }}</td>
+                        <td>{{ $account->gender }}</td>
+                        <td>{{ $account->nama_lengkap }}</td>
+                        <td>{{ $account->username }}</td>
+                        <td>{{ $account->email }}</td>
+                    </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td colspan="5" style="text-align: center;">Tidak ada data akun yang ditemukan.</td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
+</div>
 
-        <!-- Tombol kembali -->
-    </div>
+
             `;
         }
 

@@ -29,11 +29,13 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('accounts'));
     }
 
-    public function dashboard()
-    {
-        $attendances = Attendance::with('user')->get(); // Data kehadiran dengan relasi user
-        $laporanKegiatan = LaporanKegiatan::with('user')->get(); // Data laporan kegiatan
+   public function dashboard()
+{
+    $attendances = Attendance::with('user')->get(); // Data kehadiran dengan relasi user
+    $laporanKegiatan = LaporanKegiatan::with('user')->get(); // Data laporan kegiatan
+    $accounts = Akun::all(); // Data akun
 
-        return view('admin.dashboard', compact('attendances', 'laporanKegiatan'));
-    }
+    return view('admin.dashboard', compact('attendances', 'laporanKegiatan', 'accounts'));
+}
+
 }

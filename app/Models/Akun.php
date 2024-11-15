@@ -1,7 +1,5 @@
 <?php
 
-/// app/Models/Akun.php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,8 +11,15 @@ class Akun extends Model
 
     protected $table = 'akun'; // Tentukan nama tabel secara manual
 
-    // Tambahkan atribut lain yang diperlukan, seperti fillable, dll.
-    
+    // Tentukan kolom-kolom yang dapat diisi secara massal
+    protected $fillable = [
+        'nama_lengkap',
+        'username',
+        'password',
+        'email',
+        'role',
+        'gender'
+    ];
+
+    // Tambahkan relasi jika diperlukan
 }
-
-
