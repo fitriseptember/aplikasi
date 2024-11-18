@@ -31,7 +31,7 @@
             min-width: 250px;
             padding: 20px;
             border-radius: 8px;
-            color: white;
+            color: #333;
             font-size: 1.2em;
         }
 
@@ -43,11 +43,12 @@
             background-color: #9b59b6;
         }
 
-        /* Styling for the tables */
+        /* Styling untuk tabel */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            font-size: 16px;
         }
 
         th,
@@ -58,12 +59,26 @@
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: #007BFF;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
         }
 
         .chart-container {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr; /* Sesuaikan dengan jumlah chart */
             gap: 20px;
         }
 
@@ -72,16 +87,21 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .chart h3 {
             margin-bottom: 20px;
             font-size: 1.2em;
             color: #333;
+            text-align: center;
         }
 
         .chart canvas {
-            max-width: 100%;
+            width: 100% !important;
+            height: 300px !important; /* Tetapkan tinggi yang konsisten */
         }
 
         @media (max-width: 768px) {
@@ -91,6 +111,10 @@
 
             .chart-container {
                 grid-template-columns: 1fr;
+            }
+
+            .chart canvas {
+                height: 250px !important; /* Sesuaikan tinggi untuk layar kecil */
             }
         }
     </style>
@@ -103,7 +127,6 @@
             <div class="card blue">
                 <h2>Laporan Sudah di-ACC</h2>
                 <table id="accReportsTable">
-                    <!-- Dynamic Table for Approved Reports -->
                     <thead>
                         <tr>
                             <th>Nama Laporan</th>
@@ -112,7 +135,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Example rows that will be updated dynamically -->
                         <tr>
                             <td>Laporan A</td>
                             <td>01 Nov 2024</td>
@@ -125,7 +147,6 @@
             <div class="card purple">
                 <h2>Laporan Belum di-ACC</h2>
                 <table id="pendingReportsTable">
-                    <!-- Dynamic Table for Pending Reports -->
                     <thead>
                         <tr>
                             <th>Nama Laporan</th>
@@ -134,7 +155,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Example rows that will be updated dynamically -->
                         <tr>
                             <td>Laporan B</td>
                             <td>02 Nov 2024</td>
@@ -161,7 +181,6 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Grafik Kunjungan Situs Harian
         const visitCtx = document.getElementById('visitChart').getContext('2d');
         const visitChart = new Chart(visitCtx, {
             type: 'bar',
@@ -175,34 +194,33 @@
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false, /* Agar bisa mengatur tinggi secara manual */
                 plugins: {
                     legend: { display: false },
                 }
             }
         });
 
-        // Grafik Persentase Kehadiran Siswa
         const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
         const attendanceChart = new Chart(attendanceCtx, {
             type: 'doughnut',
             data: {
                 labels: ['Hadir', 'Tidak Hadir'],
                 datasets: [{
-                    data: [75, 25], // 75% hadir, 25% tidak hadir
+                    data: [75, 25],
                     backgroundColor: ['#2ecc71', '#e74c3c'],
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false, /* Agar bisa mengatur tinggi secara manual */
                 plugins: {
                     legend: { position: 'bottom' },
                 }
             }
         });
 
-        // Simulating dynamic data updates for tables
         setTimeout(() => {
-            // Simulate dynamic data for Laporan Sudah di-ACC
             const accReports = [
                 { name: 'Laporan A', date: '01 Nov 2024', status: 'Disetujui' },
                 { name: 'Laporan C', date: '03 Nov 2024', status: 'Disetujui' }
@@ -213,20 +231,20 @@
                 { name: 'Laporan D', date: '04 Nov 2024', status: 'Menunggu' }
             ];
 
-            // Update the "Laporan Sudah di-ACC" table dynamically
             const accTableBody = document.getElementById('accReportsTable').getElementsByTagName('tbody')[0];
+            accTableBody.innerHTML = ''; // Clear existing rows
             accReports.forEach(report => {
                 const row = accTableBody.insertRow();
                 row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
             });
 
-            // Update the "Laporan Belum di-ACC" table dynamically
             const pendingTableBody = document.getElementById('pendingReportsTable').getElementsByTagName('tbody')[0];
+            pendingTableBody.innerHTML = ''; // Clear existing rows
             pendingReports.forEach(report => {
                 const row = pendingTableBody.insertRow();
                 row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
             });
-        }, 2000); // Simulate data update after 2 seconds
+        }, 2000);
     </script>
 </body>
 

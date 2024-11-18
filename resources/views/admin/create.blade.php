@@ -6,37 +6,47 @@
     <title>Tambah Akun</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(120deg, #a8d8ea, #ffffff); /* Gradiasi pastel biru */
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: 90%;
             margin: 0;
         }
         .container {
-            background-color: #ffffff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
+        background-color: #ffffff;
+        padding: 20px 25px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        max-width: 400px; /* Ukuran kolom tetap kecil */
+        width: 70%;
+        margin: auto; /* Pusatkan secara vertikal dan horizontal */
+        text-align: center;
+        height: 90%; /* Hilangkan nilai tetap untuk tinggi */
+        box-sizing: border-box;
         }
+
+
         h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #333;
             margin-bottom: 20px;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
             font-weight: bold;
         }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+
         input[type="text"],
         input[type="password"],
         input[type="email"],
@@ -45,34 +55,56 @@
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 8px;
             box-sizing: border-box;
+            font-size: 14px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
         }
-        button[type="submit"],
-        .back-button {
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            border-color: #a8d8ea;
+            background-color: #ffffff;
+            outline: none;
+            box-shadow: 0 0 6px rgba(168, 216, 234, 0.5);
+        }
+
+        button[type="submit"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
+            background-color: #28a745;
             color: #fff;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
-            display: block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        button[type="submit"] {
-            background-color: #28a745;
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+            transform: scale(1.02);
         }
-        .back-button {
-            background-color: #007bff;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
+
         .error-message {
             color: #e74c3c;
             font-size: 14px;
-            margin-top: 5px;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -128,7 +160,6 @@
             </div>
 
             <button type="submit">Tambah Akun</button>
-            <a href="{{ route('admin.list') }}" class="back-button">Kembali</a>
         </form>
     </div>
 </body>
