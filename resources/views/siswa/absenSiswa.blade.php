@@ -27,7 +27,7 @@
             text-align: center;
             margin-bottom: 20px;
             font-size: 2.5em;
-            color: #4a90e2;
+            color: #695CFE;
         }
 
         .form-group {
@@ -39,7 +39,7 @@
             margin-bottom: 8px;
             font-weight: bold;
             font-size: 1.2em;
-            color: #4a90e2;
+            color: #695CFE;
         }
 
         input[type="text"],
@@ -47,14 +47,14 @@
             width: 100%;
             padding: 15px;
             margin-bottom: 10px;
-            border: 1px solid #4a90e2;
+            border: 1px solid #695CFE;
             border-radius: 4px;
             font-size: 1.1em;
             transition: border-color 0.3s;
         }
 
         input[type="text"]:focus {
-            border-color: #4a90e2;
+            border-color: #695CFE;
             outline: none;
         }
 
@@ -62,7 +62,7 @@
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #4a90e2;
+            background-color: #695CFE;
             color: white;
             border: none;
             border-radius: 4px;
@@ -72,7 +72,7 @@
         }
 
         .btn-submit:hover {
-            background-color: #357ABD;
+            background-color: #8881d4;
         }
 
         .status-table {
@@ -130,8 +130,13 @@
 </head>
 
 <body>
+    @extends('siswa.dashboard')
+
+@section('title', 'Absensi Siswa')
+
+@section('content')
     <div class="container">
-        <h1>Form Absensi</h1>
+        <h1>Absen Siswa</h1>
         <form action="{{ route('absen.store') }}" method="POST">
             <div class="form-group">
                 <label for="tanggal">Tanggal</label>
@@ -186,6 +191,7 @@
         // Mengisi tanggal otomatis
         document.getElementById('tanggal').value = new Date().toISOString().split('T')[0];
     </script>
+    @endsection
 </body>
 
 </html>

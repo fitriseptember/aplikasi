@@ -10,14 +10,14 @@ class AkunController extends Controller
     // Menampilkan form untuk menambah akun
     public function create()
     {
-        return view('admin.dashboard'); // Ganti dengan view yang sesuai jika ini bukan untuk dashboard
+        return view('admin.create'); // Ganti dengan view yang sesuai jika ini bukan untuk dashboard
     }
 
     // Menampilkan daftar akun
    public function index()
 {
     $accounts = DB::table('akun')->get();
-    return view('admin.dashboard', compact('accounts'));
+    return view('admin.list', compact('accounts'));
 }
 
 
@@ -47,6 +47,6 @@ class AkunController extends Controller
         ]);
 
         // Redirect ke daftar akun dengan pesan sukses
-        return redirect()->route('admin.dashboard')->with('success', 'Akun berhasil ditambahkan!');
+        return redirect()->route('admin.list')->with('success', 'Akun berhasil ditambahkan!');
     }
 }

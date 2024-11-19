@@ -39,7 +39,7 @@
             }
 
             #attendanceTable th {
-                background-color: #3498db;
+                background-color: #695CFE;
                 color: #ffffff;
                 text-transform: uppercase;
                 font-weight: bold;
@@ -84,8 +84,11 @@
         </style>
 </head>
 <body>
-    function showAbsensi() {
-    document.getElementById('mainContent').innerHTML = `
+     @extends('guru.dashboard')
+
+@section('title', 'Absensi Siswa')
+
+@section('content')
     <div class="body">
         <h1>Data Absen Siswa</h1>
 
@@ -120,6 +123,6 @@
 
     `;
     }
-
+ @endsection
 </body>
 </html>

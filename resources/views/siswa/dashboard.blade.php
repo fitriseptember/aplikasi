@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
-    <title>Sidebar Menu</title>
+    <title>@yield('title', 'Dashboard')</title>
+
 </head>
 
 <body>
@@ -21,7 +22,7 @@
                     <span class="profession">Web Developer</span>
                 </div>
             </div>
-            <i class='bx bx-chevron-right toggle'></i>
+            <i class='bx bx-chevron-right toggle'></i> <!-- Button to toggle sidebar -->
         </header>
 
         <div class="menu-bar">
@@ -29,14 +30,14 @@
                 <i class='bx bx-search icon'></i>
                 <input type="search" placeholder="Search...">
             </li>
-
             <ul class="menu-links">
                 <li class="nav-link">
-                    <a href="#">
+                    <a href="{{ route('siswa.content') }}">
                         <i class='bx bx-home-alt icon'></i>
                         <span class="text nav-text">Dashboard</span>
                     </a>
                 </li>
+
                 <li class="nav-link">
                     <a href="#">
                         <i class='bx bx-user icon'></i>
@@ -44,13 +45,13 @@
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="#">
+                    <a href="{{ route('siswa.absensi') }}">
                         <i class='bx bx-calendar-check icon'></i>
                         <span class="text nav-text">Absensi Siswa</span>
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="#">
+                    <a href="{{ route('siswa.laporan') }}">
                         <i class='bx bx-file icon'></i>
                         <span class="text nav-text">Laporan Siswa</span>
                     </a>
@@ -58,7 +59,7 @@
             </ul>
 
             <div class="bottom-content">
-                <li class="">
+                <li>
                     <a href="#">
                         <i class='bx bx-log-out icon'></i>
                         <span class="text nav-text">Logout</span>
@@ -69,10 +70,20 @@
     </nav>
 
     <section class="home">
-        <h1>Welcome to Sidebar Menu</h1>
+        @yield('content') <!-- Tempat untuk menampilkan konten halaman lainnya -->
     </section>
 
-    <script src="script.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+    <script>
+        // JavaScript to toggle the sidebar visibility
+        const toggleButton = document.querySelector('.toggle');  // Button to toggle sidebar
+        const sidebar = document.querySelector('.sidebar');  // Sidebar element
+
+        toggleButton.addEventListener('click', () => {
+            // Toggle the 'closed' class to show/hide the sidebar
+            sidebar.classList.toggle('closed');
+        });
+    </script>
 </body>
 
 </html>

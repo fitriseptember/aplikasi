@@ -121,7 +121,7 @@
 </head>
 
 <body>
-     @extends('siswa.dashboard')
+     @extends('guru.dashboard')
 
 @section('title', 'Absensi Siswa')
 

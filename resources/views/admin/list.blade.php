@@ -55,7 +55,7 @@
         }
 
         th {
-            background-color: #007BFF;
+            background-color: #695CFE;
             color: #ffffff;
             text-transform: uppercase;
         }
@@ -94,6 +94,11 @@
     </style>
 </head>
 <body>
+     @extends('admin.dashboard')
+
+@section('title', 'Absensi Siswa')
+
+@section('content')
     <div class="container">
         <h1>Daftar Akun</h1>
         @if(session('success'))
@@ -126,5 +131,6 @@
             </tbody>
         </table>
     </div>
+     @endsection
 </body>
 </html>

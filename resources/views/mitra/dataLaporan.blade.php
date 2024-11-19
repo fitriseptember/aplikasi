@@ -16,7 +16,7 @@
         min-height: 100vh;
         padding: 20px;
     }
-    
+
     .body {
         width: 90%;
         max-width: 1200px;
@@ -25,7 +25,7 @@
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
-    
+
     h1 {
         font-size: 24px;
         color: #333;
@@ -33,75 +33,80 @@
         margin-bottom: 20px;
         font-weight: bold;
     }
-    
+
     #laporanTable {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    
+
     #laporanTable th, #laporanTable td {
         border: 1px solid #ddd;
         padding: 10px;
         text-align: left;
         vertical-align: middle;
     }
-    
+
     #laporanTable th {
-        background-color: #4a90e2; /* Warna header */
+        background-color: #695CFE; /* Warna header */
         color: white;
         text-transform: uppercase;
         font-size: 14px;
         letter-spacing: 0.5px;
     }
-    
+
     #laporanTable tbody tr:nth-child(even) {
         background-color: #f9f9f9;
     }
-    
+
     #laporanTable tbody tr:hover {
         background-color: #f1f1f1;
     }
-    
+
     #laporanTable img {
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         max-width: 150px;
     }
-    
+
     td {
         font-size: 14px;
         color: #555;
     }
-    
+
     td[colspan="5"] {
         text-align: center;
         font-style: italic;
         color: #888;
     }
-    
+
     /* Responsif */
     @media (max-width: 768px) {
         .body {
             padding: 15px;
         }
-    
+
         #laporanTable th, #laporanTable td {
             font-size: 12px;
             padding: 8px;
         }
-    
+
         h1 {
             font-size: 20px;
         }
-    }   
+    }
     </style>
 </head>
 <body>
+     @extends('mitra.dashboard')
+
+@section('title', 'Absensi Siswa')
+
+@section('content')
     <div class="body">
         <h1>Data Laporan Kegiatan Siswa</h1>
-    
+
         <table id="laporanTable">
             <thead>
                 <tr>
@@ -127,7 +132,7 @@
             Tidak ada foto
         @endif
     </td>
-    
+
                         </tr>
                     @endforeach
                 @else
@@ -138,5 +143,6 @@
             </tbody>
         </table>
         </div>
+          @endsection
 </body>
 </html>

@@ -42,7 +42,7 @@ table {
 
 /* Gaya untuk header tabel */
 thead th {
-    background-color: #007BFF;
+    background-color: #695CFE;
     color: #ffffff;
     text-align: left;
     padding: 10px;
@@ -93,9 +93,14 @@ tbody tr:hover {
     </style>
 </head>
 <body>
+     @extends('admin.dashboard')
+
+@section('title', 'Absensi Siswa')
+
+@section('content')
     <div class="body">
         <h1>Data Absen Siswa</h1>
-    
+
         <table id="attendanceTable">
             <thead>
                 <tr>
@@ -123,5 +128,6 @@ tbody tr:hover {
             </tbody>
         </table>
     </div>
+     @endsection
 </body>
 </html>

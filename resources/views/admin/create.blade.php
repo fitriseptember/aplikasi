@@ -5,110 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Akun</title>
     <style>
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(120deg, #a8d8ea, #ffffff); /* Gradiasi pastel biru */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 90%;
-            margin: 0;
-        }
-        .container {
-        background-color: #ffffff;
-        padding: 20px 25px;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        max-width: 400px; /* Ukuran kolom tetap kecil */
-        width: 70%;
-        margin: auto; /* Pusatkan secara vertikal dan horizontal */
-        text-align: center;
-        height: 90%; /* Hilangkan nilai tetap untuk tinggi */
-        box-sizing: border-box;
-        }
+       body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: linear-gradient(120deg, #a8d8ea, #ffffff); /* Gradiasi pastel biru */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90%;
+    margin: 0;
+}
 
 
-        h1 {
-            font-size: 22px;
-            color: #333;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 15px;  /* Reduced padding */
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
 
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
+h1 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px; /* Reduced margin-bottom */
+    font-weight: bold;
+    text-align: center; /* Center the title */
+}
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 600;
-        }
 
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 14px;
-            background-color: #f9f9f9;
-            transition: all 0.3s ease;
-        }
+.form-group {
+    margin-bottom: 12px; /* Reduced margin-bottom */
+    text-align: left;
+}
 
-        input[type="text"]:focus,
-        input[type="password"]:focus,
-        input[type="email"]:focus,
-        select:focus {
-            border-color: #a8d8ea;
-            background-color: #ffffff;
-            outline: none;
-            box-shadow: 0 0 6px rgba(168, 216, 234, 0.5);
-        }
+label {
+    display: block;
+    margin-bottom: 5px;  /* Reduced margin-bottom */
+    color: #555;
+    font-weight: 600;
+}
 
-        button[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background-color: #28a745;
-            color: #fff;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 8px;  /* Reduced padding */
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
 
-        button[type="submit"]:hover {
-            background-color: #218838;
-            transform: scale(1.02);
-        }
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus {
+    border-color: #a8d8ea;
+    background-color: #ffffff;
+    outline: none;
+    box-shadow: 0 0 6px rgba(168, 216, 234, 0.5);
+}
 
-        .error-message {
-            color: #e74c3c;
-            font-size: 14px;
-            margin: 15px 0;
-            text-align: left;
-        }
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;  /* Reduced padding */
+    border: none;
+    border-radius: 8px;
+    background-color:   #695CFE;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
+button[type="submit"]:hover {
+    background-color: #3db3d1;
+    transform: scale(1.02);
+}
 
-            h1 {
-                font-size: 18px;
-            }
-        }
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin: 12px 0;  /* Reduced margin */
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+}
+
     </style>
 </head>
 <body>
+     @extends('admin.dashboard')
+
+@section('title', 'Absensi Siswa')
+
+@section('content')
     <div class="container">
         <h1>Tambah Akun</h1>
         @if ($errors->any())
@@ -120,7 +125,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('akun.store') }}" method="POST">
+        <form action="{{ route('admin.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="nama">Nama Lengkap:</label>
@@ -162,5 +167,6 @@
             <button type="submit">Tambah Akun</button>
         </form>
     </div>
+     @endsection
 </body>
 </html>

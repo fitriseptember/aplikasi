@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
     <title>Dashboard Guru</title>
 </head>
@@ -32,7 +32,7 @@
 
             <ul class="menu-links">
                 <li class="nav-link">
-                    <a href="#">
+                    <a href="{{ route('guru.content') }}">
                         <i class='bx bx-home-alt icon'></i>
                         <span class="text nav-text">Dashboard</span>
                     </a>
@@ -44,15 +44,21 @@
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="#">
-                        <i class='bx bx-calendar-check icon'></i>
-                        <span class="text nav-text">Absensi</span>
+                     <a href="{{ route('guru.dataAbsen') }}">
+                        <i class='bx bx-user icon'></i>
+                        <span class="text nav-text">Data Absen</span>
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="#">
-                        <i class='bx bx-file icon'></i>
+                     <a href="{{ route('guru.datadaftarsiswa') }}">
+                        <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Daftar Siswa</span>
+                    </a>
+                </li>
+                <li class="nav-link">
+                     <a href="{{ route('guru.dataLaporan') }}">
+                        <i class='bx bx-user icon'></i>
+                        <span class="text nav-text">Data Laporan Kegiatan</span>
                     </a>
                 </li>
             </ul>
@@ -69,10 +75,20 @@
     </nav>
 
     <section class="home">
-        <h1>Welcome to Sidebar Menu</h1>
+        @yield('content')
     </section>
 
     <script src="script.js"></script>
+     <script>
+        // JavaScript to toggle the sidebar visibility
+        const toggleButton = document.querySelector('.toggle');  // Button to toggle sidebar
+        const sidebar = document.querySelector('.sidebar');  // Sidebar element
+
+        toggleButton.addEventListener('click', () => {
+            // Toggle the 'closed' class to show/hide the sidebar
+            sidebar.classList.toggle('closed');
+        });
+    </script>
 </body>
 
 </html>

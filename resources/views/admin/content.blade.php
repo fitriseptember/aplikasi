@@ -36,7 +36,7 @@
         }
 
         .blue {
-            background-color: #695CFE;
+            background-color: #4a90e2;
         }
 
         .purple {
@@ -59,7 +59,7 @@
         }
 
         th {
-            background-color: #695CFE;
+            background-color: #007BFF;
             color: #ffffff;
             text-transform: uppercase;
         }
@@ -121,7 +121,7 @@
 </head>
 
 <body>
-     @extends('siswa.dashboard')
+     @extends('admin.dashboard')
 
 @section('title', 'Absensi Siswa')
 
@@ -251,7 +251,7 @@
             });
         }, 2000);
     </script>
-        @endsection
+     @endsection
 </body>
 
 </html>

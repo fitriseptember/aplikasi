@@ -81,7 +81,7 @@
             width: 100%;
             padding: 15px;
             /* Memperbesar padding tombol */
-            background-color: #4a90e2;
+            background-color: #695CFE;
             color: white;
             font-weight: bold;
             border: none;
@@ -95,7 +95,7 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #357ABD;
+            background-color: #695CFE;
         }
 
         /* Footer Styling */
@@ -130,6 +130,11 @@
 </head>
 
 <body>
+    @extends('siswa.dashboard')
+
+@section('title', 'Absensi Siswa')
+
+@section('content')
     <main>
         <div class="container">
             <h1>Laporan Kegiatan PKL</h1>
@@ -163,6 +168,7 @@
             dateInput.value = today;
         });
     </script>
+     @endsection
 </body>
 
 </html>

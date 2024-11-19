@@ -36,7 +36,7 @@
         }
 
         .blue {
-            background-color: #695CFE;
+            background-color: #4a90e2;
         }
 
         .purple {
@@ -59,7 +59,7 @@
         }
 
         th {
-            background-color: #695CFE;
+            background-color: #007BFF;
             color: #ffffff;
             text-transform: uppercase;
         }
@@ -121,7 +121,7 @@
 </head>
 
 <body>
-     @extends('siswa.dashboard')
+     @extends('mitra.dashboard')
 
 @section('title', 'Absensi Siswa')
 
@@ -240,18 +240,18 @@
             accTableBody.innerHTML = ''; // Clear existing rows
             accReports.forEach(report => {
                 const row = accTableBody.insertRow();
-                row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
+                row.innerHTML = <td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>;
             });
 
             const pendingTableBody = document.getElementById('pendingReportsTable').getElementsByTagName('tbody')[0];
             pendingTableBody.innerHTML = ''; // Clear existing rows
             pendingReports.forEach(report => {
                 const row = pendingTableBody.insertRow();
-                row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
+                row.innerHTML = <td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>;
             });
         }, 2000);
     </script>
-        @endsection
+      @endsection
 </body>
 
 </html>
