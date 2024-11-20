@@ -93,15 +93,15 @@ tbody tr:hover {
     </style>
 </head>
 <body>
-     @extends('mitra.dashboard')
+   @extends('mitra.dashboard') {{-- Ganti dengan layout mitra jika menggunakan layout khusus per mitra --}}
 
 @section('title', 'Absensi Siswa')
 
 @section('content')
     <div class="body">
-        <h1>Data Absen Siswa</h1>
+        <h1>Data Absen Siswa (Mitra)</h1>
 
-        <table id="attendanceTable">
+        <table id="attendanceTable" border="1">
             <thead>
                 <tr>
                     <th>No</th>
@@ -116,7 +116,7 @@ tbody tr:hover {
                         <tr>
                             <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
                             <td>{{ $attendance->tanggal }}</td>
-                            <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Tampilkan nama lengkap atau "Unknown" --}}
+                            <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama lengkap siswa --}}
                             <td>{{ $attendance->status }}</td>
                         </tr>
                     @endforeach
@@ -128,6 +128,7 @@ tbody tr:hover {
             </tbody>
         </table>
     </div>
-     @endsection
+@endsection
+
 </body>
 </html>

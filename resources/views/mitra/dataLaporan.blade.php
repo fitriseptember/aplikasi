@@ -99,7 +99,7 @@
     </style>
 </head>
 <body>
-     @extends('mitra.dashboard')
+      @extends('mitra.dashboard')
 
 @section('title', 'Absensi Siswa')
 
@@ -123,16 +123,15 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
                             <td>{{ $laporan->tanggal }}</td>
-                            <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama siswa dari relasi user --}}
+                            <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama lengkap siswa --}}
                             <td>{{ $laporan->deskripsi }}</td>
-                           <td>
-        @if ($laporan->foto_kegiatan)
-            <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="150">
-        @else
-            Tidak ada foto
-        @endif
-    </td>
-
+                            <td>
+                                @if ($laporan->foto_kegiatan)
+                                    <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100">
+                                @else
+                                    Tidak ada foto
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 @else
@@ -142,7 +141,7 @@
                 @endif
             </tbody>
         </table>
-        </div>
-          @endsection
+    </div>
+     @endsection
 </body>
 </html>

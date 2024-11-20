@@ -84,7 +84,9 @@
         </style>
 </head>
 <body>
-     @extends('guru.dashboard')
+ <!-- resources/views/admin/dataAbsen.blade.php -->
+
+@extends('guru.dashboard')
 
 @section('title', 'Absensi Siswa')
 
@@ -92,7 +94,7 @@
     <div class="body">
         <h1>Data Absen Siswa</h1>
 
-        <table id="attendanceTable">
+        <table id="attendanceTable" border="1">
             <thead>
                 <tr>
                     <th>No</th>
@@ -103,26 +105,23 @@
             </thead>
             <tbody>
                 @if(isset($attendances) && count($attendances) > 0)
-                @foreach($attendances as $attendance)
-                <tr>
-                    <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
-                    <td>{{ $attendance->tanggal }}</td>
-                    <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Tampilkan nama lengkap atau "Unknown"
-                    --}}
-                    <td>{{ $attendance->status }}</td>
-                </tr>
-                @endforeach
+                    @foreach($attendances as $attendance)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
+                            <td>{{ $attendance->tanggal }}</td>
+                            <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama lengkap siswa --}}
+                            <td>{{ $attendance->status }}</td>
+                        </tr>
+                    @endforeach
                 @else
-                <tr>
-                    <td colspan="4">Data absensi tidak tersedia.</td>
-                </tr>
+                    <tr>
+                        <td colspan="4">Data absensi tidak tersedia.</td>
+                    </tr>
                 @endif
             </tbody>
         </table>
     </div>
+@endsection
 
-    `;
-    }
- @endsection
 </body>
 </html>

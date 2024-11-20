@@ -11,11 +11,28 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LaporanKegiatanController;
 
 
-// routes/web.php
-// Route untuk halaman Absen Siswa
-Route::get('/siswa/absensi', function () {
-    return view('siswa.absenSiswa'); // Menampilkan file siswa/absenSiswa.blade.php
-})->name('siswa.absensi');
+
+// Route untuk halaman absen
+Route::get('/siswa/absensi', [AttendanceController::class, 'index'])->name('siswa.absensi');
+
+// Route untuk menyimpan data absensi
+Route::post('/siswa/absensi', [AttendanceController::class, 'store'])->name('absen.store');
+
+Route::get('/attendance/create', [AttendanceController::class, 'create'])->name('attendance.create');
+Route::post('/attendance/store', [AttendanceController::class, 'store'])->name('attendance.store');
+
+
+
+// Route untuk menampilkan form laporan kegiatan (PKL)
+Route::get('/siswa/laporan/create', [LaporanKegiatanController::class, 'create'])->name('laporan.create');
+
+// Route untuk menyimpan laporan kegiatan (PKL)
+Route::post('/siswa/laporan/store', [LaporanKegiatanController::class, 'store'])->name('laporan.store');
+
+// Route untuk menampilkan daftar laporan kegiatan yang sudah dikirim
+Route::get('/siswa/laporan', [LaporanKegiatanController::class, 'index'])->name('laporan.index');
+
+
 
 // Route untuk halaman Laporan Siswa
 Route::get('/siswa/laporan', function () {
@@ -42,15 +59,14 @@ Route::get('/admin/list', [AkunController::class, 'index'])->name('admin.list');
 // Route untuk menyimpan akun baru
 Route::post('/admin/store', [AkunController::class, 'store'])->name('admin.store');
 
+
+
 // Route untuk halaman Absensi Siswa Admin
-Route::get('/admin/tabelAbsen', function () {
-    return view('admin.dataAbsen'); // Menampilkan file admin/tabelAbsen.blade.php
-})->name('admin.dataAbsen');
+Route::get('/admin/tabelAbsen', [AdminController::class, 'tabelAbsen'])->name('admin.dataAbsen');
 
 // Route untuk halaman Laporan Siswa Admin
-Route::get('/admin/tabelLaporan', function () {
-    return view('admin.dataLaporan'); // Menampilkan file admin/tabelLaporan.blade.php
-})->name('admin.dataLaporan');
+Route::get('/admin/dataLaporan', [AdminController::class, 'laporanKegiatan'])->name('admin.dataLaporan');
+
 
 
 
@@ -60,15 +76,10 @@ Route::get('/mitra/content', function () {
 })->name('mitra.content');
 
 // Route untuk halaman Data Absen Mitra
-Route::get('/mitra/dataAbsen', function () {
-    return view('mitra.dataAbsen'); // Menampilkan file mitra/dataAbsen.blade.php
-})->name('mitra.dataAbsen');
+Route::get('/mitra/tabelAbsen', [MitraController::class, 'tabelAbsen'])->name('mitra.dataAbsen');
 
 // Route untuk halaman Data Laporan Kegiatan Mitra
-Route::get('/mitra/datalaporan', function () {
-    return view('mitra.dataLaporan'); // Menampilkan file mitra/dataLaporan.blade.php
-})->name('mitra.datalaporan');
-
+Route::get('/mitra/dataLaporan', [MitraController::class, 'laporanKegiatan'])->name('mitra.datalaporan');
 
 // Route untuk halaman Dashboard Guru
 Route::get('/guru/content', function () {
@@ -81,19 +92,16 @@ Route::get('/guru/profil', function () {
 })->name('guru.profil');
 
 // Route untuk halaman Data Absen Guru
-Route::get('/guru/dataAbsen', function () {
-    return view('guru.dataAbsen'); // Menampilkan file guru/dataAbsen.blade.php
-})->name('guru.dataAbsen');
+Route::get('/guru/tabelAbsen', [GuruController::class, 'tabelAbsen'])->name('guru.dataAbsen');
 
 // Route untuk halaman Daftar Siswa Guru
 Route::get('/guru/datadaftarsiswa', function () {
     return view('guru.datadaftarsiswa'); // Menampilkan file guru/dataDaftarSiswa.blade.php
 })->name('guru.datadaftarsiswa');
 
+
 // Route untuk halaman Data Laporan Kegiatan Guru
-Route::get('/guru/datalaporan', function () {
-    return view('guru.dataLaporan'); // Menampilkan file guru/dataLaporan.blade.php
-})->name('guru.dataLaporan');
+Route::get('/guru/dataLaporan', [GuruController::class, 'laporanKegiatan'])->name('guru.dataLaporan');
 
 
 
@@ -118,18 +126,3 @@ Route::get('/guru/dashboard', [GuruController::class, 'dashboard'])->name('guru.
 Route::get('/mitra/dashboard', [MitraController::class, 'dashboard'])->name('mitra.dashboard');
 Route::get('/siswa/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
 
-// Route absensi untuk siswa
-Route::prefix('siswa')->group(function () {
-    Route::get('absen/create', [AttendanceController::class, 'create'])->name('absen.create'); // Menampilkan form absensi
-    Route::post('absen', [AttendanceController::class, 'store'])->name('absen.store'); // Menyimpan data absensi
-    Route::get('absen/latest', [AttendanceController::class, 'showLatest'])->name('absen.showLatest'); // Menampilkan data absensi terbaru
-});
-
-// Route laporan kegiatan PKL
-Route::get('laporan/create', [LaporanKegiatanController::class, 'create'])->name('laporan.create');
-Route::post('laporan/store', [LaporanKegiatanController::class, 'store'])->name('laporan.store');
-
-// Route tambahan untuk laporan di dashboard
-Route::get('/admin/dashboard/laporan', [AdminController::class, 'laporan'])->name('admin.laporan');
-Route::get('/guru/dashboard/laporan', [GuruController::class, 'laporan'])->name('guru.laporan');
-Route::get('/mitra/dashboard/laporan', [MitraController::class, 'laporan'])->name('mitra.laporan');

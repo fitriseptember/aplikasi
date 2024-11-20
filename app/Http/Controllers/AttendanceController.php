@@ -12,7 +12,7 @@ class AttendanceController extends Controller
     // Menampilkan form absensi
     public function create()
     {
-        return view('siswa.dashboard');
+        return view('siswa.absenSiswa');
     }
 
    public function store(Request $request)
@@ -40,7 +40,7 @@ class AttendanceController extends Controller
     $attendances = Attendance::where('user_id', session('user_data')->id)->get();
 
     // Tampilkan dashboard dengan data absensi
-    return view('siswa.dashboard', compact('attendances'));
+    return view('siswa.absenSiswa', compact('attendances'));
 
 
     }

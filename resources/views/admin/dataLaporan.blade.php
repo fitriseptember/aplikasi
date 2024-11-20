@@ -132,7 +132,7 @@ tbody tr:hover {
                         <tr>
                             <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
                             <td>{{ $laporan->tanggal }}</td>
-                            <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama siswa dari relasi user --}}
+                            <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama lengkap siswa --}}
                             <td>{{ $laporan->deskripsi }}</td>
                             <td>
                                 @if ($laporan->foto_kegiatan)

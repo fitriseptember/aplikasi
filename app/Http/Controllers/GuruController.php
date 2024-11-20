@@ -4,38 +4,31 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Attendance;
-use App\Models\LaporanKegiatan;
+use App\Models\Siswa;  // Mengimpor model Siswa
+use App\Models\LaporanKegiatan; // Tambahkan ini untuk mengimport model
+
 
 class GuruController extends Controller
 {
-    // In GuruController
 
-public function index()
-{
-    $attendances = Attendance::with('user')->get(); // Eager load the user with attendance records
-    return view('guru.dashboard', compact('attendances'));
-}
-
- public function laporan()
+    // Metode dashboard
+    public function dashboard()
     {
-
-        // Mengambil data laporan kegiatan beserta relasi user
-        $laporanKegiatan = LaporanKegiatan::with('user')->get();
-
-        // Mengirim data ke view
-        return view('guru.dashboard', compact('laporanKegiatan'));
+        // Logika untuk mengambil data atau melakukan hal lain yang diperlukan
+        return view('guru.dashboard'); // Ganti dengan view yang sesuai
     }
 
- public function dashboard()
+    public function tabelAbsen()
+    {
+        // Ambil data kehadiran dengan relasi user
+        $attendances = Attendance::with('user')->get(); 
+        return view('guru.dataAbsen', compact('attendances')); // Menampilkan data absen ke tampilan admin.dataAbsen
+    }
+
+     // Metode laporanKegiatan
+    public function laporanKegiatan()
 {
-    // Ambil data absensi siswa dengan relasi user
-    $attendances = Attendance::with('user')->get(); // Pastikan relasi 'user' terdefinisi di model Attendance
-
-    // Ambil data laporan kegiatan
-    $laporanKegiatan = LaporanKegiatan::with('user')->get(); // atau menggunakan model
-
-    // Kirim kedua data ke view 'admin.dashboard'
-    return view('guru.dashboard', compact('attendances', 'laporanKegiatan'));
+    $laporanKegiatan = LaporanKegiatan::with('user')->get(); // Ambil data dengan relasi ke user
+    return view('guru.dataLaporan', compact('laporanKegiatan'));
 }
-
-}
+}         

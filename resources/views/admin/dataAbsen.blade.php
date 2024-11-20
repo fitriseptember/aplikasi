@@ -93,7 +93,7 @@ tbody tr:hover {
     </style>
 </head>
 <body>
-     @extends('admin.dashboard')
+  @extends('admin.dashboard')
 
 @section('title', 'Absensi Siswa')
 
@@ -101,7 +101,7 @@ tbody tr:hover {
     <div class="body">
         <h1>Data Absen Siswa</h1>
 
-        <table id="attendanceTable">
+        <table id="attendanceTable" border="1">
             <thead>
                 <tr>
                     <th>No</th>
@@ -116,7 +116,7 @@ tbody tr:hover {
                         <tr>
                             <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
                             <td>{{ $attendance->tanggal }}</td>
-                            <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Tampilkan nama lengkap atau "Unknown" --}}
+                            <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama lengkap siswa --}}
                             <td>{{ $attendance->status }}</td>
                         </tr>
                     @endforeach
@@ -128,6 +128,7 @@ tbody tr:hover {
             </tbody>
         </table>
     </div>
-     @endsection
+@endsection
+
 </body>
 </html>

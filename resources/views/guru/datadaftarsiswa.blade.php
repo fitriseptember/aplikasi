@@ -91,37 +91,45 @@
 @section('title', 'Absensi Siswa')
 
 @section('content')
-
     <div class="body">
-        <h1>DaftarSiswa</h1>
+        <h1>Data Laporan Kegiatan Siswa</h1>
 
-        <table id="attendanceTable">
+        <table id="laporanTable">
             <thead>
                 <tr>
-                    <th>Nama</th>
-                    <th>Gender</th>
+                    <th>No</th>
+                    <th>Tanggal</th>
+                    <th>Nama Siswa</th>
+                    <th>Deskripsi</th>
+                    <th>Foto Kegiatan</th>
                 </tr>
             </thead>
             <tbody>
-                @if(isset($attendances) && count($attendances) > 0)
-                @foreach($attendances as $attendance)
-                <tr>
-                    <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
-                    <td>{{ $attendance->status }}</td>
-                </tr>
-                @endforeach
+                @if(isset($laporanKegiatan) && count($laporanKegiatan) > 0)
+                    @foreach ($laporanKegiatan as $laporan)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
+                            <td>{{ $laporan->tanggal }}</td>
+                            <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama lengkap siswa --}}
+                            <td>{{ $laporan->deskripsi }}</td>
+                            <td>
+                                @if ($laporan->foto_kegiatan)
+                                    <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100">
+                                @else
+                                    Tidak ada foto
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
                 @else
-                <tr>
-                    <td colspan="4">Daftar Siswa tidak tersedia.</td>
-                </tr>
+                    <tr>
+                        <td colspan="5">Data laporan kegiatan tidak tersedia.</td>
+                    </tr>
                 @endif
             </tbody>
         </table>
     </div>
-
-    `;
-    }
- @endsection
+     @endsection
 </body>
 
 </html>

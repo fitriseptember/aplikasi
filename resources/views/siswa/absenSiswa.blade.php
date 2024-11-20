@@ -138,6 +138,7 @@
     <div class="container">
         <h1>Absen Siswa</h1>
         <form action="{{ route('absen.store') }}" method="POST">
+             @csrf 
             <div class="form-group">
                 <label for="tanggal">Tanggal</label>
                 <input type="date" id="tanggal" name="tanggal" readonly>

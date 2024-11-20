@@ -1,41 +1,32 @@
 <?php
 
-// App\Http\Controllers\AdminController.php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\Attendance;
-use App\Models\LaporanKegiatan;
-use App\Models\Akun; // Pastikan model Akun sudah ada dan bisa diakses
+use App\Models\LaporanKegiatan; // Import model LaporanKegiatan jika belum
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function index()
+    // Metode dashboard
+    public function dashboard()
     {
-        $attendances = Attendance::with('user')->get(); // Ambil data kehadiran dengan relasi user
-        return view('admin.dashboard', compact('attendances'));
+        // Logika untuk dashboard
+        return view('admin.dashboard');
     }
 
-    public function laporan()
+    // Metode tabelAbsen
+    public function tabelAbsen()
     {
-        $laporanKegiatan = LaporanKegiatan::with('user')->get(); // Ambil data laporan dengan relasi user
-        return view('admin.dashboard', compact('laporanKegiatan'));
+        $attendances = Attendance::with('user')->get();
+        return view('admin.dataAbsen', compact('attendances'));
     }
 
-    public function daftar()
-    {
-        $accounts = Akun::all(); // Pastikan menggunakan model Akun, bukan Account
-        return view('admin.dashboard', compact('accounts'));
-    }
-
-   public function dashboard()
+    // Metode laporanKegiatan
+    public function laporanKegiatan()
 {
-    $attendances = Attendance::with('user')->get(); // Data kehadiran dengan relasi user
-    $laporanKegiatan = LaporanKegiatan::with('user')->get(); // Data laporan kegiatan
-    $accounts = Akun::all(); // Data akun
-
-    return view('admin.dashboard', compact('attendances', 'laporanKegiatan', 'accounts'));
+    $laporanKegiatan = LaporanKegiatan::with('user')->get(); // Ambil data dengan relasi ke user
+    return view('admin.dataLaporan', compact('laporanKegiatan'));
 }
 
 }

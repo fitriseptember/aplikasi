@@ -143,8 +143,8 @@
                 <p>Disiplin adalah langkah pertama menuju keberhasilan. Isi laporan harianmu, dan tunjukkan komitmenmu
                     kepada dunia.</p>
             </div>
-            <form id="laporanForm" action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data"
-                class="form-laporan">
+            <form id="laporanForm" action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <label for="tanggal">Tanggal (DD-MM-YYYY):</label>
                 <input type="date" id="tanggal" name="tanggal" required readonly>
 
