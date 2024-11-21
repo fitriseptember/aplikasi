@@ -132,41 +132,48 @@
 <body>
     @extends('siswa.dashboard')
 
-@section('title', 'Absensi Siswa')
+    @section('title', 'Absensi Siswa')
 
-@section('content')
+    @section('content')
     <div class="container">
         <h1>Absen Siswa</h1>
-        <form action="{{ route('absen.store') }}" method="POST">
-             @csrf 
-            <div class="form-group">
-                <label for="tanggal">Tanggal</label>
-                <input type="date" id="tanggal" name="tanggal" readonly>
-            </div>
 
-            <div class="status-table">
-                <p class="status-title">Pilih Status Kehadiran:</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Status</th>
-                            <th>Hadir</th>
-                            <th>Sakit</th>
-                            <th>Izin</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Status Absensi</td>
-                            <td><input type="radio" name="status" value="hadir" required></td>
-                            <td><input type="radio" name="status" value="sakit"></td>
-                            <td><input type="radio" name="status" value="izin"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <button type="submit" class="btn-submit">Kirim Absensi</button>
-        </form>
+        @if($absensiSudahDiisi)
+            <p class="info-box" style="color: green; font-weight: bold; text-align: center;">
+                Anda sudah mengisi absen hari ini. Terima kasih!
+            </p>
+        @else
+            <form action="{{ route('absen.store') }}" method="POST" id="absenForm">
+                @csrf
+                <div class="form-group">
+                    <label for="tanggal">Tanggal</label>
+                    <input type="date" id="tanggal" name="tanggal" readonly>
+                </div>
+
+                <div class="status-table">
+                    <p class="status-title">Pilih Status Kehadiran:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Hadir</th>
+                                <th>Sakit</th>
+                                <th>Izin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Status Absensi</td>
+                                <td><input type="radio" name="status" value="hadir" required></td>
+                                <td><input type="radio" name="status" value="sakit"></td>
+                                <td><input type="radio" name="status" value="izin"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button type="submit" class="btn-submit">Kirim Absensi</button>
+            </form>
+        @endif
 
         <section class="attendance-info">
             <h2>Informasi Kehadiran</h2>
@@ -191,6 +198,16 @@
     <script>
         // Mengisi tanggal otomatis
         document.getElementById('tanggal').value = new Date().toISOString().split('T')[0];
+
+        // Validasi waktu sebelum submit
+        const absenForm = document.getElementById('absenForm');
+        absenForm?.addEventListener('submit', function (event) {
+            const currentHour = new Date().getHours();
+            if (currentHour >= 12) {
+                alert('Batas waktu pengisian absen telah berakhir.');
+                event.preventDefault();
+            }
+        });
     </script>
     @endsection
 </body>

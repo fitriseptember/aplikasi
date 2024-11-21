@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use App\Models\Absen;
 
 class AttendanceController extends Controller
 {
@@ -36,13 +37,30 @@ class AttendanceController extends Controller
 
     public function index()
 {
+     $userId = auth()->id(); // ID pengguna yang sedang login
+    $tanggalHariIni = date('Y-m-d'); // Tanggal hari ini
+
+    // Periksa apakah absensi sudah diisi
+    $absensi = \DB::table('kehadiran')
+        ->where('user_id', $userId)
+        ->where('tanggal', $tanggalHariIni)
+        ->first();
+
+    $absensiSudahDiisi = $absensi !== null;
+
+    return view('siswa.absenSiswa', [
+        'absensiSudahDiisi' => $absensiSudahDiisi,
+        'statusAbsensi' => $absensi->status ?? null, // Kirimkan status absensi jika sudah diisi
+    ]);
+
+
+    
     // Ambil data absensi
     $attendances = Attendance::where('user_id', session('user_data')->id)->get();
 
     // Tampilkan dashboard dengan data absensi
     return view('siswa.absenSiswa', compact('attendances'));
-
-
+    
     }
 
     // Relasi dengan User

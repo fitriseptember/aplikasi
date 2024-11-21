@@ -45,8 +45,7 @@ class AuthController extends Controller
         Auth::loginUsingId($user->id); // Menggunakan ID user untuk autentikasi sesi
         session(['user_data' => $user]);
         Log::info('Authentication successful for user: ' . $user->username);
-
-        // After successful authentication, log the login time
+// After successful authentication, log the login time
         DB::table('login_logs')->insert([
             'username' => $request->username,
             'login_time' => Carbon::now(), // Save the current login time
@@ -72,17 +71,46 @@ class AuthController extends Controller
         Auth::logout(); // Logout user
         return redirect()->route('login'); // Kembali ke halaman login
     }
-
-    public function getLoginData()
+public function getLoginData()
 {
-    // Ambil data login per hari dari database
+    // Ambil username dari session
+    $username = session('user_data')->username ?? null; // Pastikan session user_data memiliki field username
+
+    if (!$username) {
+        // Jika username tidak ditemukan di session, kembalikan respons error
+        return response()->json(['error' => 'User not logged in or session invalid'], 401);
+    }
+
+    // Query untuk mendapatkan data login berdasarkan username
     $data = DB::table('login_logs')
         ->select(DB::raw('DATE(login_time) as date'), DB::raw('COUNT(*) as count'))
-        ->groupBy(DB::raw('DATE(login_time)')) // Kelompokkan berdasarkan tanggal
-        ->orderBy('date', 'asc') // Urutkan berdasarkan tanggal
+        ->where('username', $username) // Filter data hanya untuk akun saat ini
+        ->groupBy(DB::raw('DATE(login_time)'))
+        ->orderBy('date', 'asc')
         ->get();
 
-    // Kirim data dalam format JSON
     return response()->json($data);
 }
+
+public function kunjungan()
+{
+    // Fetch login data grouped by date and username
+    $data = DB::table('login_logs')
+        ->select(
+            DB::raw('DATE(login_time) as date'),
+            DB::raw('COUNT(*) as count'),
+            'username' // Pastikan kolom ini ada di tabel `login_logs`
+        )
+        ->groupBy('username', DB::raw('DATE(login_time)'))
+        ->orderBy('date', 'asc')
+        ->get();
+
+    return response()->json($data);
+}
+
+
+
+
+
+
 }

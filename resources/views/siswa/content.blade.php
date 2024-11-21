@@ -187,44 +187,72 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const visitCtx = document.getElementById('visitChart').getContext('2d');
-        const visitChart = new Chart(visitCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
-                datasets: [{
-                    label: 'Kunjungan',
-                    data: [50, 60, 45, 70, 80, 55, 40],
-                    backgroundColor: '#4a90e2',
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false, /* Agar bisa mengatur tinggi secara manual */
-                plugins: {
-                    legend: { display: false },
-                }
-            }
-        });
 
+    // Create the initial chart with empty data
+    const visitChart = new Chart(visitCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'], // Tetap dalam urutan Minggu - Sabtu
+            datasets: [{
+                label: 'Kunjungan',
+                data: [0, 0, 0, 0, 0, 0, 0], // Data awal kosong
+                backgroundColor: '#4a90e2',
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+            }
+        }
+    });
+
+    // Fetch the login data from the controller
+    fetch('/get-login-data')
+        .then(response => response.json())
+        .then(data => {
+            // Inisialisasi array untuk jumlah kunjungan harian
+            const dailyCounts = [0, 0, 0, 0, 0, 0, 0]; // [Minggu, Senin, ..., Sabtu]
+
+            // Hitung jumlah kunjungan berdasarkan hari
+            data.forEach(item => {
+                const date = new Date(item.date);
+                const dayOfWeek = date.getDay(); // 0: Minggu, ..., 6: Sabtu
+
+                // Tambahkan jumlah kunjungan ke hari yang sesuai
+                dailyCounts[dayOfWeek] += item.count;
+            });
+
+            // Perbarui data grafik
+            visitChart.data.datasets[0].data = dailyCounts;
+            visitChart.update(); // Render ulang grafik
+        })
+        .catch(error => console.error('Error fetching login data:', error));
+       
+       // Mengambil data kehadiran dari backend
+        const attendanceData = @json($kehadiran);
+
+        // Inisialisasi Chart.js untuk menampilkan data
         const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
         const attendanceChart = new Chart(attendanceCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Hadir', 'Tidak Hadir'],
+                labels: Object.keys(attendanceData), // Label status (Hadir, Sakit, Izin, Alpa)
                 datasets: [{
-                    data: [75, 25],
-                    backgroundColor: ['#2ecc71', '#e74c3c'],
+                    data: Object.values(attendanceData), // Data jumlah untuk setiap status
+                    backgroundColor: ['#2ecc71', '#f1c40f', '#3498db', '#e74c3c'], // Warna
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false, /* Agar bisa mengatur tinggi secara manual */
+                maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' },
+                    legend: { position: 'bottom' }, // Letak legenda
                 }
             }
         });
-
+        
         setTimeout(() => {
             const accReports = [
                 { name: 'Laporan A', date: '01 Nov 2024', status: 'Disetujui' },

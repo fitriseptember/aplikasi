@@ -95,17 +95,12 @@ Route::get('/guru/profil', function () {
 Route::get('/guru/tabelAbsen', [GuruController::class, 'tabelAbsen'])->name('guru.dataAbsen');
 
 // Route untuk halaman Daftar Siswa Guru
-Route::get('/guru/datadaftarsiswa', function () {
-    return view('guru.datadaftarsiswa'); // Menampilkan file guru/dataDaftarSiswa.blade.php
-})->name('guru.datadaftarsiswa');
+Route::get('/guru/datadaftarsiswa', [GuruController::class, 'dataDaftarSiswa'])->name('guru.datadaftarsiswa');
+
 
 
 // Route untuk halaman Data Laporan Kegiatan Guru
 Route::get('/guru/dataLaporan', [GuruController::class, 'laporanKegiatan'])->name('guru.dataLaporan');
-
-
-
-
 
 
 // Route ke halaman utama
@@ -116,7 +111,7 @@ Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/data-login', [AuthController::class, 'getLoginData']);
+
 
 
 
@@ -125,4 +120,18 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adm
 Route::get('/guru/dashboard', [GuruController::class, 'dashboard'])->name('guru.dashboard');
 Route::get('/mitra/dashboard', [MitraController::class, 'dashboard'])->name('mitra.dashboard');
 Route::get('/siswa/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
+
+//Route Diagram Kehadiran
+Route::get('/siswa/content', [SiswaController::class, 'content'])->name('siswa.content');
+Route::get('/guru/content', [GuruController::class, 'content'])->name('guru.content');
+Route::get('/mitra/content', [MitraController::class, 'content'])->name('mitra.content');
+Route::get('/admin/content', [AdminController::class, 'content'])->name('admin.content');
+Route::get('/kunjungan', [AuthController::class, 'kunjungan']);
+
+
+
+
+
+
+Route::get('/get-login-data', [AuthController::class, 'getLoginData']);
 

@@ -36,7 +36,7 @@
         }
 
         .blue {
-            background-color: #4a90e2;
+            background-color: #695CFE;
         }
 
         .purple {
@@ -59,7 +59,7 @@
         }
 
         th {
-            background-color: #007BFF;
+            background-color: #695CFE;
             color: #ffffff;
             text-transform: uppercase;
         }
@@ -128,48 +128,7 @@
 @section('content')
     <div class="container">
         <!-- Card Section -->
-        <div class="card-container">
-            <div class="card blue">
-                <h2>Laporan Sudah di-ACC</h2>
-                <table id="accReportsTable">
-                    <thead>
-                        <tr>
-                            <th>Nama Laporan</th>
-                            <th>Tanggal</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Laporan A</td>
-                            <td>01 Nov 2024</td>
-                            <td>Disetujui</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="card purple">
-                <h2>Laporan Belum di-ACC</h2>
-                <table id="pendingReportsTable">
-                    <thead>
-                        <tr>
-                            <th>Nama Laporan</th>
-                            <th>Tanggal</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Laporan B</td>
-                            <td>02 Nov 2024</td>
-                            <td>Menunggu</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
+       
         <!-- Chart Section -->
         <div class="chart-container">
             <div class="chart">
@@ -184,47 +143,81 @@
     </div>
 
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const visitCtx = document.getElementById('visitChart').getContext('2d');
-        const visitChart = new Chart(visitCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
-                datasets: [{
-                    label: 'Kunjungan',
-                    data: [50, 60, 45, 70, 80, 55, 40],
-                    backgroundColor: '#4a90e2',
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false, /* Agar bisa mengatur tinggi secara manual */
-                plugins: {
-                    legend: { display: false },
-                }
-            }
+   <!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const visitCtx = document.getElementById('visitChart').getContext('2d');
+
+// Create the initial chart
+const visitChart = new Chart(visitCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'], // Days of the week
+        datasets: [{
+            label: 'Kunjungan Harian',
+            data: [0, 0, 0, 0, 0, 0, 0], // Initially empty
+            backgroundColor: '#4a90e2',
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: true },
+        },
+        scales: {
+            x: { title: { display: true, text: 'Hari' } },
+            y: { title: { display: true, text: 'Jumlah Login' } },
+        }
+    }
+});
+
+// Fetch the login data from the server
+fetch('/kunjungan') // Sesuaikan rute ini dengan Laravel
+    .then(response => response.json())
+    .then(data => {
+        // Initialize an array for storing daily login counts
+        const dailyCounts = [0, 0, 0, 0, 0, 0, 0]; // Sunday to Saturday
+
+        // Group the data by day of the week
+        data.forEach(item => {
+            const date = new Date(item.date);
+            const dayOfWeek = date.getDay(); // Get day of the week (0: Sunday, ..., 6: Saturday)
+
+            // Increment the count for the corresponding day
+            dailyCounts[dayOfWeek] += item.count;
         });
 
+        // Update the chart with the fetched data
+        visitChart.data.datasets[0].data = dailyCounts;
+        visitChart.update(); // Re-render the chart
+    })
+    .catch(error => console.error('Error fetching login data:', error));
+
+       
+       // Mengambil data kehadiran dari backend
+        const attendanceData = @json($kehadiran);
+
+        // Inisialisasi Chart.js untuk menampilkan data
         const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
         const attendanceChart = new Chart(attendanceCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Hadir', 'Tidak Hadir'],
+                labels: Object.keys(attendanceData), // Label status (Hadir, Sakit, Izin, Alpa)
                 datasets: [{
-                    data: [75, 25],
-                    backgroundColor: ['#2ecc71', '#e74c3c'],
+                    data: Object.values(attendanceData), // Data jumlah untuk setiap status
+                    backgroundColor: ['#2ecc71', '#f1c40f', '#3498db', '#e74c3c'], // Warna
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false, /* Agar bisa mengatur tinggi secara manual */
+                maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' },
+                    legend: { position: 'bottom' }, // Letak legenda
                 }
             }
         });
-
+        
         setTimeout(() => {
             const accReports = [
                 { name: 'Laporan A', date: '01 Nov 2024', status: 'Disetujui' },
@@ -251,7 +244,7 @@
             });
         }, 2000);
     </script>
-     @endsection
+        @endsection
 </body>
 
 </html>
