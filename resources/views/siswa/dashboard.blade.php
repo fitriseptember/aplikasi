@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
     <title>@yield('title', 'Dashboard')</title>
-
 </head>
 
 <body>
@@ -28,7 +27,8 @@
         <div class="menu-bar">
             <li class="search-box">
                 <i class='bx bx-search icon'></i>
-                <input type="search" placeholder="Search...">
+                <!-- Add the 'search-input' ID here -->
+                <input type="search" id="search-input" placeholder="Search...">
             </li>
             <ul class="menu-links">
                 <li class="nav-link">
@@ -59,13 +59,17 @@
             </ul>
 
             <div class="bottom-content">
-                <li>
-                    <a href="#">
+                <li class="">
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class='bx bx-log-out icon'></i>
                         <span class="text nav-text">Logout</span>
                     </a>
                 </li>
             </div>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </div>
     </nav>
 
@@ -82,6 +86,26 @@
         toggleButton.addEventListener('click', () => {
             // Toggle the 'closed' class to show/hide the sidebar
             sidebar.classList.toggle('closed');
+        });
+
+        const searchInput = document.getElementById('search-input'); // Updated to match the ID
+        const menuLinks = document.querySelectorAll('.menu-links .nav-link'); // Select all menu links
+
+        searchInput.addEventListener('input', () => {
+            const filter = searchInput.value.toLowerCase().trim(); // Get the search input value
+            menuLinks.forEach(link => {
+                const text = link.textContent.toLowerCase().trim(); // Get the link text
+                if (text.includes(filter) && filter !== '') {
+                    link.style.display = ''; // Show if matched
+                } else {
+                    link.style.display = 'none'; // Hide if not matched
+                }
+            });
+
+            // If input is empty, show all elements
+            if (filter === '') {
+                menuLinks.forEach(link => link.style.display = '');
+            }
         });
     </script>
 </body>

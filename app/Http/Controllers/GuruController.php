@@ -22,7 +22,7 @@ class GuruController extends Controller
     public function tabelAbsen()
     {
         // Ambil data kehadiran dengan relasi user
-        $attendances = Attendance::with('user')->get(); 
+        $attendances = Attendance::with('user')->get();
         return view('guru.dataAbsen', compact('attendances')); // Menampilkan data absen ke tampilan admin.dataAbsen
     }
 
@@ -66,4 +66,14 @@ class GuruController extends Controller
     // Kirim data ke view siswa.content
     return view('guru.content', compact('kehadiran', 'data'));
 }
-}         
+
+public function search(Request $request)
+{
+    $query = $request->input('query'); // Ambil teks pencarian
+    $results = User::where('name', 'LIKE', "%{$query}%") // Cari berdasarkan nama
+                   ->orWhere('email', 'LIKE', "%{$query}%")
+                   ->get();
+
+    return response()->json($results); // Kembalikan data dalam format JSON
+}
+}

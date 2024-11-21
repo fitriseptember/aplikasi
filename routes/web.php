@@ -110,7 +110,10 @@ Route::get('/login', [HomeController::class, 'login'])->name('login');
 // Route autentikasi
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
 
 
 
@@ -134,4 +137,11 @@ Route::get('/kunjungan', [AuthController::class, 'kunjungan']);
 
 
 Route::get('/get-login-data', [AuthController::class, 'getLoginData']);
+
+
+Route::get('/search', [AdminController::class, 'search'])->name('search');
+Route::get('/search', [GuruController::class, 'search'])->name('search');
+Route::get('/search', [MitraController::class, 'search'])->name('search');
+Route::get('/search', [SiswaController::class, 'search'])->name('search');
+
 

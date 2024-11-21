@@ -1,135 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Siswa</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #e7edfb; /* Latar belakang biru muda */
+    }
 
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 24px;
-            letter-spacing: 1px;
-        }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #ffffff; /* Warna putih */
+        border-radius: 15px; /* Sudut membulat */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Shadow lembut */
+    }
 
-        #attendanceTable {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px auto;
-            background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            border-radius: 8px;
-        }
+    h1 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #4b4b4b; /* Warna teks gelap */
+        margin-bottom: 20px;
+    }
 
-        #attendanceTable th,
-        #attendanceTable td {
-            padding: 12px 15px;
-            text-align: center;
-            border: 1px solid #ddd;
-            font-size: 14px;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 10px; /* Sudut membulat untuk tabel */
+    }
 
-        #attendanceTable th {
-            background-color: #695CFE;
-            color: #ffffff;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
+    table th {
+        background-color: #695CFE; /* Ungu pastel */
+        color: #fff; /* Warna teks putih */
+        text-transform: uppercase; /* Huruf kapital semua */
+        font-size: 14px;
+        padding: 12px;
+        text-align: center;
+    }
 
-        #attendanceTable tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+    table td {
+        background-color: #ffffff; /* Putih */
+        color: #4b4b4b; /* Warna teks gelap */
+        font-size: 14px;
+        padding: 12px;
+        text-align: center;
+    }
 
-        #attendanceTable tr:hover {
-            background-color: #dff9fb;
-        }
+    table tr:nth-child(odd) td {
+        background-color: #f4f4f9; /* Biru muda sangat lembut */
+    }
 
-        #attendanceTable td {
-            color: #2c3e50;
-            font-size: 14px;
-        }
+    table tr:hover td {
+        background-color: #e7e3fc; /* Biru pastel lembut saat hover */
+        cursor: pointer;
+    }
+</style>
 
-        td[colspan="4"] {
-            text-align: center;
-            font-style: italic;
-            color: #7f8c8d;
-            font-size: 16px;
-        }
-
-        #attendanceTable td:last-child {
-            font-weight: bold;
-            color: #27ae60;
-        }
-
-        #attendanceTable td:last-child:contains("Sakit") {
-            color: #e74c3c;
-        }
-
-        #attendanceTable td:last-child:contains("Izin") {
-            color: #f1c40f;
-        }
-
-        #attendanceTable td:last-child:contains("Tidak Hadir") {
-            color: #e74c3c;
-        }
-    </style>
 </head>
-
 <body>
-     @extends('guru.dashboard')
+    @extends('guru.dashboard')
 
-@section('title', 'Absensi Siswa')
+    @section('title', 'Daftar Siswa')
 
-@section('content')
-    <div class="body">
-        <h1>Data Laporan Kegiatan Siswa</h1>
-
-        <table id="laporanTable">
+    @section('content')
+    <div class="container">
+        <h1>Daftar Siswa</h1>
+        <table>
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Tanggal</th>
-                    <th>Nama Siswa</th>
-                    <th>Deskripsi</th>
-                    <th>Foto Kegiatan</th>
+                    <th>Nama Lengkap</th>
+                    <th>Gender</th>
+                    <th>Email</th>
                 </tr>
             </thead>
             <tbody>
-                @if(isset($laporanKegiatan) && count($laporanKegiatan) > 0)
-                    @foreach ($laporanKegiatan as $laporan)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
-                            <td>{{ $laporan->tanggal }}</td>
-                            <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama lengkap siswa --}}
-                            <td>{{ $laporan->deskripsi }}</td>
-                            <td>
-                                @if ($laporan->foto_kegiatan)
-                                    <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100">
-                                @else
-                                    Tidak ada foto
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
+                @forelse($accounts as $account)
                     <tr>
-                        <td colspan="5">Data laporan kegiatan tidak tersedia.</td>
+                        <td>{{ $account->nama_lengkap }}</td>
+                        <td>{{ $account->gender }}</td>
+                        <td>{{ $account->email }}</td>
                     </tr>
-                @endif
+                @empty
+                    <tr>
+                        <td colspan="3" class="empty-message">Tidak ada data siswa yang ditemukan.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
-     @endsection
+    @endsection
 </body>
-
 </html>

@@ -34,5 +34,15 @@ class SiswaController extends Controller
         // Kirim data ke view siswa.content
         return view('siswa.content', compact('kehadiran'));
     }
+
+    public function search(Request $request)
+{
+    $query = $request->input('query'); // Ambil teks pencarian
+    $results = User::where('name', 'LIKE', "%{$query}%") // Cari berdasarkan nama
+                   ->orWhere('email', 'LIKE', "%{$query}%")
+                   ->get();
+
+    return response()->json($results); // Kembalikan data dalam format JSON
+}
 }
 

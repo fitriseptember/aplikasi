@@ -25,11 +25,13 @@
         </header>
 
         <div class="menu-bar">
+            <!-- Search Box -->
             <li class="search-box">
                 <i class='bx bx-search icon'></i>
-                <input type="search" placeholder="Search...">
+                <input id="search-input" type="search" placeholder="Search...">
             </li>
 
+            <!-- Menu Links -->
             <ul class="menu-links">
                 <li class="nav-link">
                     <a href="{{ route('guru.content') }}">
@@ -44,33 +46,39 @@
                     </a>
                 </li>
                 <li class="nav-link">
-                     <a href="{{ route('guru.dataAbsen') }}">
+                    <a href="{{ route('guru.dataAbsen') }}">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Data Absen</span>
                     </a>
                 </li>
                 <li class="nav-link">
-                     <a href="{{ route('guru.datadaftarsiswa') }}">
+                    <a href="{{ route('guru.datadaftarsiswa') }}">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Daftar Siswa</span>
                     </a>
                 </li>
                 <li class="nav-link">
-                     <a href="{{ route('guru.dataLaporan') }}">
+                    <a href="{{ route('guru.dataLaporan') }}">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Data Laporan Kegiatan</span>
                     </a>
                 </li>
             </ul>
 
+            <!-- Logout -->
             <div class="bottom-content">
-                <li class="">
-                    <a href="#">
+                <li class="nav-link">
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class='bx bx-log-out icon'></i>
                         <span class="text nav-text">Logout</span>
                     </a>
                 </li>
             </div>
+
+            <!-- Hidden Logout Form -->
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </div>
     </nav>
 
@@ -79,14 +87,29 @@
     </section>
 
     <script src="script.js"></script>
-     <script>
+    <script>
         // JavaScript to toggle the sidebar visibility
-        const toggleButton = document.querySelector('.toggle');  // Button to toggle sidebar
-        const sidebar = document.querySelector('.sidebar');  // Sidebar element
+        const toggleButton = document.querySelector('.toggle');
+        const sidebar = document.querySelector('.sidebar');
 
         toggleButton.addEventListener('click', () => {
-            // Toggle the 'closed' class to show/hide the sidebar
             sidebar.classList.toggle('closed');
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const menuLinks = document.querySelectorAll('.menu-links .nav-link');
+
+        searchInput.addEventListener('input', () => {
+            const filter = searchInput.value.toLowerCase().trim(); // Ambil teks input dan trim spasi
+            menuLinks.forEach(link => {
+                const text = link.textContent.toLowerCase().trim(); // Ambil teks menu
+                if (filter === '' || text.includes(filter)) {
+                    link.style.display = ''; // Tampilkan jika cocok atau input kosong
+                } else {
+                    link.style.display = 'none'; // Sembunyikan jika tidak cocok
+                }
+            });
         });
     </script>
 </body>
