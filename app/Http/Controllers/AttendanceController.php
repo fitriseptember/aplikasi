@@ -32,7 +32,7 @@ class AttendanceController extends Controller
     ]);
 
      // Redirect ke dashboard siswa dengan notifikasi sukses
-        return redirect()->route('siswa.dashboard')->with('success', 'Absensi berhasil dikirim.');
+        return redirect()->route('siswa.content')->with('success', 'Absensi berhasil dikirim.');
     }
 
     public function index()
@@ -54,13 +54,13 @@ class AttendanceController extends Controller
     ]);
 
 
-    
+
     // Ambil data absensi
     $attendances = Attendance::where('user_id', session('user_data')->id)->get();
 
     // Tampilkan dashboard dengan data absensi
     return view('siswa.absenSiswa', compact('attendances'));
-    
+
     }
 
     // Relasi dengan User

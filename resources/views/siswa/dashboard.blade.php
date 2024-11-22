@@ -17,19 +17,17 @@
                     <img src="{{ asset('storage/images/logo.jpg') }}" alt="Logo" class="logo-img">
                 </span>
                 <div class="text header-text">
-                    <span class="name">Layout</span>
-                    <span class="profession">Web Developer</span>
+                    <span class="name">Monitoring PKL</span>
+                    <span class="profession">Halaman Siswa</span>
                 </div>
             </div>
-            <i class='bx bx-chevron-right toggle'></i> <!-- Button to toggle sidebar -->
+
         </header>
 
         <div class="menu-bar">
-            <li class="search-box">
-                <i class='bx bx-search icon'></i>
-                <!-- Add the 'search-input' ID here -->
-                <input type="search" id="search-input" placeholder="Search...">
-            </li>
+             <div class="separator"></div>
+            <!-- Removed the search box -->
+
             <ul class="menu-links">
                 <li class="nav-link">
                     <a href="{{ route('siswa.content') }}">
@@ -78,36 +76,7 @@
     </section>
 
     <script src="{{ asset('js/script.js') }}"></script>
-    <script>
-        // JavaScript to toggle the sidebar visibility
-        const toggleButton = document.querySelector('.toggle');  // Button to toggle sidebar
-        const sidebar = document.querySelector('.sidebar');  // Sidebar element
 
-        toggleButton.addEventListener('click', () => {
-            // Toggle the 'closed' class to show/hide the sidebar
-            sidebar.classList.toggle('closed');
-        });
-
-        const searchInput = document.getElementById('search-input'); // Updated to match the ID
-        const menuLinks = document.querySelectorAll('.menu-links .nav-link'); // Select all menu links
-
-        searchInput.addEventListener('input', () => {
-            const filter = searchInput.value.toLowerCase().trim(); // Get the search input value
-            menuLinks.forEach(link => {
-                const text = link.textContent.toLowerCase().trim(); // Get the link text
-                if (text.includes(filter) && filter !== '') {
-                    link.style.display = ''; // Show if matched
-                } else {
-                    link.style.display = 'none'; // Hide if not matched
-                }
-            });
-
-            // If input is empty, show all elements
-            if (filter === '') {
-                menuLinks.forEach(link => link.style.display = '');
-            }
-        });
-    </script>
 </body>
 
 </html>

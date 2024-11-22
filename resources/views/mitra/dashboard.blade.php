@@ -17,20 +17,15 @@
                     <img src="{{ asset('storage/images/logo.jpg') }}" alt="Logo" class="logo-img">
                 </span>
                 <div class="text header-text">
-                    <span class="name">Layout</span>
-                    <span class="profession">Web Developer</span>
+                    <span class="name">Monitoring PKL</span>
+                    <span class="profession">Halaman Mitra</span>
                 </div>
             </div>
-            <i class='bx bx-chevron-right toggle'></i>
+
         </header>
 
         <div class="menu-bar">
-            <!-- Search Box -->
-            <li class="search-box">
-                <i class='bx bx-search icon'></i>
-                <input id="search-input" type="search" placeholder="Search...">
-            </li>
-
+             <div class="separator"></div>
             <!-- Menu Links -->
             <ul class="menu-links">
                 <li class="nav-link">
@@ -74,31 +69,8 @@
         @yield('content')
     </section>
 
-    <script>
-        // Sidebar toggle functionality
-        const toggleButton = document.querySelector('.toggle');
-        const sidebar = document.querySelector('.sidebar');
+     <script src="{{ asset('js/script.js') }}"></script>
 
-        toggleButton.addEventListener('click', () => {
-            sidebar.classList.toggle('closed');
-        });
-
-        // Search functionality
-        const searchInput = document.getElementById('search-input'); // Get the search input
-        const menuLinks = document.querySelectorAll('.menu-links .nav-link'); // Get all menu items
-
-        searchInput.addEventListener('input', () => {
-            const filter = searchInput.value.toLowerCase().trim(); // Get input value and trim spaces
-            menuLinks.forEach(link => {
-                const text = link.textContent.toLowerCase().trim(); // Get menu text
-                if (filter === '' || text.includes(filter)) {
-                    link.style.display = ''; // Show matching items or all if empty
-                } else {
-                    link.style.display = 'none'; // Hide non-matching items
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

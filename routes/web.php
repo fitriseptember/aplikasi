@@ -119,10 +119,10 @@ Route::post('/logout', function () {
 
 
 // Route dashboard untuk setiap role
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-Route::get('/guru/dashboard', [GuruController::class, 'dashboard'])->name('guru.dashboard');
-Route::get('/mitra/dashboard', [MitraController::class, 'dashboard'])->name('mitra.dashboard');
-Route::get('/siswa/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
+Route::get('/admin/content', [AdminController::class, 'dashboard'])->name('admin.content');
+Route::get('/guru/content', [GuruController::class, 'dashboard'])->name('guru.content');
+Route::get('/mitra/content', [MitraController::class, 'dashboard'])->name('mitra.content');
+Route::get('/siswa/content', [SiswaController::class, 'index'])->name('siswa.content');
 
 //Route Diagram Kehadiran
 Route::get('/siswa/content', [SiswaController::class, 'content'])->name('siswa.content');
@@ -138,11 +138,6 @@ Route::get('/kunjungan', [AuthController::class, 'kunjungan']);
 
 Route::get('/get-login-data', [AuthController::class, 'getLoginData']);
 
-
-Route::get('/search', [AdminController::class, 'search'])->name('search');
-Route::get('/search', [GuruController::class, 'search'])->name('search');
-Route::get('/search', [MitraController::class, 'search'])->name('search');
-Route::get('/search', [SiswaController::class, 'search'])->name('search');
 
 
 

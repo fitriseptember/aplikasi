@@ -13,7 +13,7 @@ class MitraController extends Controller
     public function dashboard()
     {
         // Logika untuk mengambil data atau melakukan hal lain yang diperlukan
-        return view('mitra.dashboard'); // Ganti dengan view yang sesuai
+        return view('mitra.content'); // Ganti dengan view yang sesuai
     }
 
     public function tabelAbsen()
@@ -57,14 +57,6 @@ public function content()
     return view('mitra.content', compact('kehadiran', 'data'));
 }
 
-public function search(Request $request)
-{
-    $query = $request->input('query'); // Ambil teks pencarian
-    $results = User::where('name', 'LIKE', "%{$query}%") // Cari berdasarkan nama
-                   ->orWhere('email', 'LIKE', "%{$query}%")
-                   ->get();
 
-    return response()->json($results); // Kembalikan data dalam format JSON
-}
 
 }

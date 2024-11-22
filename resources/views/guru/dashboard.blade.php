@@ -17,19 +17,16 @@
                     <img src="{{ asset('storage/images/logo.jpg') }}" alt="Logo" class="logo-img">
                 </span>
                 <div class="text header-text">
-                    <span class="name">Layout</span>
-                    <span class="profession">Web Developer</span>
+                    <span class="name">Monitoring PKL</span>
+                    <span class="profession">Halaman Guru</span>
                 </div>
             </div>
-            <i class='bx bx-chevron-right toggle'></i>
+
         </header>
 
         <div class="menu-bar">
-            <!-- Search Box -->
-            <li class="search-box">
-                <i class='bx bx-search icon'></i>
-                <input id="search-input" type="search" placeholder="Search...">
-            </li>
+             <div class="separator"></div>
+            <!-- Removed the search box -->
 
             <!-- Menu Links -->
             <ul class="menu-links">
@@ -86,32 +83,8 @@
         @yield('content')
     </section>
 
-    <script src="script.js"></script>
-    <script>
-        // JavaScript to toggle the sidebar visibility
-        const toggleButton = document.querySelector('.toggle');
-        const sidebar = document.querySelector('.sidebar');
+       <script src="{{ asset('js/script.js') }}"></script>
 
-        toggleButton.addEventListener('click', () => {
-            sidebar.classList.toggle('closed');
-        });
-
-        // Search functionality
-        const searchInput = document.getElementById('search-input');
-        const menuLinks = document.querySelectorAll('.menu-links .nav-link');
-
-        searchInput.addEventListener('input', () => {
-            const filter = searchInput.value.toLowerCase().trim(); // Ambil teks input dan trim spasi
-            menuLinks.forEach(link => {
-                const text = link.textContent.toLowerCase().trim(); // Ambil teks menu
-                if (filter === '' || text.includes(filter)) {
-                    link.style.display = ''; // Tampilkan jika cocok atau input kosong
-                } else {
-                    link.style.display = 'none'; // Sembunyikan jika tidak cocok
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

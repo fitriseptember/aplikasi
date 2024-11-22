@@ -11,7 +11,7 @@ class SiswaController extends Controller
 {
     public function index()
     {
-        return view('siswa.dashboard');
+        return view('siswa.content');
     }
 
     public function content()
@@ -36,16 +36,7 @@ class SiswaController extends Controller
         return view('siswa.content', compact('kehadiran'));
     }
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query'); // Ambil teks pencarian
-        $results = User::where('name', 'LIKE', "%{$query}%") // Cari berdasarkan nama
-            ->orWhere('email', 'LIKE', "%{$query}%")
-            ->get();
-
-        return response()->json($results); // Kembalikan data dalam format JSON
-    }
-
+   
     public function acclaporan()
     {
         // Dapatkan laporan yang sudah ACC dan Pending

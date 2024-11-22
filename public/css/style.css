@@ -112,6 +112,18 @@ body {
 .sidebar.close .toggle {
     transform: rotate(180deg);
 }
+/* Pembatas garis */
+.separator {
+    border-top: 4px solid #695CFE; /* Warna hijau dengan ketebalan lebih tebal */
+    margin: 20px 0; /* Memberikan jarak di atas dan bawah garis */
+}
+
+
+
+
+
+
+
 
 /* Search Box */
 .sidebar .search-box {

@@ -54,13 +54,13 @@ class AuthController extends Controller
         // Redirect berdasarkan peran
         switch ($user->role) {
             case 'admin':
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.content');
             case 'guru':
-                return redirect()->route('guru.dashboard');
+                return redirect()->route('guru.content');
             case 'mitra':
-                return redirect()->route('mitra.dashboard');
+                return redirect()->route('mitra.content');
             case 'siswa':
-                return redirect()->route('siswa.dashboard');
+                return redirect()->route('siswa.content');
             default:
                 return redirect('/'); // Redirect default jika peran tidak dikenali
         }

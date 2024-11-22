@@ -13,7 +13,7 @@ class LaporanKegiatanController extends Controller
     // Display the form for activity report submission
     public function create()
     {
-        return view('siswa.dashboard');
+        return view('siswa.content');
     }
 
     // Store a new activity report in the database
@@ -38,7 +38,7 @@ class LaporanKegiatanController extends Controller
         ]);
 
         // Redirect back to the dashboard with a success message
-        return redirect()->route('siswa.dashboard')->with('success', 'Laporan kegiatan berhasil dikirim.');
+        return redirect()->route('siswa.content')->with('success', 'Laporan kegiatan berhasil dikirim.');
     }
 
     // Display activity reports for the logged-in student

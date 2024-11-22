@@ -13,7 +13,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         // Logika untuk dashboard
-        return view('admin.dashboard');
+        return view('admin.content');
     }
 
     // Metode tabelAbsen
@@ -57,15 +57,7 @@ public function content()
     return view('admin.content', compact('kehadiran', 'data'));
 }
 
-public function search(Request $request)
-{
-    $query = $request->input('query'); // Ambil teks pencarian
-    $results = User::where('name', 'LIKE', "%{$query}%") // Cari berdasarkan nama
-                   ->orWhere('email', 'LIKE', "%{$query}%")
-                   ->get();
 
-    return response()->json($results); // Kembalikan data dalam format JSON
-}
 
 
 }
