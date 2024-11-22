@@ -145,3 +145,7 @@ Route::get('/search', [MitraController::class, 'search'])->name('search');
 Route::get('/search', [SiswaController::class, 'search'])->name('search');
 
 
+
+
+Route::get('/siswa/content', [SiswaController::class, 'acclaporan'])->name('siswa.content');
+Route::post('/laporan/acc', [LaporanKegiatanController::class, 'acc'])->name('laporan.acc');

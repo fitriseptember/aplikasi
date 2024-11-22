@@ -4,22 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateLaporansTable extends Migration
 {
     public function up()
     {
-        Schema::create('laporan_kegiatan', function (Blueprint $table) {
+        Schema::create('laporans', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->date('tanggal');
-            $table->text('deskripsi');
-            $table->string('foto_kegiatan');
-            $table->unsignedBigInteger('user_id');
+            $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('laporan_kegiatan');
+        Schema::dropIfExists('laporans');
     }
-};
+}

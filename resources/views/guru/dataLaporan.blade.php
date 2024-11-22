@@ -3,80 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Laporan Siswa</title>
+    <title>Document</title>
     <style>
-        body {
+        /* Mengatur gaya untuk body */
+body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
-    background-color: #f9f9f9;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
 }
 
+/* Mengatur gaya untuk container utama */
+.body {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Gaya untuk judul halaman */
 h1 {
     text-align: center;
-    color: #333;
+    font-size: 24px;
+    color: #444;
     margin-bottom: 20px;
 }
 
-#laporanTable {
+/* Gaya untuk tabel */
+table {
     width: 100%;
     border-collapse: collapse;
-    margin: 0 auto;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    font-size: 16px;
 }
 
-#laporanTable th,
-#laporanTable td {
-    padding: 12px 15px;
+/* Gaya untuk header tabel */
+thead th {
+    background-color: #695CFE;
+    color: #ffffff;
     text-align: left;
+    padding: 10px;
     border: 1px solid #ddd;
 }
 
-#laporanTable th {
-    background-color: #695CFE;
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 14px;
+/* Gaya untuk baris tabel */
+tbody tr {
+    border: 1px solid #ddd;
 }
 
-#laporanTable tr:nth-child(even) {
-    background-color: #f2f2f2;
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-#laporanTable tr:hover {
-    background-color: #e8f0fe;
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
 }
 
-#laporanTable td img {
-    border-radius: 5px;
+/* Gaya untuk sel tabel */
+td, th {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* Gaya untuk gambar di tabel */
+td img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#laporanTable td {
-    font-size: 14px;
-    color: #555;
-}
-
-#laporanTable td:last-child {
+/* Gaya untuk baris kosong */
+tbody tr td[colspan="5"] {
     text-align: center;
-}
-
-td[colspan="5"] {
-    text-align: center;
-    color: #777;
+    color: #999;
     font-style: italic;
-    padding: 20px;
+}
+
+/* Gaya hover untuk baris tabel */
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 600px) {
+    table {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    td img {
+        max-width: 80px;
+    }
 }
 
     </style>
 </head>
 <body>
-     @extends('guru.dashboard')
+<body>
+    @extends('guru.dashboard')
 
-@section('title', 'Absensi Siswa')
+    @section('title', 'Data Laporan Kegiatan Siswa')
 
-@section('content')
+    @section('content')
     <div class="body">
         <h1>Data Laporan Kegiatan Siswa</h1>
 
@@ -88,34 +125,46 @@ td[colspan="5"] {
                     <th>Nama Siswa</th>
                     <th>Deskripsi</th>
                     <th>Foto Kegiatan</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 @if(isset($laporanKegiatan) && count($laporanKegiatan) > 0)
-                @foreach ($laporanKegiatan as $laporan)
-                <tr>
-                    <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
-                    <td>{{ $laporan->tanggal }}</td>
-                    <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama siswa dari relasi user --}}
-                    <td>{{ $laporan->deskripsi }}</td>
-                    <td>
-                        @if ($laporan->foto_kegiatan)
-                        <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="150">
-                        @else
-                        Tidak ada foto
-                        @endif
-                    </td>
+                    @foreach ($laporanKegiatan as $laporan)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $laporan->tanggal }}</td>
+                            <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td>
+                            <td>{{ $laporan->deskripsi }}</td>
+                            <td>
+                                @if ($laporan->foto_kegiatan)
+                                    <img src="{{ asset('storage/' . $laporan->foto_kegiatan) }}" alt="Foto Kegiatan" width="100">
+                                @else
+                                    Tidak ada foto
+                                @endif
+                            </td>
+                            <td>
+                            @if ($laporan->acc)
+                        <span class="text-success">✔️ ACC</span>
+                    @else
+                    <form action="{{ route('laporan.acc') }}" method="POST">
+    @csrf
+    <input type="hidden" name="id" value="{{ $laporan->id }}">
+    <button type="submit">ACC</button>
+</form>
 
-                </tr>
-                @endforeach
+                    @endif
+                            </td>
+                        </tr>
+                    @endforeach
                 @else
-                <tr>
-                    <td colspan="5">Data laporan kegiatan tidak tersedia.</td>
-                </tr>
+                    <tr>
+                        <td colspan="6">Data laporan kegiatan tidak tersedia.</td>
+                    </tr>
                 @endif
             </tbody>
         </table>
     </div>
-     @endsection
+    @endsection
 </body>
 </html>

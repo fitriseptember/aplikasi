@@ -80,6 +80,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr; /* Sesuaikan dengan jumlah chart */
             gap: 20px;
+            margin-top: 20px;
         }
 
         .chart {
@@ -121,50 +122,38 @@
 </head>
 
 <body>
-     @extends('siswa.dashboard')
+    @extends('siswa.dashboard')
 
-@section('title', 'Absensi Siswa')
+    @section('title', 'Absensi Siswa')
 
-@section('content')
+    @section('content')
     <div class="container">
-        <!-- Card Section -->
+        <!-- Tabel Sudah di-ACC -->
         <div class="card-container">
             <div class="card blue">
                 <h2>Laporan Sudah di-ACC</h2>
                 <table id="accReportsTable">
                     <thead>
                         <tr>
-                            <th>Nama Laporan</th>
+                            <th>No</th>
+                            <th>Deskripsi Laporan</th>
                             <th>Tanggal</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Laporan A</td>
-                            <td>01 Nov 2024</td>
-                            <td>Disetujui</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="card purple">
-                <h2>Laporan Belum di-ACC</h2>
-                <table id="pendingReportsTable">
-                    <thead>
-                        <tr>
-                            <th>Nama Laporan</th>
-                            <th>Tanggal</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Laporan B</td>
-                            <td>02 Nov 2024</td>
-                            <td>Menunggu</td>
-                        </tr>
+                        @forelse ($laporanAcc as $laporan)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $laporan->deskripsi }}</td>
+                                <td>{{ $laporan->tanggal }}</td>
+                                <td>✔️ Disetujui</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4">Tidak ada laporan yang sudah di-ACC.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -188,49 +177,49 @@
     <script>
         const visitCtx = document.getElementById('visitChart').getContext('2d');
 
-    // Create the initial chart with empty data
-    const visitChart = new Chart(visitCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'], // Tetap dalam urutan Minggu - Sabtu
-            datasets: [{
-                label: 'Kunjungan',
-                data: [0, 0, 0, 0, 0, 0, 0], // Data awal kosong
-                backgroundColor: '#4a90e2',
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
+        // Create the initial chart with empty data
+        const visitChart = new Chart(visitCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'], // Tetap dalam urutan Minggu - Sabtu
+                datasets: [{
+                    label: 'Kunjungan',
+                    data: [0, 0, 0, 0, 0, 0, 0], // Data awal kosong
+                    backgroundColor: '#4a90e2',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                }
             }
-        }
-    });
+        });
 
-    // Fetch the login data from the controller
-    fetch('/get-login-data')
-        .then(response => response.json())
-        .then(data => {
-            // Inisialisasi array untuk jumlah kunjungan harian
-            const dailyCounts = [0, 0, 0, 0, 0, 0, 0]; // [Minggu, Senin, ..., Sabtu]
+        // Fetch the login data from the controller
+        fetch('/get-login-data')
+            .then(response => response.json())
+            .then(data => {
+                // Inisialisasi array untuk jumlah kunjungan harian
+                const dailyCounts = [0, 0, 0, 0, 0, 0, 0]; // [Minggu, Senin, ..., Sabtu]
 
-            // Hitung jumlah kunjungan berdasarkan hari
-            data.forEach(item => {
-                const date = new Date(item.date);
-                const dayOfWeek = date.getDay(); // 0: Minggu, ..., 6: Sabtu
+                // Hitung jumlah kunjungan berdasarkan hari
+                data.forEach(item => {
+                    const date = new Date(item.date);
+                    const dayOfWeek = date.getDay(); // 0: Minggu, ..., 6: Sabtu
 
-                // Tambahkan jumlah kunjungan ke hari yang sesuai
-                dailyCounts[dayOfWeek] += item.count;
-            });
+                    // Tambahkan jumlah kunjungan ke hari yang sesuai
+                    dailyCounts[dayOfWeek] += item.count;
+                });
 
-            // Perbarui data grafik
-            visitChart.data.datasets[0].data = dailyCounts;
-            visitChart.update(); // Render ulang grafik
-        })
-        .catch(error => console.error('Error fetching login data:', error));
-       
-       // Mengambil data kehadiran dari backend
+                // Perbarui data grafik
+                visitChart.data.datasets[0].data = dailyCounts;
+                visitChart.update(); // Render ulang grafik
+            })
+            .catch(error => console.error('Error fetching login data:', error));
+
+        // Mengambil data kehadiran dari backend
         const attendanceData = @json($kehadiran);
 
         // Inisialisasi Chart.js untuk menampilkan data
@@ -252,34 +241,8 @@
                 }
             }
         });
-        
-        setTimeout(() => {
-            const accReports = [
-                { name: 'Laporan A', date: '01 Nov 2024', status: 'Disetujui' },
-                { name: 'Laporan C', date: '03 Nov 2024', status: 'Disetujui' }
-            ];
-
-            const pendingReports = [
-                { name: 'Laporan B', date: '02 Nov 2024', status: 'Menunggu' },
-                { name: 'Laporan D', date: '04 Nov 2024', status: 'Menunggu' }
-            ];
-
-            const accTableBody = document.getElementById('accReportsTable').getElementsByTagName('tbody')[0];
-            accTableBody.innerHTML = ''; // Clear existing rows
-            accReports.forEach(report => {
-                const row = accTableBody.insertRow();
-                row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
-            });
-
-            const pendingTableBody = document.getElementById('pendingReportsTable').getElementsByTagName('tbody')[0];
-            pendingTableBody.innerHTML = ''; // Clear existing rows
-            pendingReports.forEach(report => {
-                const row = pendingTableBody.insertRow();
-                row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
-            });
-        }, 2000);
     </script>
-        @endsection
+    @endsection
 </body>
 
 </html>

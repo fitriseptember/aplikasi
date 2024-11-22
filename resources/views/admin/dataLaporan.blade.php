@@ -108,11 +108,12 @@ tbody tr:hover {
     </style>
 </head>
 <body>
-     @extends('admin.dashboard')
+<body>
+    @extends('admin.dashboard')
 
-@section('title', 'Absensi Siswa')
+    @section('title', 'Data Laporan Kegiatan Siswa')
 
-@section('content')
+    @section('content')
     <div class="body">
         <h1>Data Laporan Kegiatan Siswa</h1>
 
@@ -124,15 +125,16 @@ tbody tr:hover {
                     <th>Nama Siswa</th>
                     <th>Deskripsi</th>
                     <th>Foto Kegiatan</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 @if(isset($laporanKegiatan) && count($laporanKegiatan) > 0)
                     @foreach ($laporanKegiatan as $laporan)
                         <tr>
-                            <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $laporan->tanggal }}</td>
-                            <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama lengkap siswa --}}
+                            <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td>
                             <td>{{ $laporan->deskripsi }}</td>
                             <td>
                                 @if ($laporan->foto_kegiatan)
@@ -141,16 +143,28 @@ tbody tr:hover {
                                     Tidak ada foto
                                 @endif
                             </td>
+                            <td>
+                            @if ($laporan->acc)
+                        <span class="text-success">✔️ ACC</span>
+                    @else
+                    <form action="{{ route('laporan.acc') }}" method="POST">
+    @csrf
+    <input type="hidden" name="id" value="{{ $laporan->id }}">
+    <button type="submit">ACC</button>
+</form>
+
+                    @endif
+                            </td>
                         </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Data laporan kegiatan tidak tersedia.</td>
+                        <td colspan="6">Data laporan kegiatan tidak tersedia.</td>
                     </tr>
                 @endif
             </tbody>
         </table>
     </div>
-     @endsection
+    @endsection
 </body>
 </html>

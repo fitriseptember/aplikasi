@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB; // Tambahkan ini untuk menggunakan DB
 
 use Illuminate\Http\Request;
 use App\Models\LaporanKegiatan;
-
+use App\Models\User;
 
 class LaporanKegiatanController extends Controller
 {
@@ -55,4 +55,17 @@ class LaporanKegiatanController extends Controller
     {
         return $this->belongsTo(User::class, 'user_id'); // 'user_id' adalah foreign key di tabel kehadiran
     }
+
+    // Method untuk ACC laporan kegiatan
+    public function acc(Request $request)
+    {
+        $id = $request->input('id'); // Ambil ID dari query string atau form
+        $laporan = LaporanKegiatan::findOrFail($id);
+
+        $laporan->acc = true;
+        $laporan->save();
+
+        return redirect()->back()->with('success', 'Status ACC berhasil diperbarui.');
+    }
+
 }
