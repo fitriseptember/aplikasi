@@ -39,11 +39,25 @@
             max-width: 500px;
         }
 
+        /* Efek Fade In */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         .content h1 {
             font-size: 2.5rem;
-            color: #2c2c2c;
-            margin-bottom: 20px;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            font-weight: 700;
+            animation: fadeIn 2s ease-in-out;
         }
+
 
         .content p {
             font-size: 1rem;
@@ -65,7 +79,7 @@
 
         .content .cta-button:hover {
             background-color: #7e73f8;
-            transform: translateY(-2px);
+            transform: translateY(-5px);
         }
 
         .image-container {
@@ -96,7 +110,7 @@
         </div>
         <!-- Image Section -->
         <div class="image-container">
-            <img src="image copy.png" alt="Creative Design">
+        <img src="{{ asset('storage/images/fotohome.jpeg') }}" alt="Logo" class="logo-img">
         </div>
     </div>
 </body>
