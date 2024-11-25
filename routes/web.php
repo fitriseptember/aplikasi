@@ -144,3 +144,15 @@ Route::get('/get-login-data', [AuthController::class, 'getLoginData']);
 
 Route::get('/siswa/content', [SiswaController::class, 'acclaporan'])->name('siswa.content');
 Route::post('/laporan/acc', [LaporanKegiatanController::class, 'acc'])->name('laporan.acc');
+
+// Rute untuk menampilkan profil
+Route::get('/siswa/profile', [SiswaController::class, 'profile'])->name('siswa.profile');
+
+// Rute untuk halaman edit profil
+Route::get('/siswa/edit/{id}', [SiswaController::class, 'edit'])->name('siswa.edit');
+
+// Rute untuk memperbarui profil
+Route::put('/siswa/update/{id}', [SiswaController::class, 'update'])->name('siswa.update');
+
+// Rute dashboard siswa
+Route::get('/siswa/dashboard', [SiswaController::class, 'dashboard'])->name('siswa.dashboard');

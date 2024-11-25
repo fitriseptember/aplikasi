@@ -37,7 +37,7 @@
                 </li>
 
                 <li class="nav-link">
-                    <a href="#">
+                 <a href="{{ route('siswa.profile') }}">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Profil</span>
                     </a>
