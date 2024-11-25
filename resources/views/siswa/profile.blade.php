@@ -19,6 +19,7 @@
 
         .profile-container {
             background: #fff;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             text-align: center;
@@ -32,6 +33,9 @@
             border: 4px solid #007bff;
             margin-bottom: 15px;
             object-fit: cover;
+            object-position: center;
+            image-rendering: crisp-edges;
+            cursor: pointer;
         }
 
         .profile-container h1 {
@@ -50,11 +54,11 @@
             color: #007bff;
         }
 
-        .profile-container .btn-group {
+        .btn-group {
             margin-top: 20px;
         }
 
-        .profile-container button {
+        .btn-group button {
             background-color: #007bff;
             color: white;
             border: none;
@@ -66,39 +70,50 @@
             transition: background-color 0.3s ease;
         }
 
-        .profile-container button:hover {
+        .btn-group button:hover {
             background-color: #0056b3;
         }
 
-        .profile-container button.back {
+        .btn-group .back {
             background-color: #6c757d;
         }
 
-        .profile-container button.back:hover {
+        .btn-group .back:hover {
             background-color: #5a6268;
+        }
+
+        input[type="file"] {
+            display: none;
         }
     </style>
 </head>
 
 <body>
     <div class="profile-container">
-        <!-- Gambar Profil -->
-        <img src="https://via.placeholder.com/150" alt="Profile Picture">
+        <!-- Form for uploading the profile picture -->
+        <form action="{{ route('siswa.updatePhoto', $user->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-        <!-- Informasi Nama -->
+            <!-- Profile Picture -->
+            <label for="profile_picture">
+                <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Foto Profil">
+            </label>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="this.form.submit()">
+        </form>
+
+        <!-- User Information -->
         <h1>{{ $user->nama_lengkap ?? 'Nama Tidak Diketahui' }}</h1>
-
-        <!-- Detail Informasi -->
         <p><strong>Email:</strong> {{ $user->email ?? 'Email Tidak Diketahui' }}</p>
         <p><strong>Gender:</strong> {{ $user->gender ?? 'Tidak Tersedia' }}</p>
 
-        <!-- Tombol -->
+        <!-- Action Buttons -->
         <div class="btn-group">
             <a href="{{ route('siswa.edit', $user->id) }}">
                 <button type="button">Edit</button>
             </a>
-            <a href="{{ route('siswa.dashboard') }}">
-                <button class="back">Kembali</button>
+            <a href="{{ route('siswa.content') }}">
+                <button type="button" class="back">Kembali</button>
             </a>
         </div>
     </div>

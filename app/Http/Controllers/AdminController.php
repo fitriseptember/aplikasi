@@ -3,61 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
-use App\Models\LaporanKegiatan; // Import model LaporanKegiatan jika belum
+use App\Models\LaporanKegiatan; // Import model LaporanKegiatan
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; // Add this line to import the DB facade
+use Illuminate\Support\Facades\DB; // Import DB facade
 
 class AdminController extends Controller
 {
-    // Metode dashboard
+    // Metode untuk halaman dashboard admin
     public function dashboard()
     {
-        // Logika untuk dashboard
+        // Logika untuk menampilkan halaman dashboard admin
         return view('admin.content');
     }
 
-    // Metode tabelAbsen
+    // Metode untuk menampilkan tabel absensi
     public function tabelAbsen()
     {
+        // Mengambil data absensi beserta relasi ke tabel user
         $attendances = Attendance::with('user')->get();
+        // Mengirim data absensi ke tampilan admin.dataAbsen
         return view('admin.dataAbsen', compact('attendances'));
     }
 
-    // Metode laporanKegiatan
+    // Metode untuk menampilkan laporan kegiatan (PKL)
     public function laporanKegiatan()
     {
-        $laporanKegiatan = LaporanKegiatan::with('user')->get(); // Ambil data dengan relasi ke user
+        // Mengambil data laporan kegiatan beserta relasi ke tabel user
+        $laporanKegiatan = LaporanKegiatan::with('user')->get();
+        // Mengirim data laporan kegiatan ke tampilan admin.dataLaporan
         return view('admin.dataLaporan', compact('laporanKegiatan'));
     }
-public function content()
-{
-    // Ambil data kehadiran berdasarkan status untuk semua siswa
-    $hadir = Attendance::where('status', 'Hadir')->count();
-    $sakit = Attendance::where('status', 'Sakit')->count();
-    $izin = Attendance::where('status', 'Izin')->count();
-    $alpa = Attendance::where('status', 'Alpa')->count();
 
-    // Format data kehadiran untuk dikirim ke view
-    $kehadiran = [
-        'Hadir' => $hadir,
-        'Sakit' => $sakit,
-        'Izin' => $izin,
-        'Alpa' => $alpa,
-    ];
+    // Metode untuk menampilkan data konten kehadiran dan data login
+    public function content()
+    {
+        // Menghitung data kehadiran berdasarkan status absensi untuk semua siswa
+        $hadir = Attendance::where('status', 'Hadir')->count();
+        $sakit = Attendance::where('status', 'Sakit')->count();
+        $izin = Attendance::where('status', 'Izin')->count();
+        $alpa = Attendance::where('status', 'Alpa')->count();
 
-    // Ambil data login untuk semua user
-    // Group by the date and count total logins per day
-    $data = DB::table('login_logs')
-        ->select(DB::raw('DATE(login_time) as date'), DB::raw('COUNT(*) as count'))
-        ->groupBy(DB::raw('DATE(login_time)'))
-        ->orderBy('date', 'asc')
-        ->get();
+        // Membuat array data kehadiran untuk dikirim ke view
+        $kehadiran = [
+            'Hadir' => $hadir,
+            'Sakit' => $sakit,
+            'Izin' => $izin,
+            'Alpa' => $alpa,
+        ];
 
-    // Kirim data ke view siswa.content
-    return view('admin.content', compact('kehadiran', 'data'));
-}
+        // Mengambil data login untuk semua user
+        // Dikelompokkan berdasarkan tanggal dan menghitung total login per hari
+        $data = DB::table('login_logs')
+            ->select(DB::raw('DATE(login_time) as date'), DB::raw('COUNT(*) as count'))
+            ->groupBy(DB::raw('DATE(login_time)'))
+            ->orderBy('date', 'asc')
+            ->get();
 
-
-
-
+        // Mengirim data kehadiran dan data login ke tampilan admin.content
+        return view('admin.content', compact('kehadiran', 'data'));
+    }
 }

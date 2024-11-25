@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    // Method untuk menampilkan halaman home
+    // Menampilkan halaman home
     public function index()
     {
-        return view('home'); // pastikan file view bernama 'home.blade.php'
+        return view('home'); // Pastikan file view bernama 'home.blade.php'
     }
 
-    // Method untuk menampilkan halaman login
+    // Menampilkan halaman login
     public function login()
     {
-        return view('login'); // pastikan view login sesuai dengan kebutuhan
+        return view('login'); // Pastikan file view login sesuai dengan kebutuhan
     }
 }

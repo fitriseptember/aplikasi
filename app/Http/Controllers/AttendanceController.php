@@ -3,70 +3,65 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Http\Request;
 use App\Models\Attendance;
-use App\Models\Absen;
 
 class AttendanceController extends Controller
 {
     // Menampilkan form absensi
     public function create()
     {
+        // Menampilkan view untuk form absensi siswa
         return view('siswa.absenSiswa');
     }
 
-   public function store(Request $request)
-{
-    $request->validate([
-        'tanggal' => 'required|date',
-        'status' => 'required|string',
-    ]);
+    // Menyimpan data absensi ke database
+    public function store(Request $request)
+    {
+        // Validasi input data dari form absensi
+        $request->validate([
+            'tanggal' => 'required|date',
+            'status' => 'required|string',
+        ]);
 
-    Attendance::create([
-        'tanggal' => $request->tanggal,
-        'status' => $request->status,
-        'user_id' => session('user_data')->id,  // Jika menggunakan auth untuk user_id
+        // Simpan data absensi ke tabel 'attendance'
+        Attendance::create([
+            'tanggal' => $request->tanggal,
+            'status' => $request->status,
+            'user_id' => session('user_data')->id, // Menggunakan ID user dari session
+        ]);
 
-
-    ]);
-
-     // Redirect ke dashboard siswa dengan notifikasi sukses
+        // Redirect ke dashboard siswa dengan notifikasi sukses
         return redirect()->route('siswa.content')->with('success', 'Absensi berhasil dikirim.');
     }
 
+    // Menampilkan data absensi
     public function index()
-{
-     $userId = auth()->id(); // ID pengguna yang sedang login
-    $tanggalHariIni = date('Y-m-d'); // Tanggal hari ini
+    {
+        // Mengambil ID pengguna yang sedang login
+        $userId = auth()->id();
+        $tanggalHariIni = date('Y-m-d'); // Tanggal hari ini
 
-    // Periksa apakah absensi sudah diisi
-    $absensi = \DB::table('kehadiran')
-        ->where('user_id', $userId)
-        ->where('tanggal', $tanggalHariIni)
-        ->first();
+        // Memeriksa apakah absensi sudah diisi untuk hari ini
+        $absensi = DB::table('kehadiran')
+            ->where('user_id', $userId)
+            ->where('tanggal', $tanggalHariIni)
+            ->first();
 
-    $absensiSudahDiisi = $absensi !== null;
+        // Cek apakah absensi sudah diisi
+        $absensiSudahDiisi = $absensi !== null;
 
-    return view('siswa.absenSiswa', [
-        'absensiSudahDiisi' => $absensiSudahDiisi,
-        'statusAbsensi' => $absensi->status ?? null, // Kirimkan status absensi jika sudah diisi
-    ]);
-
-
-
-    // Ambil data absensi
-    $attendances = Attendance::where('user_id', session('user_data')->id)->get();
-
-    // Tampilkan dashboard dengan data absensi
-    return view('siswa.absenSiswa', compact('attendances'));
-
+        // Menampilkan view form absensi dengan data status absensi
+        return view('siswa.absenSiswa', [
+            'absensiSudahDiisi' => $absensiSudahDiisi,
+            'statusAbsensi' => $absensi->status ?? null, // Mengirimkan status absensi jika sudah diisi
+        ]);
     }
 
-    // Relasi dengan User
+    // Mendapatkan relasi dengan model User
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id'); // 'user_id' adalah foreign key di tabel kehadiran
+        // Relasi dengan model User, menggunakan 'user_id' sebagai foreign key di tabel kehadiran
+        return $this->belongsTo(User::class, 'user_id');
     }
-
 }
