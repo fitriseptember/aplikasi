@@ -184,13 +184,9 @@
                 </div>
                 <div class="info-item">
                     <p><strong>Catatan:</strong></p>
-                    <p>Pastikan mengisi absen dalam rentang waktu yang ditentukan. Setelah mencapai 3 kali absen (alfa),
-                        akan ada pemberitahuan lebih lanjut.</p>
+                    <p>Pastikan mengisi absen dalam rentang waktu yang ditentukan.</p>
                 </div>
-                <div class="info-item">
-                    <p><strong>Aturan Alfa:</strong></p>
-                    <p>Maksimal 3 kali absen (alfa) dalam satu periode</p>
-                </div>
+
             </div>
         </section>
     </div>

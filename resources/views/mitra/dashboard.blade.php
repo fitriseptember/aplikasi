@@ -14,7 +14,7 @@
         <header>
             <div class="image-text">
                 <span class="image">
-                    <img src="{{ asset('storage/images/logo.jpg') }}" alt="Logo" class="logo-img">
+                    <img src="{{ asset('storage/images/logo.jpeg') }}" alt="Logo" class="logo-img">
                 </span>
                 <div class="text header-text">
                     <span class="name">Monitoring PKL</span>
