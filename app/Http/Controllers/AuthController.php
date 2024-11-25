@@ -68,7 +68,7 @@ class AuthController extends Controller
                 return redirect()->route('siswa.content');
             default:
                 // Redirect default jika peran tidak dikenali
-                return redirect('/');
+                return redirect('/')->withErrors(['login_error' => 'Peran pengguna tidak dikenali.']);
         }
     }
 
@@ -76,6 +76,8 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout(); // Logout user
+        $request->session()->invalidate(); // Invalidate session
+        $request->session()->regenerateToken(); // Regenerate CSRF token for security
         return redirect()->route('login'); // Kembali ke halaman login
     }
 
