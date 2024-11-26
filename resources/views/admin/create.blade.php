@@ -11,7 +11,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 90%;
+            min-height: 700px;
             margin: 0;
         }
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LaporanKegiatanController;
+use Illuminate\Support\Facades\Route;
 
 // Rute halaman absensi siswa
 Route::get('/siswa/absensi', [AttendanceController::class, 'index'])->name('siswa.absensi');

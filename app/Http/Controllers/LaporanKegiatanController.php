@@ -57,15 +57,20 @@ class LaporanKegiatanController extends Controller
         return $this->belongsTo(User::class, 'user_id'); // 'user_id' adalah foreign key di tabel laporan_kegiatan
     }
 
-    // Metode untuk ACC laporan kegiatan
     public function acc(Request $request)
     {
-        $id = $request->input('id'); // Ambil ID dari query string atau form
-        $laporan = LaporanKegiatan::findOrFail($id);
+        $id = $request->input('id'); // Ambil ID dari form
+        $user = session('user_data'); // atau Auth::user() untuk pengguna yang sedang login
 
-        $laporan->acc = true; // Update status ACC menjadi true
+        // Cari laporan berdasarkan ID dan pastikan milik pengguna yang login
+        $laporan = LaporanKegiatan::where('id', $id)->where('user_id', $user->id)->firstOrFail();
+
+        // Update status ACC menjadi true
+        $laporan->acc = true;
         $laporan->save();
 
-        return redirect()->back()->with('success', 'Status ACC berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Status ACC laporan berhasil diperbarui.');
     }
+
+
 }

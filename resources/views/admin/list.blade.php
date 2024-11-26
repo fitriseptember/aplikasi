@@ -15,7 +15,7 @@
 }
         /* Kontainer utama */
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 20px auto;
             padding: 20px;
             background-color: #ffffff;
@@ -108,20 +108,24 @@
             <thead>
                 <tr>
                     <th>Role</th>
-                    <th>Gender</th>
+                    <th>Email</th>
                     <th>Nama Lengkap</th>
                     <th>Username</th>
-                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Perusahaan</th>
+                    <th>Guru Pembimbing</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($accounts as $account)
                     <tr>
                         <td>{{ $account->role }}</td>
-                        <td>{{ $account->gender }}</td>
+                        <td>{{ $account->email }}</td>
                         <td>{{ $account->nama_lengkap }}</td>
                         <td>{{ $account->username }}</td>
-                        <td>{{ $account->email }}</td>
+                        <td>{{ $account->gender }}</td>
+                        <td>{{ $account->partner }}</td>
+                        <td>{{ $account->teacher }}</td>
                     </tr>
                 @empty
                     <tr>

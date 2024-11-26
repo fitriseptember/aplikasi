@@ -41,26 +41,28 @@ class SiswaController extends Controller
         return view('siswa.content', compact('kehadiran'));
     }
 
-    // Menampilkan laporan yang sudah ACC dan Pending
-    public function acclaporan()
-    {
-        $laporanAcc = LaporanKegiatan::where('acc', true)->get();
-        $laporanPending = LaporanKegiatan::where('status', 'pending')->get();
+   public function acclaporan()
+{
+    // Ambil data pengguna yang sedang login
+    $user = session('user_data'); // atau Auth::user() jika menggunakan autentikasi Laravel
 
-        // Ambil data kehadiran
-        $user = session('user_data');
-        $hadir = Attendance::where('user_id', $user->id)->where('status', 'Hadir')->count();
-        $sakit = Attendance::where('user_id', $user->id)->where('status', 'Sakit')->count();
-        $izin = Attendance::where('user_id', $user->id)->where('status', 'Izin')->count();
-        $alpa = Attendance::where('user_id', $user->id)->where('status', 'Alpa')->count();
+    // Ambil laporan yang sudah ACC dan yang statusnya pending dari laporan milik pengguna ini saja
+    $laporanAcc = LaporanKegiatan::where('acc', true)->where('user_id', $user->id)->get();
+    $laporanPending = LaporanKegiatan::where('status', 'pending')->where('user_id', $user->id)->get();
 
-        // Format data kehadiran
-        $kehadiran = [
-            'Hadir' => $hadir,
-            'Sakit' => $sakit,
-            'Izin' => $izin,
-            'Alpa' => $alpa,
-        ];
+    // Ambil data kehadiran pengguna
+    $hadir = Attendance::where('user_id', $user->id)->where('status', 'Hadir')->count();
+    $sakit = Attendance::where('user_id', $user->id)->where('status', 'Sakit')->count();
+    $izin = Attendance::where('user_id', $user->id)->where('status', 'Izin')->count();
+    $alpa = Attendance::where('user_id', $user->id)->where('status', 'Alpa')->count();
+
+    // Format data kehadiran
+    $kehadiran = [
+        'Hadir' => $hadir,
+        'Sakit' => $sakit,
+        'Izin' => $izin,
+        'Alpa' => $alpa,
+    ];
 
         // Kirimkan data ke view
         return view('siswa.content', compact('laporanAcc', 'laporanPending', 'kehadiran'));
