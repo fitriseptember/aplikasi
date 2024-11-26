@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Absen Siswa</title>
     <style>
         /* General Styles */
         body {
@@ -199,7 +199,7 @@
         const absenForm = document.getElementById('absenForm');
         absenForm?.addEventListener('submit', function (event) {
             const currentHour = new Date().getHours();
-            if (currentHour >= 12) {
+            if (currentHour >= 21) {
                 alert('Batas waktu pengisian absen telah berakhir.');
                 event.preventDefault();
             }
