@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Siswa</title>
-        <style>
+    <style>
             body {
-                font-family: Arial, Helvetica, sans-serif
+                font-family: Arial, Helvetica, sans-serif;
                 margin: 0;
                 padding: 0;
                 background-color: #e7edfb; /* Latar belakang biru muda */
@@ -35,7 +35,7 @@
                 border-collapse: collapse;
                 margin-bottom: 20px;
                 font-size: 16px;
-                border-radius: 10px;
+                border-radius: 8px;
             }
 
             /* Gaya untuk header tabel */
@@ -88,7 +88,8 @@
                     font-size: 20px;
                 }
             }
-    </style>
+</style>
+
 </head>
 <body>
     @extends('guru.dashboard')
