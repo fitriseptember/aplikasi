@@ -5,81 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Absensi Siswa</title>
         <style>
+            /* Mengatur gaya untuk body */
             body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f9;
+                color: #333;
             }
 
-            h1 {
-                text-align: center;
-                color: #2c3e50;
-                margin-bottom: 20px;
-                font-size: 24px;
-                letter-spacing: 1px;
-            }
-
-            #attendanceTable {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 20px auto;
+            /* Mengatur gaya untuk container utama */
+            .body {
+                max-width: 800px;
+                margin: 50px auto;
+                padding: 20px;
                 background-color: #ffffff;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                overflow: hidden;
                 border-radius: 8px;
             }
 
-            #attendanceTable th,
-            #attendanceTable td {
-                padding: 12px 15px;
+            /* Gaya untuk judul halaman */
+            h1 {
                 text-align: center;
-                border: 1px solid #ddd;
-                font-size: 14px;
+                font-size: 24px;
+                color: #444;
+                margin-bottom: 20px;
             }
 
-            #attendanceTable th {
+            /* Gaya untuk tabel */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+
+            /* Gaya untuk header tabel */
+            thead th {
                 background-color: #695CFE;
                 color: #ffffff;
-                text-transform: uppercase;
-                font-weight: bold;
+                text-align: left;
+                padding: 10px;
+                border: 1px solid #ddd;
             }
 
-            #attendanceTable tr:nth-child(even) {
-                background-color: #f2f2f2;
+            /* Gaya untuk baris tabel */
+            tbody tr {
+                border: 1px solid #ddd;
             }
 
-            #attendanceTable tr:hover {
-                background-color: #dff9fb;
+            tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
             }
 
-            #attendanceTable td {
-                color: #2c3e50;
-                font-size: 14px;
+            tbody tr:nth-child(odd) {
+                background-color: #ffffff;
             }
 
-            td[colspan="4"] {
+            /* Gaya untuk sel tabel */
+            td, th {
+                padding: 10px;
+                text-align: left;
+            }
+
+            /* Gaya untuk baris kosong */
+            tbody tr td[colspan="4"] {
                 text-align: center;
-                font-style: italic;
-                color: #7f8c8d;
-                font-size: 16px;
+                color: #999;
             }
 
-            #attendanceTable td:last-child {
-                font-weight: bold;
-                color: #27ae60;
+            /* Gaya hover untuk baris tabel */
+            tbody tr:hover {
+                background-color: #f1f1f1;
             }
 
-            #attendanceTable td:last-child:contains("Sakit") {
-                color: #e74c3c;
-            }
+            /* Responsif untuk layar kecil */
+            @media (max-width: 600px) {
+                table {
+                    font-size: 14px;
+                }
 
-            #attendanceTable td:last-child:contains("Izin") {
-                color: #f1c40f;
-            }
-
-            #attendanceTable td:last-child:contains("Tidak Hadir") {
-                color: #e74c3c;
+                h1 {
+                    font-size: 20px;
+                }
             }
         </style>
 </head>

@@ -6,105 +6,104 @@
     <title>Document</title>
     <style>
         /* Mengatur gaya untuk body */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
 
-/* Mengatur gaya untuk container utama */
-.body {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
+        /* Mengatur gaya untuk container utama */
+        .body {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
 
-/* Gaya untuk judul halaman */
-h1 {
-    text-align: center;
-    font-size: 24px;
-    color: #444;
-    margin-bottom: 20px;
-}
+        /* Gaya untuk judul halaman */
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #444;
+            margin-bottom: 20px;
+        }
 
-/* Gaya untuk tabel */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    font-size: 16px;
-}
+        /* Gaya untuk tabel */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
 
-/* Gaya untuk header tabel */
-thead th {
-    background-color: #695CFE;
-    color: #ffffff;
-    text-align: left;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
+        /* Gaya untuk header tabel */
+        thead th {
+            background-color: #695CFE;
+            color: #ffffff;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
 
-/* Gaya untuk baris tabel */
-tbody tr {
-    border: 1px solid #ddd;
-}
+        /* Gaya untuk baris tabel */
+        tbody tr {
+            border: 1px solid #ddd;
+        }
 
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-tbody tr:nth-child(odd) {
-    background-color: #ffffff;
-}
+        tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
 
-/* Gaya untuk sel tabel */
-td, th {
-    padding: 10px;
-    text-align: left;
-    vertical-align: middle;
-}
+        /* Gaya untuk sel tabel */
+        td, th {
+            color: #999;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
 
-/* Gaya untuk gambar di tabel */
-td img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+        /* Gaya untuk gambar di tabel */
+        td img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-/* Gaya untuk baris kosong */
-tbody tr td[colspan="5"] {
-    text-align: center;
-    color: #999;
-    font-style: italic;
-}
+        /* Gaya untuk baris kosong */
+        tbody tr td[colspan="5"] {
+            text-align: center;
+            font-style: italic;
+        }
 
-/* Gaya hover untuk baris tabel */
-tbody tr:hover {
-    background-color: #f1f1f1;
-}
+        /* Gaya hover untuk baris tabel */
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
 
-/* Responsif untuk layar kecil */
-@media (max-width: 600px) {
-    table {
-        font-size: 14px;
-    }
+        /* Responsif untuk layar kecil */
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
 
-    h1 {
-        font-size: 20px;
-    }
+            h1 {
+                font-size: 20px;
+            }
 
-    td img {
-        max-width: 80px;
-    }
-}
-
+            td img {
+                max-width: 80px;
+            }
+        }
     </style>
 </head>
 <body>
