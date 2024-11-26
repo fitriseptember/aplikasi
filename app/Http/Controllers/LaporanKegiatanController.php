@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB; // Untuk menggunakan DB
 use Illuminate\Http\Request;
 use App\Models\LaporanKegiatan;
 use App\Models\User;
+use Carbon\Carbon;
 
 class LaporanKegiatanController extends Controller
 {
@@ -17,29 +18,34 @@ class LaporanKegiatanController extends Controller
     }
 
     // Menyimpan laporan kegiatan baru ke dalam database
-    public function store(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string',
-            'foto_kegiatan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+   public function store(Request $request)
+{
+    // Validasi input
+    $request->validate([
+        'tanggal' => 'required|date',
+        'deskripsi' => 'required|string',
+        'foto_kegiatan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        // Simpan foto kegiatan dan ambil path penyimpanannya
-        $path = $request->file('foto_kegiatan')->store('foto_kegiatan', 'public');
+    $tanggalLaporan = now()->toDateString(); // Mendapatkan tanggal hari ini
+    $jamLaporan = now()->toTimeString(); // Mendapatkan waktu sekarang dalam format HH:mm:ss
 
-        // Simpan data laporan kegiatan
-        LaporanKegiatan::create([
-            'tanggal' => $request->tanggal,
-            'deskripsi' => $request->deskripsi,
-            'foto_kegiatan' => $path,
-            'user_id' => session('user_data')->id,
-        ]);
+    // Simpan foto kegiatan dan ambil path penyimpanannya
+    $path = $request->file('foto_kegiatan')->store('foto_kegiatan', 'public');
 
-        // Redirect kembali ke dashboard dengan pesan sukses
-        return redirect()->route('siswa.content')->with('success', 'Laporan kegiatan berhasil dikirim.');
-    }
+    // Simpan data laporan kegiatan ke database
+    LaporanKegiatan::create([
+        'tanggal' => $tanggalLaporan, // Tanggal laporan otomatis
+        'time' => $jamLaporan, // Waktu laporan otomatis
+        'deskripsi' => $request->deskripsi,
+        'foto_kegiatan' => $path,
+        'user_id' => session('user_data')->id, // Mengambil ID pengguna dari session
+    ]);
+
+    // Redirect kembali ke dashboard dengan pesan sukses
+    return redirect()->route('siswa.content')->with('success', 'Laporan kegiatan berhasil dikirim.');
+}
+
 
     // Menampilkan laporan kegiatan untuk siswa yang sedang login
     public function index()

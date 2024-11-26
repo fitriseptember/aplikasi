@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Data Laporan</title>
     <style>
         /* Mengatur gaya untuk body */
 body {
@@ -122,6 +122,7 @@ tbody tr:hover {
                 <tr>
                     <th>No</th>
                     <th>Tanggal</th>
+                      <th>Jam</th>
                     <th>Nama Siswa</th>
                     <th>Deskripsi</th>
                     <th>Foto Kegiatan</th>
@@ -134,6 +135,7 @@ tbody tr:hover {
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $laporan->tanggal }}</td>
+                             <td>{{ \Carbon\Carbon::parse($laporan->time)->format('H:i') }}</td>
                             <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td>
                             <td>{{ $laporan->deskripsi }}</td>
                             <td>

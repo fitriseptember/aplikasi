@@ -17,6 +17,7 @@ class LaporanKegiatan extends Model
         'foto_kegiatan',
         'user_id',
         'acc',
+        'time'
     ];
 
     // Relasi dengan model Akun
