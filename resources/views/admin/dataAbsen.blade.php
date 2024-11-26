@@ -106,6 +106,7 @@ tbody tr:hover {
                 <tr>
                     <th>No</th>
                     <th>Tanggal</th>
+                    <th>Waktu</th>
                     <th>Nama Siswa</th>
                     <th>Status</th>
                 </tr>
@@ -116,13 +117,14 @@ tbody tr:hover {
                         <tr>
                             <td>{{ $loop->iteration }}</td> {{-- Nomor urut --}}
                             <td>{{ $attendance->tanggal }}</td>
+                            <td></td>
                             <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td> {{-- Nama lengkap siswa --}}
                             <td>{{ $attendance->status }}</td>
                         </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="4">Data absensi tidak tersedia.</td>
+                        <td colspan="5">Data absensi tidak tersedia.</td>
                     </tr>
                 @endif
             </tbody>

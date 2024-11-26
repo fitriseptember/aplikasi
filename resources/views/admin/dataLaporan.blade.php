@@ -106,6 +106,10 @@
         }
 
     </style>
+
+        <!-- Menambahkan CDN untuk jsPDF -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 <body>
     @extends('admin.dashboard')
@@ -116,11 +120,16 @@
     <div class="body">
         <h1>Data Laporan Kegiatan Siswa</h1>
 
+        <!-- Tombol Unduh PDF -->
+        <button id="downloadPDF" style="margin-bottom: 20px; padding: 10px 15px; background-color: #695CFE; color: white; border: none;"><b>Download PDF</b></button>
+
+
         <table id="laporanTable">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Tanggal</th>
+                    <th>Waktu</th>
                     <th>Nama Siswa</th>
                     <th>Deskripsi</th>
                     <th>Foto Kegiatan</th>
@@ -133,6 +142,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $laporan->tanggal }}</td>
+                            <td></td>
                             <td>{{ $laporan->user->nama_lengkap ?? 'Unknown' }}</td>
                             <td>{{ $laporan->deskripsi }}</td>
                             <td>
@@ -158,7 +168,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="6">Data laporan kegiatan tidak tersedia.</td>
+                        <td colspan="7">Data laporan kegiatan tidak tersedia.</td>
                     </tr>
                 @endif
             </tbody>
