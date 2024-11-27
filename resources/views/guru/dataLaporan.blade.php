@@ -90,6 +90,28 @@ tbody tr:hover {
     background-color: #f1f1f1;
 }
 
+/* Gaya untuk tombol Download PDF */
+.download-btn-container {
+    text-align: left; /* Menyelaraskan tombol ke kiri */
+    margin-bottom: 20px; /* Memberi jarak antara tombol dan tabel */
+}
+
+.download-btn {
+    background-color: #695CFE; /* Warna latar belakang hijau */
+    color: white; /* Warna teks putih */
+    border: none; /* Tanpa border */
+    border-radius: 4px; /* Sudut membulat */
+    padding: 10px 15px; /* Padding sekitar teks */
+    font-size: 16px; /* Ukuran font */
+    cursor: pointer; /* Menambahkan pointer saat hover */
+    transition: background-color 0.3s; /* Efek transisi saat hover */
+}
+
+.download-btn:hover {
+    background-color: #8881d4; /* Warna latar belakang berubah saat hover */
+}
+
+
 /* Responsif untuk layar kecil */
 @media (max-width: 600px) {
     table {
@@ -116,6 +138,10 @@ tbody tr:hover {
     @section('content')
     <div class="body">
         <h1>Data Laporan Kegiatan Siswa</h1>
+
+        <div class="download-btn-container">
+    <button id="downloadPDF" class="download-btn">Download PDF</button>
+</div>
 
         <table id="laporanTable">
             <thead>

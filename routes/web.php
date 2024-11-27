@@ -112,3 +112,6 @@ Route::put('/siswa/update-photo/{id}', [SiswaController::class, 'updatePhoto'])-
 
 // Rute dashboard siswa
 Route::get('/siswa/dashboard', [SiswaController::class, 'dashboard'])->name('siswa.dashboard');
+
+Route::get('/laporan/edit/{id}', [LaporanKegiatanController::class, 'edit'])->name('laporan.edit');
+

@@ -105,6 +105,22 @@
             height: 300px !important; /* Tetapkan tinggi yang konsisten */
         }
 
+         /* Styling tombol Edit */
+    .btn-edit {
+        background-color: #4CAF50; /* Hijau */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-edit:hover {
+        background-color: #45a049; /* Hijau lebih gelap untuk efek hover */
+        color: white;
+    }
         @media (max-width: 768px) {
             .card-container {
                 flex-direction: column;
@@ -129,35 +145,40 @@
     @section('content')
     <div class="container">
         <!-- Tabel Sudah di-ACC -->
-        <div class="card-container">
-            <div class="card blue">
-                <h2>Laporan Sudah di-ACC</h2>
-                <table id="accReportsTable">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Deskripsi Laporan</th>
-                            <th>Tanggal</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($laporanAcc as $laporan)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $laporan->deskripsi }}</td>
-                                <td>{{ $laporan->tanggal }}</td>
-                                <td>✔️ Disetujui</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4">Tidak ada laporan yang sudah di-ACC.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
+       <div class="card-container">
+    <div class="card blue">
+        <h2>Laporan Sudah di-ACC</h2>
+        <table id="accReportsTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Deskripsi Laporan</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($laporanAcc as $laporan)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $laporan->deskripsi }}</td>
+                        <td>{{ $laporan->tanggal }}</td>
+                        <td>✔️ Disetujui</td>
+                        <td>
+                            <button class="btn-edit" onclick="location.href='{{ route('laporan.edit', $laporan->id) }}'">Edit</button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5">Tidak ada laporan yang sudah di-ACC.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
         <!-- Chart Section -->
         <div class="chart-container">
