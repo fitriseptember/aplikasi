@@ -129,7 +129,7 @@ tbody tr:hover {
 </head>
 <body>
 <body>
-    @extends('mitra.dashboard')
+    @extends('admin.dashboard')
 
     @section('title', 'Data Laporan Kegiatan Siswa')
 
