@@ -107,11 +107,12 @@ Route::get('/siswa/profile', [SiswaController::class, 'profile'])->name('siswa.p
 Route::get('/siswa/edit/{id}', [SiswaController::class, 'edit'])->name('siswa.edit');
 
 // Rute untuk memperbarui profil siswa
-Route::put('/siswa/update/{id}', [SiswaController::class, 'update'])->name('siswa.update');
+Route::put('/siswa/{id}', [SiswaController::class, 'update'])->name('siswa.update');
 Route::put('/siswa/update-photo/{id}', [SiswaController::class, 'updatePhoto'])->name('siswa.updatePhoto');
 
 // Rute dashboard siswa
 Route::get('/siswa/dashboard', [SiswaController::class, 'dashboard'])->name('siswa.dashboard');
 
 Route::get('/laporan/edit/{id}', [LaporanKegiatanController::class, 'edit'])->name('laporan.edit');
+
 

@@ -36,6 +36,11 @@
             object-position: center;
             image-rendering: crisp-edges;
             cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-container img:hover {
+            transform: scale(1.05);
         }
 
         .profile-container h1 {
@@ -84,6 +89,11 @@
 
         input[type="file"] {
             display: none;
+        }
+
+        label[for="profile_picture"] {
+            cursor: pointer;
+            display: inline-block;
         }
     </style>
 </head>

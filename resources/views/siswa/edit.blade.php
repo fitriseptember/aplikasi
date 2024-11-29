@@ -72,44 +72,68 @@
         .edit-container .back:hover {
             background-color: #5a6268;
         }
+
+        .profile-preview img {
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
 <body>
-   <div class="edit-container">
-    <h1>Edit Profil Siswa</h1>
+    <div class="edit-container">
+        <h1>Edit Profil Siswa</h1>
 
-    <!-- Menampilkan Pesan Sukses -->
-    @if (session('success'))
+        <!-- Menampilkan Pesan Sukses -->
+        @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
-    @endif
+        @endif
 
-    <!-- Form Edit Profil -->
-        <form action="{{ route('siswa.update', $user->id) }}" method="POST">
+        <!-- Form Edit Profil -->
+        <form action="{{ route('siswa.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            
-    <label for="nama_lengkap">Nama Lengkap:</label>
-    <input type="text" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap', $user->nama_lengkap) }}" required>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+            <!-- Foto Profil -->
+            <div class="form-group">
+                <label for="profile_picture">Foto Profil</label>
+                <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+            </div>
 
-    <label for="gender">Jenis Kelamin:</label>
-    <select id="gender" name="gender" required>
-        <option value="Laki-laki" {{ $user->gender == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-        <option value="Perempuan" {{ $user->gender == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
-    </select>
+            <!-- Nama Lengkap -->
+            <div class="form-group">
+                <label for="nama_lengkap">Nama Lengkap</label>
+                <input type="text" id="nama_lengkap" name="nama_lengkap"
+                    value="{{ old('nama_lengkap', $user->nama_lengkap) }}" required>
+            </div>
 
-    <button type="submit">Simpan Perubahan</button>
-    <a href="{{ route('siswa.profile') }}">
-        <button type="button" class="back">Kembali</button>
-    </a>
-</form>
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+            </div>
 
-</div>
+            <!-- Gender -->
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Laki-laki</option>
+                    <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Perempuan</option>
+                </select>
+            </div>
+
+            <!-- Tombol Simpan -->
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ route('siswa.content') }}">
+                <button type="button" class="back">Kembali</button>
+            </a>
+
+        </form>
+
+    </div>
 
 </body>
 

@@ -105,22 +105,6 @@
             height: 300px !important; /* Tetapkan tinggi yang konsisten */
         }
 
-         /* Styling tombol Edit */
-    .btn-edit {
-        background-color: #4CAF50; /* Hijau */
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 8px 12px;
-        font-size: 0.9em;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-edit:hover {
-        background-color: #45a049; /* Hijau lebih gelap untuk efek hover */
-        color: white;
-    }
         @media (max-width: 768px) {
             .card-container {
                 flex-direction: column;
@@ -155,7 +139,6 @@
                     <th>Deskripsi Laporan</th>
                     <th>Tanggal</th>
                     <th>Status</th>
-                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -165,9 +148,6 @@
                         <td>{{ $laporan->deskripsi }}</td>
                         <td>{{ $laporan->tanggal }}</td>
                         <td>✔️ Disetujui</td>
-                        <td>
-                            <button class="btn-edit" onclick="location.href='{{ route('laporan.edit', $laporan->id) }}'">Edit</button>
-                        </td>
                     </tr>
                 @empty
                     <tr>
