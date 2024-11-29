@@ -64,8 +64,9 @@
 
         /* Gaya untuk sel tabel */
         td, th {
+            color: #999;
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
 
         /* Gaya untuk baris kosong */
@@ -98,7 +99,7 @@
 
 @section('content')
     <div class="body">
-        <h1>Data Absen Siswa (Mitra)</h1>
+        <h1>Data Absen Siswa</h1>
 
         <!-- Blade View -->
 <table id="attendanceTable" border="1">

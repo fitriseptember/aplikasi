@@ -57,8 +57,9 @@
         }
 
         td, th {
+            color: #999;
             padding: 10px;
-            text-align: left;
+            text-align: center;
             vertical-align: middle;
         }
 
