@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use App\Models\Siswa;  // Mengimpor model Siswa
 use App\Models\LaporanKegiatan; // Mengimpor model LaporanKegiatan
 use App\Models\Akun; // Mengimpor model Akun
+use Barryvdh\DomPDF\Facade\PDF;
 
 class GuruController extends Controller
 {
@@ -34,6 +35,23 @@ class GuruController extends Controller
 
         // Menampilkan data laporan kegiatan ke tampilan guru.dataLaporan
         return view('guru.dataLaporan', compact('laporanKegiatan'));
+    }
+
+    // Metode untuk download laporan kegiatan sebagai PDF
+     public function generatePdf()
+    {
+        $laporanKegiatan = LaporanKegiatan::with('user')->get();
+
+        $data = [
+            'title' => 'Laporan Kegiatan Siswa',
+            'date' => date('d-m-Y'),
+            'laporanKegiatan' => $laporanKegiatan,
+        ];
+
+        $pdf = PDF::loadView('guru.pdfLaporan', $data);
+
+        // Unduh file PDF dengan nama laporan_kegiatan.pdf
+        return $pdf->download('laporan_kegiatan.pdf');
     }
 
     // Menampilkan daftar siswa

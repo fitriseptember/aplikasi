@@ -116,3 +116,18 @@ Route::get('/siswa/dashboard', [SiswaController::class, 'dashboard'])->name('sis
 Route::get('/laporan/edit/{id}', [LaporanKegiatanController::class, 'edit'])->name('laporan.edit');
 
 
+
+// web.php
+Route::middleware(['web'])->group(function () {
+    Route::get('/guru/download-pdf', [GuruController::class, 'generatePdf'])->name('guru.downloadLaporanKegiatanPdf');
+});
+
+// web.php
+Route::middleware(['web'])->group(function () {
+    Route::get('/guru/download-pdf', [AdminController::class, 'generatePdf'])->name('guru.downloadLaporanKegiatanPdf');
+});
+
+// web.php
+Route::middleware(['web'])->group(function () {
+    Route::get('/guru/download-pdf', [MitraController::class, 'generatePdf'])->name('guru.downloadLaporanKegiatanPdf');
+});

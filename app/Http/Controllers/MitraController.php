@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Attendance;
 use App\Models\LaporanKegiatan;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class MitraController extends Controller
 {
@@ -29,6 +30,24 @@ class MitraController extends Controller
     $laporanKegiatan = LaporanKegiatan::with('user')->get(); // Ambil data dengan relasi ke user
     return view('mitra.dataLaporan', compact('laporanKegiatan'));
 }
+
+// Metode untuk download laporan kegiatan sebagai PDF
+     public function generatePdf()
+    {
+        $laporanKegiatan = LaporanKegiatan::with('user')->get();
+
+        $data = [
+            'title' => 'Laporan Kegiatan Siswa',
+            'date' => date('d-m-Y'),
+            'laporanKegiatan' => $laporanKegiatan,
+        ];
+
+        $pdf = PDF::loadView('mitra.pdfLaporan', $data);
+
+        // Unduh file PDF dengan nama laporan_kegiatan.pdf
+        return $pdf->download('laporan_kegiatan.pdf');
+    }
+
 public function content()
 {
     // Ambil data kehadiran berdasarkan status untuk semua siswa

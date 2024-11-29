@@ -128,6 +128,10 @@ tbody tr:hover {
 }
 
     </style>
+
+    <!-- Menambahkan CDN untuk jsPDF -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 <body>
 <body>
@@ -139,9 +143,10 @@ tbody tr:hover {
     <div class="body">
         <h1>Data Laporan Kegiatan Siswa</h1>
 
-        <div class="download-btn-container">
-    <button id="downloadPDF" class="download-btn">Download PDF</button>
-</div>
+        <!-- Tombol Unduh PDF -->
+        <div style="margin-bottom: 20px;">
+            <a href="{{ route('guru.downloadLaporanKegiatanPdf') }}" class="btn btn-primary" style="padding: 10px 15px; background-color: #695CFE; color: white; text-decoration: none; border-radius: 5px;">Download PDF</a>
+        </div>
 
         <table id="laporanTable">
             <thead>

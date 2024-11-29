@@ -6,6 +6,7 @@ use App\Models\Attendance;
 use App\Models\LaporanKegiatan; // Import model LaporanKegiatan
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; // Import DB facade
+use Barryvdh\DomPDF\Facade\PDF;
 
 class AdminController extends Controller
 {
@@ -32,6 +33,23 @@ class AdminController extends Controller
         $laporanKegiatan = LaporanKegiatan::with('user')->get();
         // Mengirim data laporan kegiatan ke tampilan admin.dataLaporan
         return view('admin.dataLaporan', compact('laporanKegiatan'));
+    }
+
+    // Metode untuk download laporan kegiatan sebagai PDF
+     public function generatePdf()
+    {
+        $laporanKegiatan = LaporanKegiatan::with('user')->get();
+
+        $data = [
+            'title' => 'Laporan Kegiatan Siswa',
+            'date' => date('d-m-Y'),
+            'laporanKegiatan' => $laporanKegiatan,
+        ];
+
+        $pdf = PDF::loadView('admin.pdfLaporan', $data);
+
+        // Unduh file PDF dengan nama laporan_kegiatan.pdf
+        return $pdf->download('laporan_kegiatan.pdf');
     }
 
     // Metode untuk menampilkan data konten kehadiran dan data login
