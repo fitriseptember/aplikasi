@@ -65,17 +65,20 @@ class LaporanKegiatanController extends Controller
 
     public function acc(Request $request)
     {
-        $id = $request->input('id'); // Ambil ID dari form
-        $user = session('user_data'); // atau Auth::user() untuk pengguna yang sedang login
+        // Validasi input
+        $request->validate([
+            'id' => 'required|exists:laporan_kegiatan,id', // Pastikan ID valid
+        ]);
 
-        // Cari laporan berdasarkan ID dan pastikan milik pengguna yang login
-        $laporan = LaporanKegiatan::where('id', $id)->where('user_id', $user->id)->firstOrFail();
+        // Cari laporan berdasarkan ID
+        $laporan = LaporanKegiatan::findOrFail($request->id);
 
         // Update status ACC menjadi true
         $laporan->acc = true;
         $laporan->save();
 
-        return redirect()->back()->with('success', 'Status ACC laporan berhasil diperbarui.');
+        // Redirect dengan pesan sukses
+        return redirect()->back()->with('success', 'Laporan berhasil di-ACC.');
     }
 
 

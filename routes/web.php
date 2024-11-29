@@ -99,6 +99,7 @@ Route::get('/get-login-data', [AuthController::class, 'getLoginData']);
 // Rute untuk ACC laporan
 Route::get('/siswa/content', [SiswaController::class, 'acclaporan'])->name('siswa.content');
 Route::post('/laporan/acc', [LaporanKegiatanController::class, 'acc'])->name('laporan.acc');
+Route::post('/guru/laporan/acc', [LaporanKegiatanController::class, 'acc'])->name('guru.laporan.acc');
 
 // Rute untuk menampilkan profil siswa
 Route::get('/siswa/profile', [SiswaController::class, 'profile'])->name('siswa.profile');
