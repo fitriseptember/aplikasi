@@ -37,6 +37,7 @@ Route::get('/admin/content', function () {
     return view('admin.content');
 })->name('admin.content');
 
+
 // Rute untuk mengelola akun admin
 Route::get('/admin/create', [AkunController::class, 'create'])->name('admin.create');
 Route::get('/admin/list', [AkunController::class, 'index'])->name('admin.list');
@@ -132,3 +133,7 @@ Route::middleware(['web'])->group(function () {
 Route::middleware(['web'])->group(function () {
     Route::get('/guru/download-pdf', [MitraController::class, 'generatePdf'])->name('guru.downloadLaporanKegiatanPdf');
 });
+
+Route::get('/admin/tempat', function () {
+    return view('admin.tempat');
+})->name('admin.tempat');

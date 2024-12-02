@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Akun</title>
+    <title>Tempat PKL</title>
     <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
@@ -117,7 +117,7 @@
 
     @section('content')
         <div class="container">
-            <h1>Tambah Akun</h1>
+            <h1>Tempat PKL</h1>
             @if ($errors->any())
                 <div class="error-message">
                     <ul>
@@ -134,12 +134,12 @@
                     <label for="pkl-place">Nama Tempat PKL:</label>
                     <input type="text" id="pkl-place" name="pkl_place" placeholder="Masukkan Nama Tempat PKL" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="pkl-address">Alamat Tempat PKL:</label>
                     <input type="text" id="pkl-address" name="pkl_address" placeholder="Masukkan Alamat Tempat PKL" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="pkl-teacher">Guru Pembimbing:</label>
                     <select id="pkl-teacher" name="pkl_teacher" required>
@@ -148,17 +148,17 @@
                         <option value="Irlan Sugiharto">Irlan Sugiharto</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="pkl-mentor">Mentor Tempat PKL:</label>
                     <input type="text" id="pkl-mentor" name="pkl_mentor" placeholder="Masukkan Nama Mentor" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="pkl-student">Siswa PKL:</label>
                     <input type="text" id="pkl-student" name="pkl_student" placeholder="Masukkan Nama Siswa PKL" required>
                 </div>
-                
+
 
                 <button type="submit">Tambah Akun</button>
             </form>

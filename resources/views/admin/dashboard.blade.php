@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="{{ route('admin.create') }}">
+                    <a href="{{ route('admin.tempat') }}">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Tempat PKL</span>
                     </a>
