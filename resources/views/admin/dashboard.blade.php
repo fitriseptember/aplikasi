@@ -43,6 +43,12 @@
                     </a>
                 </li>
                 <li class="nav-link">
+                    <a href="{{ route('admin.create') }}">
+                        <i class='bx bx-user icon'></i>
+                        <span class="text nav-text">Tempat PKL</span>
+                    </a>
+                </li>
+                <li class="nav-link">
                     <a href="{{ route('admin.list') }}">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Daftar Akun</span>
