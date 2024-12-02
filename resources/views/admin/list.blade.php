@@ -104,28 +104,24 @@
         @if(session('success'))
             <div class="success-message">{{ session('success') }}</div>
         @endif
-        <table>
+          <table>
             <thead>
                 <tr>
                     <th>Role</th>
-                    <th>Email</th>
+                    <th>Gender</th>
                     <th>Nama Lengkap</th>
                     <th>Username</th>
-                    <th>Gender</th>
-                    <th>Perusahaan</th>
-                    <th>Guru Pembimbing</th>
+                    <th>Email</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($accounts as $account)
                     <tr>
                         <td>{{ $account->role }}</td>
-                        <td>{{ $account->email }}</td>
+                        <td>{{ $account->gender }}</td>
                         <td>{{ $account->nama_lengkap }}</td>
                         <td>{{ $account->username }}</td>
-                        <td>{{ $account->gender }}</td>
-                        <td>{{ $account->partner }}</td>
-                        <td>{{ $account->teacher }}</td>
+                        <td>{{ $account->email }}</td>
                     </tr>
                 @empty
                     <tr>

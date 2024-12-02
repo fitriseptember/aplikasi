@@ -128,65 +128,46 @@
                 </div>
             @endif
             <form action="{{ route('admin.store') }}" method="POST">
-                @csrf
-                <div class="form-group">
-                    <label for="nama">Nama Lengkap:</label>
-                    <input type="text" id="nama" name="nama_lengkap" placeholder="Masukkan Nama Lengkap" required>
-                </div>
+            @csrf
+            <div class="form-group">
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" id="nama" name="nama_lengkap" placeholder="Masukkan Nama Lengkap" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="Masukkan Username" required>
-                </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Masukkan Username" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
-                </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Masukkan Email" required>
-                </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Masukkan Email" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="role">Peran:</label>
-                    <select id="role" name="role" required onchange="toggleAdditionalFields()">
-                        <option value="guru">Guru</option>
-                        <option value="mitra">Mitra</option>
-                        <option value="siswa">Siswa</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="role">Peran:</label>
+                <select id="role" name="role" required>
+                    <option value="guru">Guru</option>
+                    <option value="mitra">Mentor</option>
+                    <option value="siswa">Siswa</option>
+                </select>
+            </div>
 
-                <!-- Additional Fields -->
-                <div class="form-group" id="partner-field" style="display: none;">
-                    <label for="partner">Mitra:</label>
-                    <select id="partner" name="partner">
-                        <option value="PT. Edutipa Global Informatika">PT. Global Edutipa Informatika</option>
-                        <option value="PT. Hexagon">PT. Hexagon</option>
-                        <option value="I'M Creative">I'M Creative</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="laki-laki">Laki-laki</option>
+                    <option value="perempuan">Perempuan</option>
+                </select>
+            </div>
 
-                <div class="form-group" id="teacher-field" style="display: none;">
-                    <label for="teacher">Guru Pembimbing:</label>
-                    <select id="teacher" name="teacher">
-                        <option value="Renra Noviana">Asep Wahyudin</option>
-                        <option value="Asep Wahyudin">Renra Noviana</option>
-                        <option value="Irlan Sugiharto">Irlan Sugiharto</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="gender">Gender:</label>
-                    <select id="gender" name="gender" required>
-                        <option value="laki-laki">Laki-laki</option>
-                        <option value="perempuan">Perempuan</option>
-                    </select>
-                </div>
-
-                <button type="submit">Tambah Akun</button>
-            </form>
+            <button type="submit">Tambah Akun</button>
+        </form>
         </div>
     @endsection
 </body>

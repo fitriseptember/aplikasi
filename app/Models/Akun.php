@@ -19,9 +19,7 @@ class Akun extends Model
         'email',
         'role',
         'gender',
-        'profile_picture', // Pastikan field ini bisa diisi
-        'partner',          // Tambahkan kolom 'partner'
-        'teacher'           // Tambahkan kolom 'teacher'
+        'profile_picture'
     ];
 
     // Tambahkan relasi jika diperlukan
