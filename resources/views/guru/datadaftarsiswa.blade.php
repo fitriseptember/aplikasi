@@ -25,7 +25,7 @@
                 text-align: center;
                 font-size: 24px;
                 font-weight: bold;
-                color: #4b4b4b; /* Warna teks gelap */
+                color:  #444;/* Warna teks gelap */
                 margin-bottom: 20px;
             }
 
@@ -62,7 +62,7 @@
 
             /* Gaya untuk sel tabel */
             td, th {
-                color: #999;
+                color: #000000;
                 padding: 10px;
                 text-align: center;
             }
@@ -70,7 +70,7 @@
             /* Gaya untuk baris kosong */
             tbody tr td[colspan="4"] {
                 text-align: center;
-                color: #999;
+                color: #000000;
             }
 
             /* Gaya hover untuk baris tabel */

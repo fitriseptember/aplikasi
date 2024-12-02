@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Absen</title>
-    <style>
+   <style>
         /* Mengatur gaya untuk body */
         body {
             font-family: Arial, sans-serif;
@@ -64,9 +64,8 @@
 
         /* Gaya untuk sel tabel */
         td, th {
-            color: #999;
             padding: 10px;
-            text-align: center;
+            text-align: left;
         }
 
         /* Gaya untuk baris kosong */
