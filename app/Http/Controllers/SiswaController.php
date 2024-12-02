@@ -23,11 +23,12 @@ public function content()
 {
 $user = session('user_data'); // Ambil data user dari session
 
-// Hitung jumlah kehadiran berdasarkan user_id dan status
-$hadir = Attendance::where('user_id', $user->id)->where('status', 'Hadir')->count();
-$sakit = Attendance::where('user_id', $user->id)->where('status', 'Sakit')->count();
-$izin = Attendance::where('user_id', $user->id)->where('status', 'Izin')->count();
-$alpa = Attendance::where('user_id', $user->id)->where('status', 'Alpa')->count();
+        // Hitung jumlah kehadiran berdasarkan user_id dan status
+        $hadir = Attendance::where('user_id', $user->id)->where('status', 'Hadir')->count() ?: 0;
+        $sakit = Attendance::where('user_id', $user->id)->where('status', 'Sakit')->count() ?: 0;
+        $izin = Attendance::where('user_id', $user->id)->where('status', 'Izin')->count() ?: 0;
+        $alpa = Attendance::where('user_id', $user->id)->where('status', 'Alpa')->count() ?: 0;
+
 
 // Format data kehadiran untuk dikirim ke view
 $kehadiran = [
@@ -68,18 +69,17 @@ $kehadiran = [
 return view('siswa.content', compact('laporanAcc', 'laporanPending', 'kehadiran'));
 }
 
-// Menampilkan halaman profil dengan data pengguna
-public function profile()
-{
-$user = session('user_data');
+    // Menampilkan halaman profil dengan data pengguna
+    public function profile()
+    {
 
-// Jika tidak ada data pengguna di session, ambil dari database
-if (!$user) {
-$user = Auth::user(); // Ambil data dari database berdasarkan ID pengguna yang login
-}
+        // Ambil ID pengguna dari session
+        $userId = session('user_data')->id;
 
-return view('siswa.profile', compact('user'));
-}
+        $user = Akun::find($userId);
+
+        return view('siswa.profile', compact('user'));
+    }
 
 // Menampilkan halaman edit profil
 public function edit($id)
@@ -94,44 +94,48 @@ return redirect()->route('siswa.profile')->with('error', 'Pengguna tidak ditemuk
 return view('siswa.edit', compact('user'));
 }
 
-// Memperbarui data profil siswa
-public function update(Request $request, $id)
-{
-// Validasi input
-$validated = $request->validate([
-'nama_lengkap' => 'required|string|max:255',
-'email' => 'required|email|max:255',
-'gender' => 'required|in:male,female',
-'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-]);
+    // Memperbarui data profil siswa
+    public function update(Request $request, $id)
+    {
+        // Validasi input
+        $validated = $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'gender' => 'required|in:male,female',
+            'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
 
-$user = Akun::find($id);
+        $user = Akun::find($id);
 
-if (!$user) {
-return redirect()->route('siswa.index')->with('error', 'Pengguna tidak ditemukan.');
-}
+        if (!$user) {
+            return redirect()->route('siswa.index')->with('error', 'Pengguna tidak ditemukan.');
+        }
 
-// Update data siswa
-$user->nama_lengkap = $request->nama_lengkap;
-$user->email = $request->email;
-$user->gender = $request->gender;
+        // Update data siswa
+        $user->nama_lengkap = $request->nama_lengkap;
+        $user->email = $request->email;
+        $user->gender = $request->gender;
 
-// Tangani pembaruan foto profil
-if ($request->hasFile('profile_picture')) {
-// Hapus foto lama jika ada
-if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
-Storage::delete('public/' . $user->profile_picture);
-}
+        // Tangani pembaruan foto profil
+        if ($request->hasFile('profile_picture')) {
+            // Hapus foto lama jika ada
+            if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
+                Storage::delete('public/' . $user->profile_picture);
+            }
 
-// Simpan foto baru
-$path = $request->file('profile_picture')->store('profile_pictures', 'public');
-$user->profile_picture = $path;
-}
+            // Simpan foto baru
+            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $path;
+        }
 
-$user->save();
+        $user->save();
 
-return redirect()->route('siswa.profile')->with('success', 'Data siswa berhasil diperbarui.');
-}
+        // Perbarui data pengguna di session
+        session(['user_data' => $user]);
+
+        return redirect()->route('siswa.profile')->with('success', 'Data siswa berhasil diperbarui.');
+    }
+
 
 public function dashboard()
 {
@@ -139,34 +143,5 @@ public function dashboard()
 return view('siswa.dashboard');
 // Pastikan view ini ada
 }
-
-
-// Memperbarui foto profil siswa
-// Controller: SiswaController.php
-public function updatePhoto(Request $request, $id)
-{
-$request->validate([
-'profile_picture' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
-]);
-
-$user = Akun::find($id);
-
-if (!$user) {
-return redirect()->route('siswa.profil', $id)->with('error', 'Pengguna tidak ditemukan.');
-}
-
-// Hapus foto lama jika ada
-if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
-Storage::delete('public/' . $user->profile_picture);
-}
-
-// Simpan foto baru
-$path = $request->file('profile_picture')->store('profile_pictures', 'public');
-$user->profile_picture = $path;
-$user->save();
-
-return redirect()->route('siswa.profil', $id)->with('success', 'Foto berhasil diperbarui.');
-}
-
 
 }

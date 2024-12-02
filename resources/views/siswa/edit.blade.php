@@ -86,11 +86,12 @@
         <h1>Edit Profil Siswa</h1>
 
         <!-- Menampilkan Pesan Sukses -->
-        @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-        @endif
+        @if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 
         <!-- Form Edit Profil -->
         <form action="{{ route('siswa.update', $user->id) }}" method="POST" enctype="multipart/form-data">
