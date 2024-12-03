@@ -41,17 +41,23 @@
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Input akun</span>
                     </a>
+                     <li class="nav-link">
+                    <a href="{{ route('admin.list') }}">
+                        <i class='bx bx-user icon'></i>
+                        <span class="text nav-text">Daftar Akun</span>
+                    </a>
                 </li>
                 <li class="nav-link">
                     <a href="{{ route('admin.tempat') }}">
-                        <i class='bx bx-user icon'></i>
+              <i class='bx bxs-map-pin icon'></i>
+
                         <span class="text nav-text">Tempat PKL</span>
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="{{ route('admin.list') }}">
-                        <i class='bx bx-user icon'></i>
-                        <span class="text nav-text">Daftar Akun</span>
+                    <a href="{{ route('admin.datatempat') }}">
+                       <i class='bx bx-file icon'></i>
+                        <span class="text nav-text">Data Tempat PKL</span>
                     </a>
                 </li>
                 <li class="nav-link">

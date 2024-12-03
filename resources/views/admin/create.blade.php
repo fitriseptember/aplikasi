@@ -127,7 +127,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('admin.store') }}" method="POST">
+            <form action="{{ route('akun.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="nama">Nama Lengkap:</label>
@@ -153,7 +153,7 @@
                 <label for="role">Peran:</label>
                 <select id="role" name="role" required>
                     <option value="guru">Guru</option>
-                    <option value="mitra">Mentor</option>
+                    <option value="mentor">Mentor</option>
                     <option value="siswa">Siswa</option>
                 </select>
             </div>

@@ -84,6 +84,15 @@
             text-align: left;
         }
 
+        .alert-success {
+            color: #27ae60;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -94,75 +103,67 @@
             }
         }
     </style>
-    <script>
-        function toggleAdditionalFields() {
-            const roleSelect = document.getElementById('role');
-            const partnerField = document.getElementById('partner-field');
-            const teacherField = document.getElementById('teacher-field');
-
-            if (roleSelect.value === 'siswa') {
-                partnerField.style.display = 'block';
-                teacherField.style.display = 'block';
-            } else {
-                partnerField.style.display = 'none';
-                teacherField.style.display = 'none';
-            }
-        }
-    </script>
 </head>
 <body>
-    @extends('admin.dashboard')
+  @extends('admin.dashboard')
 
-    @section('title', 'Absensi Siswa')
+@section('content')
+<div class="container">
+    <h1>Tambah Tempat PKL</h1>
 
-    @section('content')
-        <div class="container">
-            <h1>Tempat PKL</h1>
-            @if ($errors->any())
-                <div class="error-message">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form action="{{ route('admin.store') }}" method="POST">
-                @csrf
-
-                <div class="form-group">
-                    <label for="pkl-place">Nama Tempat PKL:</label>
-                    <input type="text" id="pkl-place" name="pkl_place" placeholder="Masukkan Nama Tempat PKL" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="pkl-address">Alamat Tempat PKL:</label>
-                    <input type="text" id="pkl-address" name="pkl_address" placeholder="Masukkan Alamat Tempat PKL" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="pkl-teacher">Guru Pembimbing:</label>
-                    <select id="pkl-teacher" name="pkl_teacher" required>
-                        <option value="Renra Noviana">Renra Noviana</option>
-                        <option value="Asep Wahyudin">Asep Wahyudin</option>
-                        <option value="Irlan Sugiharto">Irlan Sugiharto</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="pkl-mentor">Mentor Tempat PKL:</label>
-                    <input type="text" id="pkl-mentor" name="pkl_mentor" placeholder="Masukkan Nama Mentor" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="pkl-student">Siswa PKL:</label>
-                    <input type="text" id="pkl-student" name="pkl_student" placeholder="Masukkan Nama Siswa PKL" required>
-                </div>
-
-
-                <button type="submit">Tambah Akun</button>
-            </form>
+    @if ($errors->any())
+        <div class="error-message">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-    @endsection
+    @endif
+
+    <form action="{{ route('admin.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="pkl_place">Nama Tempat PKL</label>
+            <input type="text" name="pkl_place" id="pkl_place" placeholder="Masukkan nama tempat PKL" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pkl_address">Alamat Tempat PKL</label>
+            <input type="text" name="pkl_address" id="pkl_address" placeholder="Masukkan alamat tempat PKL" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pkl_teacher">Guru Pembimbing</label>
+            <select name="pkl_teacher" id="pkl_teacher" required>
+                @foreach ($teachers as $id => $name)
+                    <option value="{{ $id }}">{{ $name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pkl_mentor">Mentor Tempat PKL</label>
+            <select name="pkl_mentor" id="pkl_mentor" required>
+                @foreach ($mentors as $id => $name)
+                    <option value="{{ $id }}">{{ $name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pkl_student">Siswa PKL</label>
+            <select name="pkl_student" id="pkl_student" required>
+                @foreach ($students as $id => $name)
+                    <option value="{{ $id }}">{{ $name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <button type="submit">Tambah Tempat PKL</button>
+    </form>
+</div>
+@endsection
+
 </body>
 </html>

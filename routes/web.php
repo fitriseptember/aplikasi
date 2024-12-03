@@ -9,6 +9,7 @@ use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LaporanKegiatanController;
+use App\Http\Controllers\TempatPklController;
 use Illuminate\Support\Facades\Route;
 
 // Rute halaman absensi siswa
@@ -41,7 +42,7 @@ Route::get('/admin/content', function () {
 // Rute untuk mengelola akun admin
 Route::get('/admin/create', [AkunController::class, 'create'])->name('admin.create');
 Route::get('/admin/list', [AkunController::class, 'index'])->name('admin.list');
-Route::post('/admin/store', [AkunController::class, 'store'])->name('admin.store');
+Route::post('/akun/store', [AkunController::class, 'store'])->name('akun.store');
 
 // Rute halaman Absensi dan Laporan Siswa Admin
 Route::get('/admin/tabelAbsen', [AdminController::class, 'tabelAbsen'])->name('admin.dataAbsen');
@@ -134,6 +135,10 @@ Route::middleware(['web'])->group(function () {
     Route::get('/guru/download-pdf', [MitraController::class, 'generatePdf'])->name('guru.downloadLaporanKegiatanPdf');
 });
 
-Route::get('/admin/tempat', function () {
-    return view('admin.tempat');
-})->name('admin.tempat');
+
+Route::get('/admin/tempat', [TempatPklController::class, 'create'])->name('admin.tempat');
+
+
+Route::post('/admin/store', [TempatPklController::class, 'store'])->name('admin.store');
+
+Route::get('/admin/datatempat', [TempatPklController::class, 'index'])->name('admin.datatempat');

@@ -62,7 +62,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.content');
             case 'guru':
                 return redirect()->route('guru.content');
-            case 'mitra':
+            case 'mentor':
                 return redirect()->route('mitra.content');
             case 'siswa':
                 return redirect()->route('siswa.content');

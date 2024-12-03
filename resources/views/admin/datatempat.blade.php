@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Akun</title>
+    <title>Daftar Tempat PKL</title>
     <style>
         /* Mengatur gaya dasar untuk body */
         body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-}
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
         /* Kontainer utama */
         .container {
             max-width: 1000px;
@@ -90,47 +90,42 @@
         }
     </style>
 </head>
-
-    </style>
-</head>
 <body>
-     @extends('admin.dashboard')
+    @extends('admin.dashboard')
 
-@section('title', 'Absensi Siswa')
+    @section('title', 'Daftar Tempat PKL')
 
-@section('content')
-    <div class="container">
-        <h1>Daftar Akun</h1>
-        @if(session('success'))
-            <div class="success-message">{{ session('success') }}</div>
-        @endif
-          <table>
-            <thead>
-                <tr>
-                    <th>Role</th>
-                    <th>Gender</th>
-                    <th>Nama Lengkap</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($accounts as $account)
+    @section('content')
+        <div class="container">
+            <h1>Daftar Tempat PKL</h1>
+            @if(session('success'))
+                <div class="success-message">{{ session('success') }}</div>
+            @endif
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td>{{ $account->role }}</td>
-                        <td>{{ $account->gender }}</td>
-                        <td>{{ $account->nama_lengkap }}</td>
-                        <td>{{ $account->username }}</td>
-                        <td>{{ $account->email }}</td>
+                        <th>No</th>
+                        <th>Nama Tempat PKL</th>
+                        <th>Alamat</th>
+                        <th>Guru Pembimbing</th>
+                        <th>Mentor PKL</th>
+                        <th>Siswa PKL</th>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" style="text-align: center;">Tidak ada data akun yang ditemukan.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-     @endsection
+                </thead>
+                <tbody>
+                    @foreach($tempatPkl as $index => $tempat)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $tempat->pkl_place }}</td>
+                            <td>{{ $tempat->pkl_address }}</td>
+                            <td>{{ $tempat->pkl_teacher }}</td>
+                            <td>{{ $tempat->pkl_mentor }}</td>
+                            <td>{{ $tempat->pkl_student }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endsection
 </body>
 </html>
