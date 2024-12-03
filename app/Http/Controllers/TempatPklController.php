@@ -30,29 +30,31 @@ class TempatPklController extends Controller
     }
 
     // Menyimpan data Tempat PKL
-    public function store(Request $request)
-    {
-        // Validasi input
-        $validatedData = $request->validate([
-            'pkl_place' => 'required|string|max:255',
-            'pkl_address' => 'required|string|max:255',
-            'pkl_teacher' => 'required|exists:akun,id',
-            'pkl_mentor' => 'required|exists:akun,id',
-            'pkl_student' => 'required|exists:akun,id',
-        ]);
+  public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'pkl_place' => 'required|string|max:255',
+        'pkl_address' => 'required|string|max:255',
+        'pkl_teacher' => 'required|exists:akun,id',
+        'pkl_mentor' => 'required|exists:akun,id',
+        'pkl_student' => 'required|array',
+        'pkl_student.*' => 'exists:akun,id',
+    ]);
 
-        // Simpan data Tempat PKL ke tabel tempat_pkl
+    foreach ($validatedData['pkl_student'] as $studentId) {
         DB::table('tempat_pkl')->insert([
-            'pkl_place'   => $validatedData['pkl_place'],
+            'pkl_place' => $validatedData['pkl_place'],
             'pkl_address' => $validatedData['pkl_address'],
             'pkl_teacher' => DB::table('akun')->where('id', $validatedData['pkl_teacher'])->value('nama_lengkap'),
-            'pkl_mentor'  => DB::table('akun')->where('id', $validatedData['pkl_mentor'])->value('nama_lengkap'),
-            'pkl_student' => DB::table('akun')->where('id', $validatedData['pkl_student'])->value('nama_lengkap'),
-            'created_at'  => now(),
-            'updated_at'  => now(),
+            'pkl_mentor' => DB::table('akun')->where('id', $validatedData['pkl_mentor'])->value('nama_lengkap'),
+            'pkl_student' => DB::table('akun')->where('id', $studentId)->value('nama_lengkap'),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-
-        // Redirect ke daftar Tempat PKL dengan pesan sukses
-        return redirect()->route('admin.datatempat')->with('success', 'Data Tempat PKL berhasil disimpan!');
     }
+
+    return redirect()->route('admin.datatempat')->with('success', 'Data Tempat PKL berhasil disimpan!');
+}
+
+
 }

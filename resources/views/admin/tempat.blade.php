@@ -45,8 +45,6 @@
         }
 
         input[type="text"],
-        input[type="password"],
-        input[type="email"],
         select {
             width: 100%;
             padding: 8px;
@@ -103,67 +101,82 @@
             }
         }
     </style>
+
+    <!-- Select2 Styles -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
-  @extends('admin.dashboard')
+    @extends('admin.dashboard')
 
-@section('content')
-<div class="container">
-    <h1>Tambah Tempat PKL</h1>
+    @section('content')
+    <div class="container">
+        <h1>Tambah Tempat PKL</h1>
 
-    @if ($errors->any())
-        <div class="error-message">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+        @if ($errors->any())
+            <div class="error-message">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <form action="{{ route('admin.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="pkl_place">Nama Tempat PKL</label>
-            <input type="text" name="pkl_place" id="pkl_place" placeholder="Masukkan nama tempat PKL" required>
-        </div>
+        <form action="{{ route('admin.store') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="pkl_place">Nama Tempat PKL</label>
+                <input type="text" name="pkl_place" id="pkl_place" placeholder="Masukkan nama tempat PKL" required>
+            </div>
 
-        <div class="form-group">
-            <label for="pkl_address">Alamat Tempat PKL</label>
-            <input type="text" name="pkl_address" id="pkl_address" placeholder="Masukkan alamat tempat PKL" required>
-        </div>
+            <div class="form-group">
+                <label for="pkl_address">Alamat Tempat PKL</label>
+                <input type="text" name="pkl_address" id="pkl_address" placeholder="Masukkan alamat tempat PKL" required>
+            </div>
 
-        <div class="form-group">
-            <label for="pkl_teacher">Guru Pembimbing</label>
-            <select name="pkl_teacher" id="pkl_teacher" required>
-                @foreach ($teachers as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="pkl_teacher">Guru Pembimbing</label>
+                <select name="pkl_teacher" id="pkl_teacher" required>
+                    @foreach ($teachers as $id => $name)
+                        <option value="{{ $id }}">{{ $name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="pkl_mentor">Mentor Tempat PKL</label>
-            <select name="pkl_mentor" id="pkl_mentor" required>
-                @foreach ($mentors as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="pkl_mentor">Mentor Tempat PKL</label>
+                <select name="pkl_mentor" id="pkl_mentor" required>
+                    @foreach ($mentors as $id => $name)
+                        <option value="{{ $id }}">{{ $name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="pkl_student">Siswa PKL</label>
-            <select name="pkl_student" id="pkl_student" required>
-                @foreach ($students as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="pkl_student">Siswa PKL</label>
+                <select name="pkl_student[]" id="pkl_student" class="form-control" multiple required>
+                    @foreach ($students as $id => $name)
+                        <option value="{{ $id }}">{{ $name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <button type="submit">Tambah Tempat PKL</button>
-    </form>
-</div>
-@endsection
+            <button type="submit">Tambah Tempat PKL</button>
+        </form>
+    </div>
+    @endsection
 
+    <!-- Select2 and jQuery Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#pkl_student').select2({
+                placeholder: 'Pilih siswa PKL',
+                allowClear: true
+            });
+        });
+    </script>
 </body>
 </html>

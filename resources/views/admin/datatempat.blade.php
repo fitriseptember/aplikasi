@@ -101,30 +101,31 @@
             @if(session('success'))
                 <div class="success-message">{{ session('success') }}</div>
             @endif
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Tempat PKL</th>
-                        <th>Alamat</th>
-                        <th>Guru Pembimbing</th>
-                        <th>Mentor PKL</th>
-                        <th>Siswa PKL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($tempatPkl as $index => $tempat)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $tempat->pkl_place }}</td>
-                            <td>{{ $tempat->pkl_address }}</td>
-                            <td>{{ $tempat->pkl_teacher }}</td>
-                            <td>{{ $tempat->pkl_mentor }}</td>
-                            <td>{{ $tempat->pkl_student }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+           <table>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Tempat PKL</th>
+            <th>Alamat</th>
+            <th>Guru Pembimbing</th>
+            <th>Mentor PKL</th>
+            <th>Siswa PKL</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($tempatPkl as $tempat)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $tempat->pkl_place }}</td>
+            <td>{{ $tempat->pkl_address }}</td>
+            <td>{{ $tempat->pkl_teacher }}</td>
+            <td>{{ $tempat->pkl_mentor }}</td>
+            <td>{{ $tempat->pkl_student }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
         </div>
     @endsection
 </body>
