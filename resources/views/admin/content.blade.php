@@ -128,7 +128,7 @@
 @section('content')
     <div class="container">
         <!-- Card Section -->
-       
+
         <!-- Chart Section -->
         <div class="chart-container">
             <div class="chart">
@@ -194,7 +194,7 @@ fetch('/kunjungan') // Sesuaikan rute ini dengan Laravel
     })
     .catch(error => console.error('Error fetching login data:', error));
 
-       
+
        // Mengambil data kehadiran dari backend
         const attendanceData = @json($kehadiran);
 
@@ -217,7 +217,7 @@ fetch('/kunjungan') // Sesuaikan rute ini dengan Laravel
                 }
             }
         });
-        
+
         setTimeout(() => {
             const accReports = [
                 { name: 'Laporan A', date: '01 Nov 2024', status: 'Disetujui' },
@@ -233,14 +233,14 @@ fetch('/kunjungan') // Sesuaikan rute ini dengan Laravel
             accTableBody.innerHTML = ''; // Clear existing rows
             accReports.forEach(report => {
                 const row = accTableBody.insertRow();
-                row.innerHTML = <td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>;
+                row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
             });
 
             const pendingTableBody = document.getElementById('pendingReportsTable').getElementsByTagName('tbody')[0];
             pendingTableBody.innerHTML = ''; // Clear existing rows
             pendingReports.forEach(report => {
                 const row = pendingTableBody.insertRow();
-                row.innerHTML = <td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>;
+                row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
             });
         }, 2000);
     </script>

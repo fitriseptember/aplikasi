@@ -87,7 +87,7 @@ public function edit($id)
 $user = Akun::find($id);
 
 if (!$user) {
-\Log::error('Pengguna dengan ID ' . $id . ' tidak ditemukan.');
+//Log::error('Pengguna dengan ID ' . $id . ' tidak ditemukan.');
 return redirect()->route('siswa.profile')->with('error', 'Pengguna tidak ditemukan.');
 }
 
@@ -143,5 +143,30 @@ public function dashboard()
 return view('siswa.dashboard');
 // Pastikan view ini ada
 }
+
+    public function updatePhoto(Request $request, $id)
+    {
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+
+        $user = Akun::find($id);
+
+        if (!$user) {
+            return redirect()->route('siswa.profil', $id)->with('error', 'Pengguna tidak ditemukan.');
+        }
+
+        // Hapus foto lama jika ada
+        if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
+            Storage::delete('public/' . $user->profile_picture);
+        }
+
+        // Simpan foto baru
+        $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+        $user->profile_picture = $path;
+        $user->save();
+
+        return redirect()->route('siswa.profil', $id)->with('success', 'Foto berhasil diperbarui.');
+    }
 
 }

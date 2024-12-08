@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Laporan dan Absensi</title>
     <style>
+        /* Gaya umum untuk halaman */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -13,12 +14,14 @@
             background-color: #f9f9f9;
         }
 
+        /* Container untuk konten utama */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
 
+        /* Container untuk kartu laporan */
         .card-container {
             display: flex;
             flex-wrap: wrap;
@@ -26,6 +29,7 @@
             margin-bottom: 20px;
         }
 
+        /* Gaya untuk setiap kartu */
         .card {
             flex: 1;
             min-width: 250px;
@@ -35,6 +39,7 @@
             font-size: 1.2em;
         }
 
+        /* Warna biru untuk kartu laporan ACC */
         .blue {
             background-color: #695CFE;
         }
@@ -43,7 +48,7 @@
             background-color: #9b59b6;
         }
 
-        /* Styling untuk tabel */
+        /* Styling untuk tabel laporan */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -76,9 +81,10 @@
             background-color: #f1f1f1;
         }
 
+        /* Styling untuk bagian grafik */
         .chart-container {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Sesuaikan dengan jumlah chart */
+            grid-template-columns: 1fr 1fr; /* Membuat dua kolom untuk grafik */
             gap: 20px;
             margin-top: 20px;
         }
@@ -128,39 +134,38 @@
 
     @section('content')
     <div class="container">
-        <!-- Tabel Sudah di-ACC -->
-       <div class="card-container">
-    <div class="card blue">
-        <h2>Laporan Sudah di-ACC</h2>
-        <table id="accReportsTable">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Deskripsi Laporan</th>
-                    <th>Tanggal</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($laporanAcc as $laporan)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $laporan->deskripsi }}</td>
-                        <td>{{ $laporan->tanggal }}</td>
-                        <td>✔️ Disetujui</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5">Tidak ada laporan yang sudah di-ACC.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-</div>
+        <!-- Bagian untuk tabel laporan yang sudah di-ACC -->
+        <div class="card-container">
+            <div class="card blue">
+                <h2>Laporan Sudah di-ACC</h2>
+                <table id="accReportsTable">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Deskripsi Laporan</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($laporanAcc as $laporan) <!-- Loop untuk menampilkan laporan yang sudah di-ACC -->
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $laporan->deskripsi }}</td>
+                                <td>{{ $laporan->tanggal }}</td>
+                                <td>✔️ Disetujui</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5">Tidak ada laporan yang sudah di-ACC.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-
-        <!-- Chart Section -->
+        <!-- Bagian grafik kunjungan situs dan persentase kehadiran siswa -->
         <div class="chart-container">
             <div class="chart">
                 <h3>Grafik Kunjungan Situs Harian</h3>
@@ -173,72 +178,66 @@
         </div>
     </div>
 
-    <!-- Chart.js -->
+    <!-- Sertakan pustaka Chart.js untuk menggambar grafik -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Membuat grafik untuk kunjungan situs
         const visitCtx = document.getElementById('visitChart').getContext('2d');
-
-        // Create the initial chart with empty data
         const visitChart = new Chart(visitCtx, {
-            type: 'bar',
+            type: 'bar', // Jenis grafik bar
             data: {
-                labels: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'], // Tetap dalam urutan Minggu - Sabtu
+                labels: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'], // Label untuk hari
                 datasets: [{
-                    label: 'Kunjungan',
-                    data: [0, 0, 0, 0, 0, 0, 0], // Data awal kosong
-                    backgroundColor: '#4a90e2',
+                    label: 'Kunjungan', // Label dataset
+                    data: [0, 0, 0, 0, 0, 0, 0], // Data kosong awal
+                    backgroundColor: '#4a90e2', // Warna grafik
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: false, // Agar grafik responsif
                 plugins: {
-                    legend: { display: false },
+                    legend: { display: false }, // Menyembunyikan legenda
                 }
             }
         });
 
-        // Fetch the login data from the controller
+        // Mengambil data login dari backend untuk grafik kunjungan
         fetch('/get-login-data')
             .then(response => response.json())
             .then(data => {
-                // Inisialisasi array untuk jumlah kunjungan harian
-                const dailyCounts = [0, 0, 0, 0, 0, 0, 0]; // [Minggu, Senin, ..., Sabtu]
-
-                // Hitung jumlah kunjungan berdasarkan hari
+                const dailyCounts = [0, 0, 0, 0, 0, 0, 0]; // Array untuk menghitung jumlah kunjungan per hari
                 data.forEach(item => {
                     const date = new Date(item.date);
-                    const dayOfWeek = date.getDay(); // 0: Minggu, ..., 6: Sabtu
-
-                    // Tambahkan jumlah kunjungan ke hari yang sesuai
-                    dailyCounts[dayOfWeek] += item.count;
+                    const dayOfWeek = date.getDay(); // Mendapatkan hari dalam angka (0: Minggu, ..., 6: Sabtu)
+                    dailyCounts[dayOfWeek] += item.count; // Tambahkan jumlah kunjungan pada hari yang sesuai
                 });
 
-                // Perbarui data grafik
+                // Update data pada grafik kunjungan
                 visitChart.data.datasets[0].data = dailyCounts;
                 visitChart.update(); // Render ulang grafik
             })
             .catch(error => console.error('Error fetching login data:', error));
 
-        // Mengambil data kehadiran dari backend
-        const attendanceData = @json($kehadiran);
+        // Mengambil data kehadiran siswa dari backend
+        const attendanceData = @json($kehadiran); // Data dari controller Laravel
 
-        // Inisialisasi Chart.js untuk menampilkan data
+        // Membuat grafik donat untuk persentase kehadiran siswa
         const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
         const attendanceChart = new Chart(attendanceCtx, {
-            type: 'doughnut',
+            type: 'doughnut', // Jenis grafik donat
             data: {
-                labels: Object.keys(attendanceData), // Label status (Hadir, Sakit, Izin, Alpa)
+                labels: Object.keys(attendanceData), // Label status kehadiran (Hadir, Sakit, Izin, Alpa)
                 datasets: [{
-                    data: Object.values(attendanceData), // Data jumlah untuk setiap status
-                    backgroundColor: ['#2ecc71', '#f1c40f', '#3498db', '#e74c3c'], // Warna
+                    data: Object.values(attendanceData), // Data jumlah kehadiran per status
+                    backgroundColor: ['#2ecc71', '#f1c40f', '#3498db', '#e74c3c'], // Warna untuk setiap status
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' }, // Letak legenda
+                    legend: { position: 'bottom' }, // Menampilkan legenda di bagian bawah
                 }
             }
         });

@@ -1,52 +1,55 @@
 <?php
-namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+namespace App\Http\Controllers; // Namespace yang digunakan untuk mengelompokkan controller
+
+use Illuminate\Http\Request; // Mengimpor kelas Request untuk menangani input HTTP
+use Illuminate\Support\Facades\DB; // Mengimpor fasad DB untuk operasi database
+use Illuminate\Support\Facades\Hash; // Mengimpor fasad Hash untuk hashing password
 
 class AkunController extends Controller
 {
-    // Menampilkan form untuk menambah akun
+    // Method untuk menampilkan form penambahan akun
     public function create()
     {
-        return view('admin.create'); // Ganti dengan view yang sesuai jika ini bukan untuk dashboard
+        return view('admin.create'); // Menampilkan view form penambahan akun. Ganti dengan path view sesuai kebutuhan.
     }
 
-    // Menampilkan daftar akun
-   public function index()
-{
-    $accounts = DB::table('akun')->get();
-    return view('admin.list', compact('accounts'));
-}
+    // Method untuk menampilkan daftar akun
+    public function index()
+    {
+        // Mengambil semua data dari tabel 'akun' menggunakan query builder
+        $accounts = DB::table('akun')->get();
 
+        // Menampilkan view 'admin.list' dan mengirimkan data 'accounts' ke view tersebut
+        return view('admin.list', compact('accounts'));
+    }
 
-    // Menyimpan akun baru
+    // Method untuk menyimpan akun baru ke database
     public function store(Request $request)
     {
-        // Validasi input
+        // Validasi input dari form
         $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:akun',
-            'password' => 'required|string|min:6',
-            'email' => 'required|email|unique:akun',
-            'role' => 'required',
-            'gender' => 'required',
+            'nama_lengkap' => 'required|string|max:255', // Nama lengkap harus diisi, berupa string, dan maksimal 255 karakter
+            'username' => 'required|string|max:255|unique:akun', // Username harus unik dalam tabel 'akun'
+            'password' => 'required|string|min:6', // Password harus diisi, berupa string, minimal 6 karakter
+            'email' => 'required|email|unique:akun', // Email harus valid dan unik
+            'role' => 'required', // Role harus diisi
+            'gender' => 'required', // Gender harus diisi
         ]);
 
-        // Simpan data ke tabel 'akun'
+        // Memasukkan data yang divalidasi ke tabel 'akun'
         DB::table('akun')->insert([
-            'nama_lengkap' => $request->nama_lengkap,
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'email' => $request->email,
-            'role' => $request->role,
-            'gender' => $request->gender,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'nama_lengkap' => $request->nama_lengkap, // Mengambil input 'nama_lengkap' dari form
+            'username' => $request->username, // Mengambil input 'username' dari form
+            'password' => Hash::make($request->password), // Meng-hash password sebelum menyimpan
+            'email' => $request->email, // Mengambil input 'email' dari form
+            'role' => $request->role, // Mengambil input 'role' dari form
+            'gender' => $request->gender, // Mengambil input 'gender' dari form
+            'created_at' => now(), // Menyimpan waktu saat ini untuk kolom 'created_at'
+            'updated_at' => now(), // Menyimpan waktu saat ini untuk kolom 'updated_at'
         ]);
 
-        // Redirect ke daftar akun dengan pesan sukses
+        // Redirect ke halaman daftar akun dengan pesan sukses
         return redirect()->route('admin.list')->with('success', 'Akun berhasil ditambahkan!');
     }
 }

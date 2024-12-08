@@ -136,9 +136,11 @@ Route::middleware(['web'])->group(function () {
 });
 
 
+// Menampilkan halaman form untuk menambah data tempat PKL
 Route::get('/admin/tempat', [TempatPklController::class, 'create'])->name('admin.tempat');
 
-
+// Menyimpan data tempat PKL yang dikirim melalui form
 Route::post('/admin/store', [TempatPklController::class, 'store'])->name('admin.store');
 
+// Menampilkan daftar tempat PKL yang ada dalam database
 Route::get('/admin/datatempat', [TempatPklController::class, 'index'])->name('admin.datatempat');
