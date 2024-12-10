@@ -35,6 +35,13 @@
                     </a>
                 </li>
                 <li class="nav-link">
+                    <a href="{{ route('mitra.profile') }}">
+                        <i class='bx bx-user icon'></i>
+                        <span class="text nav-text">Profil</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
                     <a href="{{ route('mitra.dataAbsen') }}">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Data Absen</span>

@@ -98,7 +98,7 @@
 
 @section('content')
     <div class="body">
-        <h1>Data Absen Siswa (Mitra)</h1>
+        <h1>Data Absen Siswa</h1>
 
         <!-- Blade View -->
 <table id="attendanceTable" border="1">

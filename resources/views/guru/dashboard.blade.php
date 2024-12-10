@@ -36,12 +36,13 @@
                         <span class="text nav-text">Dashboard</span>
                     </a>
                 </li>
-                {{-- <li class="nav-link">
-                 <a href="{{ route('guru.profile') }}">
+                <!-- Menu Profil Siswa -->
+                <li class="nav-link">
+                    <a href="{{ route('guru.profile') }}">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Profil</span>
                     </a>
-                </li> --}}
+                </li>
                 <li class="nav-link">
                     <a href="{{ route('guru.dataAbsen') }}">
                         <i class='bx bx-user icon'></i>

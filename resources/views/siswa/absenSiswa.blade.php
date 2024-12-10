@@ -203,7 +203,7 @@
         const absenForm = document.getElementById('absenForm');
         absenForm?.addEventListener('submit', function (event) {
             const currentHour = new Date().getHours(); // Mendapatkan jam saat ini
-            if (currentHour >= 12) { // Jika waktu sudah lebih dari jam 12
+            if (currentHour >= 18) { // Jika waktu sudah lebih dari jam 12
                 alert('Batas waktu pengisian absen telah berakhir.'); // Menampilkan alert
                 event.preventDefault(); // Mencegah form dikirim
             }

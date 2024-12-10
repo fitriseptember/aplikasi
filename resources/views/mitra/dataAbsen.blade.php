@@ -90,6 +90,10 @@
             }
         }
     </style>
+
+    <!-- Menambahkan CDN untuk jsPDF -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 <body>
    @extends('mitra.dashboard') {{-- Ganti dengan layout mitra jika menggunakan layout khusus per mitra --}}
@@ -100,7 +104,11 @@
     <div class="body">
         <h1>Data Absen Siswa (Mitra)</h1>
 
-
+         <!-- Tombol Unduh PDF -->
+        <div style="margin-bottom: 20px;">
+            <a href="{{ route('guru.downloadDataAbsenPdf') }}" class="btn btn-primary" style="padding: 10px 15px; background-color: #695CFE; color: white; text-decoration: none; border-radius: 5px;">Download PDF</a>
+        </div>
+        
     <!-- Tabel Data Absensi -->
     <table id="attendanceTable" border="1">
         <thead>

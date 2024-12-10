@@ -89,6 +89,10 @@
                 font-size: 20px;
             }
         }
+
+        <!-- Menambahkan CDN untuk jsPDF -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     </style>
 </head>
 <body>
@@ -99,6 +103,11 @@
 @section('content')
     <div class="body">
         <h1>Data Absen Siswa</h1>
+
+        <!-- Tombol Unduh PDF -->
+        <div style="margin-bottom: 20px;">
+            <a href="{{ route('guru.downloadDataAbsenPdf') }}" class="btn btn-primary" style="padding: 10px 15px; background-color: #695CFE; color: white; text-decoration: none; border-radius: 5px;">Download PDF</a>
+        </div>
 
         <!-- Blade View -->
 <table id="attendanceTable" border="1">

@@ -101,7 +101,7 @@ return view('siswa.edit', compact('user'));
         $validated = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'gender' => 'required|in:male,female',
+            'gender' => 'required',
             'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
@@ -166,7 +166,7 @@ return view('siswa.dashboard');
         $user->profile_picture = $path;
         $user->save();
 
-        return redirect()->route('siswa.profil', $id)->with('success', 'Foto berhasil diperbarui.');
+        return redirect()->route('siswa.profile', $id)->with('success', 'Foto berhasil diperbarui.');
     }
 
 }

@@ -31,24 +31,23 @@
             min-width: 250px;
             padding: 20px;
             border-radius: 8px;
-            color: #333;
+            color: white;
             font-size: 1.2em;
         }
 
         .blue {
-            background-color: #695CFE;
+            background-color: #4a90e2;
         }
 
         .purple {
             background-color: #9b59b6;
         }
 
-        /* Styling untuk tabel */
+        /* Styling for the tables */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            font-size: 16px;
         }
 
         th,
@@ -59,26 +58,12 @@
         }
 
         th {
-            background-color: #695CFE;
-            color: #ffffff;
-            text-transform: uppercase;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #ffffff;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
+            background-color: #f4f4f4;
         }
 
         .chart-container {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Sesuaikan dengan jumlah chart */
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 20px;
         }
 
@@ -87,21 +72,16 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .chart h3 {
             margin-bottom: 20px;
             font-size: 1.2em;
             color: #333;
-            text-align: center;
         }
 
         .chart canvas {
-            width: 100% !important;
-            height: 300px !important; /* Tetapkan tinggi yang konsisten */
+            max-width: 100%;
         }
 
         @media (max-width: 768px) {
@@ -112,22 +92,58 @@
             .chart-container {
                 grid-template-columns: 1fr;
             }
-
-            .chart canvas {
-                height: 250px !important; /* Sesuaikan tinggi untuk layar kecil */
-            }
         }
     </style>
 </head>
 
 <body>
-     @extends('mitra.dashboard')
-
-@section('title', 'Absensi Siswa')
-
-@section('content')
     <div class="container">
         <!-- Card Section -->
+        <div class="card-container">
+            <div class="card blue">
+                <h2>Laporan Sudah di-ACC</h2>
+                <table id="accReportsTable">
+                    <!-- Dynamic Table for Approved Reports -->
+                    <thead>
+                        <tr>
+                            <th>Nama Laporan</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example rows that will be updated dynamically -->
+                        <tr>
+                            <td>Laporan A</td>
+                            <td>01 Nov 2024</td>
+                            <td>Disetujui</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card purple">
+                <h2>Laporan Belum di-ACC</h2>
+                <table id="pendingReportsTable">
+                    <!-- Dynamic Table for Pending Reports -->
+                    <thead>
+                        <tr>
+                            <th>Nama Laporan</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example rows that will be updated dynamically -->
+                        <tr>
+                            <td>Laporan B</td>
+                            <td>02 Nov 2024</td>
+                            <td>Menunggu</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <!-- Chart Section -->
         <div class="chart-container">
@@ -143,82 +159,50 @@
     </div>
 
     <!-- Chart.js -->
-   <!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const visitCtx = document.getElementById('visitChart').getContext('2d');
-
-// Create the initial chart
-const visitChart = new Chart(visitCtx, {
-    type: 'bar',
-    data: {
-        labels: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'], // Days of the week
-        datasets: [{
-            label: 'Kunjungan Harian',
-            data: [0, 0, 0, 0, 0, 0, 0], // Initially empty
-            backgroundColor: '#4a90e2',
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: { display: true },
-        },
-        scales: {
-            x: { title: { display: true, text: 'Hari' } },
-            y: { title: { display: true, text: 'Jumlah Login' } },
-        }
-    }
-});
-
-// Fetch the login data from the server
-fetch('/kunjungan') // Sesuaikan rute ini dengan Laravel
-    .then(response => response.json())
-    .then(data => {
-        // Initialize an array for storing daily login counts
-        const dailyCounts = [0, 0, 0, 0, 0, 0, 0]; // Sunday to Saturday
-
-        // Group the data by day of the week
-        data.forEach(item => {
-            const date = new Date(item.date);
-            const dayOfWeek = date.getDay(); // Get day of the week (0: Sunday, ..., 6: Saturday)
-
-            // Increment the count for the corresponding day
-            dailyCounts[dayOfWeek] += item.count;
-        });
-
-        // Update the chart with the fetched data
-        visitChart.data.datasets[0].data = dailyCounts;
-        visitChart.update(); // Re-render the chart
-    })
-    .catch(error => console.error('Error fetching login data:', error));
-
-
-       // Mengambil data kehadiran dari backend
-        const attendanceData = @json($kehadiran);
-
-        // Inisialisasi Chart.js untuk menampilkan data
-        const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
-        const attendanceChart = new Chart(attendanceCtx, {
-            type: 'doughnut',
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Grafik Kunjungan Situs Harian
+        const visitCtx = document.getElementById('visitChart').getContext('2d');
+        const visitChart = new Chart(visitCtx, {
+            type: 'bar',
             data: {
-                labels: Object.keys(attendanceData), // Label status (Hadir, Sakit, Izin, Alpa)
+                labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
                 datasets: [{
-                    data: Object.values(attendanceData), // Data jumlah untuk setiap status
-                    backgroundColor: ['#2ecc71', '#f1c40f', '#3498db', '#e74c3c'], // Warna
+                    label: 'Kunjungan',
+                    data: [50, 60, 45, 70, 80, 55, 40],
+                    backgroundColor: '#4a90e2',
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' }, // Letak legenda
+                    legend: { display: false },
                 }
             }
         });
 
+        // Grafik Persentase Kehadiran Siswa
+        const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+        const attendanceChart = new Chart(attendanceCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Hadir', 'Tidak Hadir'],
+                datasets: [{
+                    data: [75, 25], // 75% hadir, 25% tidak hadir
+                    backgroundColor: ['#2ecc71', '#e74c3c'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' },
+                }
+            }
+        });
+
+        // Simulating dynamic data updates for tables
         setTimeout(() => {
+            // Simulate dynamic data for Laporan Sudah di-ACC
             const accReports = [
                 { name: 'Laporan A', date: '01 Nov 2024', status: 'Disetujui' },
                 { name: 'Laporan C', date: '03 Nov 2024', status: 'Disetujui' }
@@ -229,22 +213,21 @@ fetch('/kunjungan') // Sesuaikan rute ini dengan Laravel
                 { name: 'Laporan D', date: '04 Nov 2024', status: 'Menunggu' }
             ];
 
+            // Update the "Laporan Sudah di-ACC" table dynamically
             const accTableBody = document.getElementById('accReportsTable').getElementsByTagName('tbody')[0];
-            accTableBody.innerHTML = ''; // Clear existing rows
             accReports.forEach(report => {
                 const row = accTableBody.insertRow();
                 row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
             });
 
+            // Update the "Laporan Belum di-ACC" table dynamically
             const pendingTableBody = document.getElementById('pendingReportsTable').getElementsByTagName('tbody')[0];
-            pendingTableBody.innerHTML = ''; // Clear existing rows
             pendingReports.forEach(report => {
                 const row = pendingTableBody.insertRow();
                 row.innerHTML = `<td>${report.name}</td><td>${report.date}</td><td>${report.status}</td>`;
             });
-        }, 2000);
+        }, 2000); // Simulate data update after 2 seconds
     </script>
-        @endsection
 </body>
 
 </html>

@@ -125,6 +125,11 @@ Route::middleware(['web'])->group(function () {
     Route::get('/guru/download-pdf', [GuruController::class, 'generatePdf'])->name('guru.downloadLaporanKegiatanPdf');
 });
 
+Route::middleware(['web'])->group(function () {
+    Route::get('/guru/download-absen-pdf', [GuruController::class, 'generateAbsenPdf'])->name('guru.downloadDataAbsenPdf');
+    Route::get('/guru/download-daftar-pdf', [GuruController::class, 'generateDaftarSiswaPdf'])->name('guru.downloadDaftarSiswaPdf');
+});
+
 // web.php
 Route::middleware(['web'])->group(function () {
     Route::get('/guru/download-pdf', [AdminController::class, 'generatePdf'])->name('guru.downloadLaporanKegiatanPdf');
@@ -132,6 +137,7 @@ Route::middleware(['web'])->group(function () {
 
 // web.php
 Route::middleware(['web'])->group(function () {
+    Route::get('/guru/download-absen-pdf', [MitraController::class, 'generateAbsenPdf'])->name('guru.downloadDataAbsenPdf');
     Route::get('/guru/download-pdf', [MitraController::class, 'generatePdf'])->name('guru.downloadLaporanKegiatanPdf');
 });
 
@@ -144,3 +150,26 @@ Route::post('/admin/store', [TempatPklController::class, 'store'])->name('admin.
 
 // Menampilkan daftar tempat PKL yang ada dalam database
 Route::get('/admin/datatempat', [TempatPklController::class, 'index'])->name('admin.datatempat');
+
+
+// Rute untuk menampilkan profil siswa
+Route::get('/mitra/profile', [MitraController::class, 'profile'])->name('mitra.profile');
+
+// Rute untuk halaman edit profil siswa
+Route::get('/mitra/edit/{id}', [MitraController::class, 'edit'])->name('mitra.edit');
+
+// Rute untuk memperbarui profil siswa
+Route::put('/mitra/{id}', [MitraController::class, 'update'])->name('mitra.update');
+Route::put('/mitra/update-photo/{id}', [MitraController::class, 'updatePhoto'])->name('mitra.updatePhoto');
+
+//Rute untuk menampilkan profil siswa
+Route::get('/guru/profile', [GuruController::class, 'profile'])->name('guru.profile');
+
+// Rute untuk halaman edit profil siswa
+Route::get('/guru/edit/{id}', [GuruController::class, 'edit'])->name('guru.edit');
+
+// Rute untuk memperbarui profil siswa
+Route::put('/guru/{id}', [GuruController::class, 'update'])->name('guru.update');
+Route::put('/guru/update-photo/{id}', [GuruController::class, 'updatePhoto'])->name('guru.updatePhoto');
+
+
