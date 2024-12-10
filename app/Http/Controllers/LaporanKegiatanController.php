@@ -61,7 +61,7 @@ class LaporanKegiatanController extends Controller
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id'); // 'user_id' adalah foreign key di tabel laporan_kegiatan
-    }
+    } 
 
     public function acc(Request $request)
     {
