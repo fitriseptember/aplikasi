@@ -133,6 +133,8 @@ Route::middleware(['web'])->group(function () {
 // web.php
 Route::middleware(['web'])->group(function () {
     Route::get('/guru/download-pdf', [AdminController::class, 'generatePdf'])->name('guru.downloadLaporanKegiatanPdf');
+    Route::get('/admin/generateAkunPdf', [AdminController::class, 'generateAkunPdf'])->name('admin.downloadDaftarAkunPdf');
+    Route::get('/admin/generateTempatPdf', [AdminController::class, 'generateTempatPklPdf'])->name('admin.downloadDataTempatPKLPdf');
 });
 
 // web.php

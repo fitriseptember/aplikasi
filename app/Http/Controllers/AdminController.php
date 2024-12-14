@@ -52,6 +52,32 @@ class AdminController extends Controller
         return $pdf->download('laporan_kegiatan.pdf');
     }
 
+
+    public function generateAkunPdf()
+{
+     $accounts = DB::table('akun')->get();
+
+    // Membuat PDF dari view 'admin.pdfAkun' dengan data akun
+    $pdf = PDF::loadView('admin.pdfAkun', compact('accounts'))->setPaper('a4', 'portrait');
+
+    // Mengunduh PDF dengan nama "data_akun.pdf"
+    return $pdf->download('daftar_akun.pdf');
+}
+
+
+public function generateTempatPklPdf()
+    {
+        // Ambil data dari tabel tempat PKL
+        $tempatPkl = DB::table('tempat_pkl')->get();
+
+        // Buat PDF berdasarkan view 'admin.pdfTempat'
+        $pdf = PDF::loadView('admin.pdfTempat', compact('tempatPkl'))->setPaper('a4', 'landscape');
+
+        // Unduh PDF dengan nama "data_tempat_pkl.pdf"
+        return $pdf->download('data_tempat_pkl.pdf');
+    }
+
+
     // Metode untuk menampilkan data konten kehadiran dan data login
     public function content()
     {
