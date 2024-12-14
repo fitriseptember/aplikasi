@@ -13,6 +13,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->text('deskripsi');
             $table->string('foto_kegiatan');
+              $table->string('tempat_pkl');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });

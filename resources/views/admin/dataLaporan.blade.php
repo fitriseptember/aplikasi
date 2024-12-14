@@ -149,6 +149,7 @@
                     <th>Nama Siswa</th>
                     <th>Deskripsi</th>
                     <th>Foto Kegiatan</th>
+                      <th>Tempat PKL</th>
                 </tr>
             </thead>
             <tbody>
@@ -167,6 +168,7 @@
                                     Tidak ada foto
                                 @endif
                             </td>
+                              <td>{{ $laporan->tempat_pkl ?? 'Not Provided' }}</td>
                         </tr>
                     @endforeach
                 @else

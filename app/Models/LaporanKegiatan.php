@@ -14,10 +14,12 @@ class LaporanKegiatan extends Model
     protected $fillable = [
         'tanggal',
         'deskripsi',
+        'tempat_pkl',
         'foto_kegiatan',
         'user_id',
         'acc',
         'time'
+
     ];
 
     // Relasi dengan model Akun

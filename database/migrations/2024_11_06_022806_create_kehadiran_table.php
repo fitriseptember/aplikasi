@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->date('tanggal');
             $table->string('status');
+            $table->string('tempat_pkl'); // Add the tempat_pkl column
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });

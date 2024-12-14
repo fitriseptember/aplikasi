@@ -152,6 +152,7 @@
                     <th>Nama Siswa</th>
                     <th>Deskripsi</th>
                     <th>Foto Kegiatan</th>
+                     <th>Tempat PKL</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -171,6 +172,7 @@
                                     Tidak ada foto
                                 @endif
                             </td>
+                             <td>{{ $laporan->tempat_pkl ?? 'Not Provided' }}</td>
                             <td>
                                 @if ($laporan->acc)
                                     <span class="text-success">✔️ ACC</span>

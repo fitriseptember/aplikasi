@@ -108,7 +108,7 @@
         <div style="margin-bottom: 20px;">
             <a href="{{ route('guru.downloadDataAbsenPdf') }}" class="btn btn-primary" style="padding: 10px 15px; background-color: #695CFE; color: white; text-decoration: none; border-radius: 5px;">Download PDF</a>
         </div>
-        
+
     <!-- Tabel Data Absensi -->
     <table id="attendanceTable" border="1">
         <thead>
@@ -117,6 +117,7 @@
                 <th>Tanggal</th>
                 <th>Jam</th> <!-- Kolom baru untuk waktu -->
                 <th>Nama Siswa</th>
+                <th>Tempat PKL</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -128,6 +129,7 @@
                         <td>{{ $attendance->tanggal }}</td>
                         <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td>
                         <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td>
+                        <td>{{ $attendance->tempat_pkl ?? 'Not Provided' }}</td>
                         <td>{{ $attendance->status }}</td>
                     </tr>
                 @endforeach

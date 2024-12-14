@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB; // Untuk menggunakan DB
-
 use Illuminate\Http\Request;
 use App\Models\LaporanKegiatan;
 use App\Models\User;
@@ -11,43 +10,51 @@ use Carbon\Carbon;
 
 class LaporanKegiatanController extends Controller
 {
-    // Menampilkan form untuk pengiriman laporan kegiatan
+    /**
+     * Menampilkan form untuk pengiriman laporan kegiatan.
+     */
     public function create()
     {
         return view('siswa.content'); // Pastikan view sesuai
     }
 
-    // Menyimpan laporan kegiatan baru ke dalam database
-   public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'tanggal' => 'required|date',
-        'deskripsi' => 'required|string',
-        'foto_kegiatan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    /**
+     * Menyimpan laporan kegiatan baru ke dalam database.
+     */
+    public function store(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'tanggal' => 'required|date',
+            'deskripsi' => 'required|string',
+            'tempat_pkl' => 'required|string',
+            'foto_kegiatan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    $tanggalLaporan = now()->toDateString(); // Mendapatkan tanggal hari ini
-    $jamLaporan = now()->toTimeString(); // Mendapatkan waktu sekarang dalam format HH:mm:ss
+        // Mendapatkan tanggal dan waktu laporan
+        $tanggalLaporan = now()->toDateString();
+        $jamLaporan = now()->toTimeString();
 
-    // Simpan foto kegiatan dan ambil path penyimpanannya
-    $path = $request->file('foto_kegiatan')->store('foto_kegiatan', 'public');
+        // Simpan foto kegiatan dan ambil path penyimpanannya
+        $path = $request->file('foto_kegiatan')->store('foto_kegiatan', 'public');
 
-    // Simpan data laporan kegiatan ke database
-    LaporanKegiatan::create([
-        'tanggal' => $tanggalLaporan, // Tanggal laporan otomatis
-        'time' => $jamLaporan, // Waktu laporan otomatis
-        'deskripsi' => $request->deskripsi,
-        'foto_kegiatan' => $path,
-        'user_id' => session('user_data')->id, // Mengambil ID pengguna dari session
-    ]);
+        // Simpan data laporan kegiatan ke database
+        LaporanKegiatan::create([
+            'tanggal' => $tanggalLaporan, // Tanggal laporan otomatis
+            'time' => $jamLaporan, // Waktu laporan otomatis
+            'deskripsi' => $request->deskripsi,
+            'foto_kegiatan' => $path,
+            'tempat_pkl' => $request->tempat_pkl, // Tempat PKL
+            'user_id' => session('user_data')->id, // Mengambil ID pengguna dari session
+        ]);
 
-    // Redirect kembali ke dashboard dengan pesan sukses
-    return redirect()->route('siswa.content')->with('success', 'Laporan kegiatan berhasil dikirim.');
-}
+        // Redirect kembali ke dashboard dengan pesan sukses
+        return redirect()->route('siswa.content')->with('success', 'Laporan kegiatan berhasil dikirim.');
+    }
 
-
-    // Menampilkan laporan kegiatan untuk siswa yang sedang login
+    /**
+     * Menampilkan laporan kegiatan untuk siswa yang sedang login.
+     */
     public function index()
     {
         // Ambil laporan kegiatan untuk siswa yang sedang login
@@ -57,12 +64,17 @@ class LaporanKegiatanController extends Controller
         return view('siswa.dashboard', compact('laporan'));
     }
 
-    // Relasi dengan User
+    /**
+     * Relasi dengan User.
+     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id'); // 'user_id' adalah foreign key di tabel laporan_kegiatan
-    } 
+    }
 
+    /**
+     * Meng-ACC laporan kegiatan.
+     */
     public function acc(Request $request)
     {
         // Validasi input
@@ -80,6 +92,4 @@ class LaporanKegiatanController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->back()->with('success', 'Laporan berhasil di-ACC.');
     }
-
-
 }

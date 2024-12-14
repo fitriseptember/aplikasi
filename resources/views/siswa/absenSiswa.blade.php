@@ -53,7 +53,8 @@
             transition: border-color 0.3s; /* Efek transisi pada border saat fokus */
         }
 
-        input[type="text"]:focus {
+        input[type="text"]:focus,
+        input[type="date"]:focus {
             border-color: #695CFE; /* Ubah warna border saat input difokuskan */
             outline: none; /* Menghilangkan outline pada input */
         }
@@ -152,6 +153,11 @@
                     <input type="date" id="tanggal" name="tanggal" readonly> <!-- Input tanggal yang hanya bisa dibaca -->
                 </div>
 
+                <div class="form-group">
+                    <label for="tempat_pkl">Nama Tempat PKL</label>
+                    <input type="text" id="tempat_pkl" name="tempat_pkl" placeholder="Masukkan nama tempat PKL" required>
+                </div>
+
                 <div class="status-table">
                     <p class="status-title">Pilih Status Kehadiran:</p>
                     <!-- Tabel untuk memilih status kehadiran -->
@@ -203,7 +209,7 @@
         const absenForm = document.getElementById('absenForm');
         absenForm?.addEventListener('submit', function (event) {
             const currentHour = new Date().getHours(); // Mendapatkan jam saat ini
-            if (currentHour >= 18) { // Jika waktu sudah lebih dari jam 12
+            if (currentHour >= 21 { // Jika waktu sudah lebih dari jam 12
                 alert('Batas waktu pengisian absen telah berakhir.'); // Menampilkan alert
                 event.preventDefault(); // Mencegah form dikirim
             }

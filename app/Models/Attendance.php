@@ -9,9 +9,9 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    protected $table = 'kehadiran'; // Nama tabel yang sesuai
+    protected $table = 'kehadiran'; // Name of the table
 
-    protected $fillable = ['tanggal', 'status', 'user_id', 'time'];  // Menambahkan kolom 'time'
+    protected $fillable = ['tanggal', 'status', 'tempat_pkl', 'user_id', 'time'];  // Add 'tempat_pkl'
 
     // Relasi dengan User
     public function user()

@@ -7,10 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Attendance;
 use Carbon\Carbon;
 
-
 class AttendanceController extends Controller
 {
-
     // Menampilkan form absensi
     public function create()
     {
@@ -22,6 +20,7 @@ class AttendanceController extends Controller
     {
         $request->validate([
             'status' => 'required|string',
+            'tempat_pkl' => 'required|string', // Validate tempat_pkl
         ]);
 
         $tanggalAbsen = now()->toDateString(); // Tanggal hari ini
@@ -32,6 +31,7 @@ class AttendanceController extends Controller
             'tanggal' => $tanggalAbsen,
             'time' => $jamAbsen, // Waktu absensi
             'status' => $request->status,
+            'tempat_pkl' => $request->tempat_pkl, // Menyimpan nama tempat PKL
             'user_id' => session('user_data')->id, // ID user dari session
         ]);
 
@@ -53,14 +53,13 @@ class AttendanceController extends Controller
         return view('siswa.absenSiswa', [
             'absensiSudahDiisi' => $absensi !== null,
             'statusAbsensi' => $absensi->status ?? null,
+            'tempatPkl' => $absensi->tempat_pkl ?? null, // Pass the tempat_pkl value to the view
         ]);
     }
-
 
     // Mendapatkan relasi dengan model User
     public function user()
     {
-        // Relasi dengan model User, menggunakan 'user_id' sebagai foreign key di tabel kehadiran
         return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -117,6 +117,7 @@
             <th>Tanggal</th>
             <th>Jam</th> <!-- New column for time -->
             <th>Nama Siswa</th>
+             <th>Tempat PKL</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -129,6 +130,7 @@
                   <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td>
 
                     <td>{{ $attendance->user->nama_lengkap ?? 'Unknown' }}</td>
+                     <td>{{ $attendance->tempat_pkl ?? 'Not Provided' }}</td>
                     <td>{{ $attendance->status }}</td>
                 </tr>
             @endforeach
