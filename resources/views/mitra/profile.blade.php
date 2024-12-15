@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profil Siswa</title>
+    <title>Profil Mentor</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -101,7 +101,7 @@
 <body>
     <div class="profile-container">
         <!-- Form for uploading the profile picture -->
-        <form action="{{ route('siswa.updatePhoto', $user->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('mitra.updatePhoto', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -119,10 +119,10 @@
 
         <!-- Action Buttons -->
         <div class="btn-group">
-            <a href="{{ route('siswa.edit', $user->id) }}">
+            <a href="{{ route('mitra.edit', $user->id) }}">
                 <button type="button">Edit</button>
             </a>
-            <a href="{{ route('siswa.content') }}">
+            <a href="{{ route('mitra.content') }}">
                 <button type="button" class="back">Kembali</button>
             </a>
         </div>

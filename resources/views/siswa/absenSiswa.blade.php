@@ -8,124 +8,124 @@
     <style>
         /* General Styles */
         body {
-            font-family: Arial, sans-serif; /* Mengatur font keluarga */
-            margin: 0; /* Menghapus margin default */
-            padding: 0; /* Menghapus padding default */
-            background-color: #f7f7f7; /* Warna latar belakang halaman */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
         }
 
         .container {
-            max-width: 800px; /* Lebar maksimum kontainer */
-            margin: 0 auto; /* Mengatur margin agar kontainer terpusat */
-            padding: 20px; /* Memberikan padding dalam kontainer */
-            background-color: #ffffff; /* Warna latar belakang kontainer */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan pada kontainer */
-            border-radius: 8px; /* Membulatkan sudut kontainer */
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         h1 {
-            text-align: center; /* Memusatkan teks judul */
-            margin-bottom: 20px; /* Menambahkan jarak bawah pada judul */
-            font-size: 2.5em; /* Ukuran font judul */
-            color: #695CFE; /* Warna teks judul */
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            color: #695CFE;
         }
 
         .form-group {
-            margin-bottom: 20px; /* Jarak bawah pada setiap grup form */
+            margin-bottom: 20px;
         }
 
         label {
-            display: block; /* Membuat label tampil sebagai blok */
-            margin-bottom: 8px; /* Jarak bawah pada label */
-            font-weight: bold; /* Menebalkan teks label */
-            font-size: 1.2em; /* Ukuran font label */
-            color: #695CFE; /* Warna teks label */
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #695CFE;
         }
 
         input[type="text"],
         input[type="date"] {
-            width: 100%; /* Lebar input 100% */
-            padding: 15px; /* Memberikan padding dalam input */
-            margin-bottom: 10px; /* Jarak bawah pada input */
-            border: 1px solid #695CFE; /* Border input */
-            border-radius: 4px; /* Membulatkan sudut input */
-            font-size: 1.1em; /* Ukuran font input */
-            transition: border-color 0.3s; /* Efek transisi pada border saat fokus */
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #695CFE;
+            border-radius: 4px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
         }
 
         input[type="text"]:focus,
         input[type="date"]:focus {
-            border-color: #695CFE; /* Ubah warna border saat input difokuskan */
-            outline: none; /* Menghilangkan outline pada input */
+            border-color: #695CFE;
+            outline: none;
         }
 
         .btn-submit {
-            display: block; /* Menjadikan tombol tampil sebagai blok */
-            width: 100%; /* Lebar tombol 100% */
-            padding: 15px; /* Memberikan padding dalam tombol */
-            background-color: #695CFE; /* Warna latar tombol */
-            color: white; /* Warna teks tombol */
-            border: none; /* Menghilangkan border tombol */
-            border-radius: 4px; /* Membulatkan sudut tombol */
-            cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
-            font-size: 1.2em; /* Ukuran font tombol */
-            transition: background-color 0.3s; /* Efek transisi pada latar belakang tombol */
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #695CFE;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
         }
 
         .btn-submit:hover {
-            background-color: #8881d4; /* Warna tombol saat hover */
+            background-color: #8881d4;
         }
 
         .status-table {
-            margin-top: 20px; /* Jarak atas pada tabel status */
+            margin-top: 20px;
         }
 
         table {
-            width: 100%; /* Lebar tabel 100% */
-            border-collapse: collapse; /* Menghilangkan jarak antara border tabel */
-            margin-bottom: 20px; /* Jarak bawah tabel */
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
 
         table th,
         table td {
-            border: 1px solid #ddd; /* Border tabel */
-            padding: 15px; /* Padding dalam sel tabel */
-            text-align: center; /* Menyelaraskan teks ke tengah */
-            font-size: 1.1em; /* Ukuran font dalam sel tabel */
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1em;
         }
 
         table th {
-            background-color: #f0f0f0; /* Warna latar belakang header tabel */
-            color: #555; /* Warna teks header tabel */
+            background-color: #f0f0f0;
+            color: #555;
         }
 
         .attendance-info {
-            margin-top: 30px; /* Jarak atas pada bagian informasi kehadiran */
+            margin-top: 30px;
         }
 
         .attendance-info h2 {
-            text-align: center; /* Memusatkan teks sub-judul */
-            margin-bottom: 20px; /* Jarak bawah pada sub-judul */
-            font-size: 1.8em; /* Ukuran font sub-judul */
-            color: #333; /* Warna teks sub-judul */
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #333;
         }
 
         .info-box {
-            background-color: #f9f9f9; /* Warna latar belakang kotak informasi */
-            padding: 15px; /* Padding dalam kotak informasi */
-            border-radius: 5px; /* Membulatkan sudut kotak informasi */
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
         }
 
         .info-item {
-            margin-bottom: 15px; /* Jarak bawah pada setiap item informasi */
+            margin-bottom: 15px;
         }
 
         .info-item strong {
-            color: #444; /* Warna teks kuat dalam item informasi */
+            color: #444;
         }
 
         .info-item p {
-            color: #555; /* Warna teks normal dalam item informasi */
+            color: #555;
         }
     </style>
 </head>
@@ -209,7 +209,7 @@
         const absenForm = document.getElementById('absenForm');
         absenForm?.addEventListener('submit', function (event) {
             const currentHour = new Date().getHours(); // Mendapatkan jam saat ini
-            if (currentHour >= 21 { // Jika waktu sudah lebih dari jam 12
+            if (currentHour >= 12) { // Jika waktu sudah lebih dari jam 12
                 alert('Batas waktu pengisian absen telah berakhir.'); // Menampilkan alert
                 event.preventDefault(); // Mencegah form dikirim
             }

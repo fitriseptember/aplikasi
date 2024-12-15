@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Profil Siswa</title>
+    <title>Edit Profil Guru</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -94,7 +94,7 @@
 
 
         <!-- Form Edit Profil -->
-        <form action="{{ route('siswa.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('guru.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -128,7 +128,7 @@
 
             <!-- Tombol Simpan -->
             <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="{{ route('siswa.content') }}">
+            <a href="{{ route('guru.content') }}">
                 <button type="button" class="back">Kembali</button>
             </a>
 
