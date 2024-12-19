@@ -40,8 +40,6 @@
         }
 
         label {
-            display: block;
-            margin-bottom: 12px;
             font-weight: bold;
             font-size: 1.2em;
             color: #555;
@@ -81,6 +79,10 @@
 
         button[type="submit"]:hover {
             background-color: #5a4cf0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
         }
 
         footer {
@@ -131,17 +133,25 @@
             <form id="laporanForm" action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <label for="tanggal">Tanggal :</label>
-                <input type="date" id="tanggal" name="tanggal" required readonly>
+                <div class="form-group">
+                    <label for="tanggal">Tanggal :</label>
+                    <input type="date" id="tanggal" name="tanggal" required readonly>
+                </div>
 
-                <label for="tempat_pkl">Nama Tempat PKL :</label>
-                <input type="text" id="tempat_pkl" name="tempat_pkl" placeholder="Masukkan nama tempat PKL" required>
+                <div class="form-group">
+                    <label for="tempat_pkl">Nama Tempat PKL :</label>
+                    <input type="text" id="tempat_pkl" name="tempat_pkl" placeholder="Masukkan nama tempat PKL" required>
+                </div>
 
-                <label for="deskripsi">Deskripsi Kegiatan :</label>
-                <textarea id="deskripsi" name="deskripsi" rows="5" required placeholder="Masukkan deskripsi kegiatan..."></textarea>
+                <div class="form-group">
+                    <label for="deskripsi">Deskripsi Kegiatan :</label>
+                    <textarea id="deskripsi" name="deskripsi" rows="5" required placeholder="Masukkan deskripsi kegiatan..."></textarea>
+                </div>
 
-                <label for="fotoKegiatan">Unggah Foto Kegiatan :</label>
-                <input type="file" id="fotoKegiatan" name="foto_kegiatan" accept="image/*" required>
+                <div class="form-group">
+                    <label for="fotoKegiatan">Unggah Foto Kegiatan :</label>
+                    <input type="file" id="fotoKegiatan" name="foto_kegiatan" accept="image/*" required>
+                </div>
 
                 <button type="submit" class="btn-submit">Kirim Laporan</button>
             </form>

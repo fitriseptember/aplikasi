@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Tempat PKL</title>
+    <title>Data Tempat PKL</title>
     <style>
         /* Mengatur gaya dasar untuk body */
         body {
@@ -101,7 +101,7 @@
 
     @section('content')
         <div class="container">
-            <h1>Daftar Tempat PKL</h1>
+            <h1>Data Tempat PKL</h1>
 
             <!-- Tombol Unduh PDF -->
         <div style="margin-bottom: 20px;">
